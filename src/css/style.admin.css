@@ -1,0 +1,158 @@
+/* .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+	background-color: rgba(255,255,255,.1);
+	color: #fff;
+}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
+	background-color: #007bff;
+    color: #fff;
+} */
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+    float: right;
+}
+.swal2-radio {
+	display: grid !important;
+  text-align: left !important;
+}
+/* estilo de subir imagen */
+
+.box-form {
+  width: 100%;
+  /* margin-top: 50px; */
+}
+
+.box-form .msj {
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.box-form .formImg {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-form .formImg input[type=file] {
+  display: none;
+}
+
+.box-form .formImg .search {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.box-form .formImg .search img {
+  width: 100%;
+}
+
+.box-form .formImg .btn {
+  padding: 3px 20px;
+  border: none;
+  border-radius: 4px;
+  background: #0d70ce;
+  color: #fff;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.box-form #preview-images {
+  background: rgba(0,0,255,0.4);
+  width: 120px;
+  height: 120px;
+}
+
+.box-form #preview-images .thumbnail {
+  width: 120px;
+  height: 120px;
+  display: inline-block;
+  vertical-align: middle;
+  border: solid 2px #CCC;
+  background-size: cover;
+  position: relative;
+}
+
+.thumbnail .close-button {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 100px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+#preview-images{
+  width: 100%;
+  background-position: center;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
+.thumbnail{
+  width: 100%;
+  background-position: center;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+
+
+@font-face {
+  font-family: 'Poppins';
+  /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+  src: local('Poppins'),
+  local('Poppins-Black'),
+  local('Poppins-Medium'),
+  url(../vendors/fonts/Poppins/Poppins-Medium) format('ttf');
+}
+body {
+  font-family: 'Poppins'!important;
+}
+.activo{
+	background-color: #007BFF!important;
+	color: #fff !important;
+	box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+	border-radius: 2px;
+}
+.activo > a{
+	color: #fff!important;
+}
+
+.headerRegistrer , .header-primary{
+	background-color: #1ba39c;
+	color: #FFF;
+}
+.headerUpdate{
+	background-color: #0B132B;
+	color: #FFF;
+}
+.notBlock{
+	display: none;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #FFF;
+    text-decoration: none;
+    background-color: #1ba39c!important;
+}
+
+.colRol{
+	display: none;
+}
