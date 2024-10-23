@@ -36,6 +36,7 @@
 						</div>
 						
 						<?= dep(sessionUser($_SESSION['idUser'])) ?>
+						
 						<!-- /.card-body -->
 						<div class="card-footer">
 							<!-- Footer -->

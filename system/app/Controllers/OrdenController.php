@@ -16,9 +16,9 @@ class Orden extends Controllers{
 		$data['page_tag'] = "DESPACHO";
 		$data['page_title'] = "Plantilla";
 		$data['page_name'] = "Despacho";
-		$data['page_link'] = "active-despacho";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
-		$data['page_link_acitvo'] = "link-plantilla";// seleccionar el link en el momento dentro del desplegable
+		$data['page_link'] = "active-producto";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-producto";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-despacho";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.orden.js";
 		$this->views->getViews($this, "despacho", $data);
 	}
@@ -179,9 +179,9 @@ class Orden extends Controllers{
 		$data['page_tag'] = "DESPACHO";
 		$data['page_title'] = "Plantilla";
 		$data['page_name'] = "Despacho";
-		$data['page_link'] = "active-listOrden";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
-		$data['page_link_acitvo'] = "link-plantilla";// seleccionar el link en el momento dentro del desplegable
+		$data['page_link'] = "active-producto";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-producto";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-listadeordenes";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.orden.js";
 		$this->views->getViews($this, "listaordenes", $data);
 	}

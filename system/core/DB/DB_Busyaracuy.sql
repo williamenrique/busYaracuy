@@ -104,6 +104,35 @@ INSERT INTO `table_cargo` VALUES (1,'DIRECTOR GENERAL',1),(2,'COORDINADOR(A) DE 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `table_dep_submenu`
+--
+
+DROP TABLE IF EXISTS `table_dep_submenu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `table_dep_submenu` (
+  `id_dep_submenu` int NOT NULL AUTO_INCREMENT,
+  `id_departamento` int NOT NULL,
+  `id_submenu` int NOT NULL,
+  PRIMARY KEY (`id_dep_submenu`),
+  KEY `fk_table_dep_submenu_table_departamento1_idx` (`id_departamento`),
+  KEY `fk_table_dep_submenu_table_sub_menu1_idx` (`id_submenu`),
+  CONSTRAINT `fk_table_dep_submenu_table_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `table_departamento` (`id_departamento`),
+  CONSTRAINT `fk_table_dep_submenu_table_sub_menu1` FOREIGN KEY (`id_submenu`) REFERENCES `table_submenu` (`id_submenu`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_dep_submenu`
+--
+
+LOCK TABLES `table_dep_submenu` WRITE;
+/*!40000 ALTER TABLE `table_dep_submenu` DISABLE KEYS */;
+INSERT INTO `table_dep_submenu` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,11);
+/*!40000 ALTER TABLE `table_dep_submenu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `table_departamento`
 --
 
@@ -148,7 +177,7 @@ CREATE TABLE `table_despacho` (
   KEY `fk_table_despacho_table_user1_idx` (`user_id`),
   CONSTRAINT `fk_table_despacho_table_flota1` FOREIGN KEY (`id_flota`) REFERENCES `table_flota` (`id_flota`),
   CONSTRAINT `fk_table_despacho_table_user1` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +186,6 @@ CREATE TABLE `table_despacho` (
 
 LOCK TABLES `table_despacho` WRITE;
 /*!40000 ALTER TABLE `table_despacho` DISABLE KEYS */;
-INSERT INTO `table_despacho` VALUES (1,25,'EGAR ENRIQUE COLMENAREZ ANGARITA','CELSO ALDEMAR LUCAMBIO RIVAS','JOSE ANTONIO ZABALETA RAMOS','2024-10-14',1,''),(2,4,'FREDDY JESUS BORGES GONZALEZ','JOSE ANTONIO PAEZ BRACAMONTE','JOSE LEONIDES ORELLANA GONZALEZ','2024-10-15',1,'SIN OBSERVACION'),(3,4,'ELIO VIDAL SANCHEZ CARRERA','CRISTIAN ALFONZO CAMACHO CASTILLO','JOSE ANTONIO ZABALETA RAMOS','2024-10-16',1,'');
 /*!40000 ALTER TABLE `table_despacho` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,6 +303,63 @@ LOCK TABLES `table_marca` WRITE;
 /*!40000 ALTER TABLE `table_marca` DISABLE KEYS */;
 INSERT INTO `table_marca` VALUES (1,'YUTONG'),(2,'INTERNACIONAL'),(3,'FREITHLINE'),(4,'ENCAVA');
 /*!40000 ALTER TABLE `table_marca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `table_menu`
+--
+
+DROP TABLE IF EXISTS `table_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `table_menu` (
+  `id_menu` int NOT NULL AUTO_INCREMENT,
+  `nombre_menu` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `descripcion` text COLLATE utf8mb3_spanish_ci,
+  `page_menu_open` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `page_link` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  PRIMARY KEY (`id_menu`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_menu`
+--
+
+LOCK TABLES `table_menu` WRITE;
+/*!40000 ALTER TABLE `table_menu` DISABLE KEYS */;
+INSERT INTO `table_menu` VALUES (1,'PERSONAL',NULL,'user','user',1),(2,'UNIDADES',NULL,'unidades','unidades',1),(3,'ALMACEN',NULL,'producto','producto',1),(4,'DATA',NULL,'data','data',1),(5,'ESTACION',NULL,'estacion','estacion',1),(6,'MENU',NULL,'menu','menu',1);
+/*!40000 ALTER TABLE `table_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `table_menu_submenu`
+--
+
+DROP TABLE IF EXISTS `table_menu_submenu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `table_menu_submenu` (
+  `id_menu_submenu` int NOT NULL AUTO_INCREMENT,
+  `id_menu` int NOT NULL,
+  `id_submenu` int NOT NULL,
+  PRIMARY KEY (`id_menu_submenu`),
+  KEY `fk_table_menu_submenu_table_menu1_idx` (`id_menu`),
+  KEY `fk_table_menu_submenu_table_sub_menu1_idx` (`id_submenu`),
+  CONSTRAINT `fk_table_menu_submenu_table_menu1` FOREIGN KEY (`id_menu`) REFERENCES `table_menu` (`id_menu`),
+  CONSTRAINT `fk_table_menu_submenu_table_sub_menu1` FOREIGN KEY (`id_submenu`) REFERENCES `table_submenu` (`id_submenu`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_menu_submenu`
+--
+
+LOCK TABLES `table_menu_submenu` WRITE;
+/*!40000 ALTER TABLE `table_menu_submenu` DISABLE KEYS */;
+INSERT INTO `table_menu_submenu` VALUES (1,1,1),(2,1,2),(3,2,3),(4,2,4),(5,3,5),(6,3,6),(7,3,7),(8,3,8),(9,6,11);
+/*!40000 ALTER TABLE `table_menu_submenu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -472,6 +557,34 @@ INSERT INTO `table_roles` VALUES (1,'ADMINISTRADOR','administrador',1),(2,'ENCAR
 UNLOCK TABLES;
 
 --
+-- Table structure for table `table_submenu`
+--
+
+DROP TABLE IF EXISTS `table_submenu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `table_submenu` (
+  `id_submenu` int NOT NULL AUTO_INCREMENT,
+  `nombre_submenu` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `descripcion` text COLLATE utf8mb3_spanish_ci,
+  `url` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `page_link_activo` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  PRIMARY KEY (`id_submenu`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_submenu`
+--
+
+LOCK TABLES `table_submenu` WRITE;
+/*!40000 ALTER TABLE `table_submenu` DISABLE KEYS */;
+INSERT INTO `table_submenu` VALUES (1,'USUARIOS',NULL,'usuarios','user',1),(2,'PERSONAL',NULL,'personal','personal',1),(3,'FLOTA',NULL,'flota','flota',1),(4,'MANTENIMIENTO',NULL,'flota/ingresar_mant','mantenimiento',1),(5,'PRODUCTOS',NULL,'producto','producto',1),(6,'PROVEEDOR',NULL,'proveedor','proveedor',1),(7,'DESPACHO',NULL,'orden/despacho','despacho',1),(8,'LISTA DE ORDENES',NULL,'orden/listaordenes','listadeordenes',1),(9,'CLEAN',NULL,'datamant/clean','clean',1),(10,'UNIDAD MANT',NULL,'datamant','unidadmant',1),(11,'EDITAR MENU',NULL,'menu','editarmenu',1);
+/*!40000 ALTER TABLE `table_submenu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `table_timeline`
 --
 
@@ -632,6 +745,82 @@ LOCK TABLES `table_user_rol` WRITE;
 INSERT INTO `table_user_rol` VALUES (1,'ADMIN',1),(2,'MG-02',3),(3,'WILL',1),(4,'AR-06',2),(5,'TD-07',2),(6,'RS-08',2),(7,'JO-09',2),(8,'YM-017',2),(9,'KI-018',2),(10,'JR-019',3);
 /*!40000 ALTER TABLE `table_user_rol` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `v_carga_menu`
+--
+
+DROP TABLE IF EXISTS `v_carga_menu`;
+/*!50001 DROP VIEW IF EXISTS `v_carga_menu`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `v_carga_menu` AS SELECT 
+ 1 AS `login`,
+ 1 AS `nombres`,
+ 1 AS `apellidos`,
+ 1 AS `rol_id`,
+ 1 AS `rol_nale`,
+ 1 AS `id_menu`,
+ 1 AS `nombre_menu`,
+ 1 AS `id_submenu`,
+ 1 AS `nombre_submenu`,
+ 1 AS `url`,
+ 1 AS `page_menu_open`,
+ 1 AS `page_link`,
+ 1 AS `page_link_activo`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `v_submenu`
+--
+
+DROP TABLE IF EXISTS `v_submenu`;
+/*!50001 DROP VIEW IF EXISTS `v_submenu`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `v_submenu` AS SELECT 
+ 1 AS `id_menu`,
+ 1 AS `id_submenu`,
+ 1 AS `nombre_submenu`,
+ 1 AS `url`,
+ 1 AS `page_link_activo`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `v_carga_menu`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_carga_menu`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_carga_menu` AS select `a`.`user_nick` AS `login`,`a`.`user_nombres` AS `nombres`,`a`.`user_apellidos` AS `apellidos`,`f`.`rol_id` AS `rol_id`,`f`.`rol_name` AS `rol_nale`,`e`.`id_menu` AS `id_menu`,`e`.`nombre_menu` AS `nombre_menu`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`e`.`page_menu_open` AS `page_menu_open`,`e`.`page_link` AS `page_link`,`g`.`page_link_activo` AS `page_link_activo` from (((((((`table_user` `a` join `table_user_rol` `b`) join `table_dep_submenu` `c`) join `table_menu_submenu` `d`) join `table_menu` `e`) join `table_roles` `f`) join `table_departamento` `h`) join `table_submenu` `g`) where ((`a`.`user_nick` = `b`.`user_nick`) and (`b`.`id_rol` = `f`.`rol_id`) and (`h`.`id_departamento` = `c`.`id_departamento`) and (`c`.`id_submenu` = `g`.`id_submenu`) and (`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`) and (`e`.`status` = 1)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_submenu`
+--
+
+/*!50001 DROP VIEW IF EXISTS `v_submenu`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_submenu` AS select `e`.`id_menu` AS `id_menu`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`g`.`page_link_activo` AS `page_link_activo` from ((`table_menu_submenu` `d` join `table_menu` `e`) join `table_submenu` `g`) where ((`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -642,4 +831,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-18 16:47:45
+-- Dump completed on 2024-10-23 15:28:29

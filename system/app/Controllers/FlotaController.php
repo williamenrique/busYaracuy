@@ -16,13 +16,12 @@ class Flota extends Controllers{
 		$data['page_tag'] = "FLOTA";
 		$data['page_title'] = "FL";
 		$data['page_name'] = "Flota";
-		$data['page_link'] = "active-flota";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
+		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
 		$data['page_link_acitvo'] = "link-flota";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "flota", $data);
 	}
-
 	/**********funcion de listar todos las unidades para la tabla**********/
 	public function getFlota(){
 		$arrData = $this->model->selectFlota();
@@ -134,10 +133,10 @@ class Flota extends Controllers{
 	public function unidad(){	
 		$data['page_tag'] = "FLOTA";
 		$data['page_title'] = "FL";
-		$data['page_name'] = "Unidad";
-		$data['page_link'] = "active-flota";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
-		$data['page_link_acitvo'] = "link-flota";// seleccionar el link en el momento dentro del desplegable
+		$data['page_name'] = "Flota";
+		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-mantenimiento";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "unidad", $data);
 	}
@@ -323,9 +322,9 @@ class Flota extends Controllers{
 		$data['page_tag'] = "MANTENIMIENTO";
 		$data['page_title'] = "FL";
 		$data['page_name'] = "Unidad";
-		$data['page_link'] = "active-ingresar_mant";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
-		$data['page_link_acitvo'] = "link-flota";// seleccionar el link en el momento dentro del desplegable
+		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-mantenimiento";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "ingresar_mant", $data);
 	}

@@ -16,8 +16,8 @@ class Proveedor extends Controllers{
 		$data['page_tag'] = "PROVEEDOR";
 		$data['page_title'] = "Proveedor";
 		$data['page_name'] = "Proveedor";
-		$data['page_link'] = "active-proveedor";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-proveedor";//abrir el desplegable
+		$data['page_link'] = "active-producto";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-producto";//abrir el desplegable
 		$data['page_link_acitvo'] = "link-proveedor";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.proveedor.js";
 		$this->views->getViews($this, "proveedor", $data);
