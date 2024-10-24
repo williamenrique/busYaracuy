@@ -232,7 +232,7 @@ function cargar_menu (string $strNick){
 			$options[$index+1]["page_menu_open"] = $valor["page_menu_open"];
 			$options[$index+1]["page_link_activo"] = $valor["page_link_activo"];
 			$options[$index+1]["page_link"] = $valor["page_link"];
-			// $options[$index+1]["icono"] = $valor["icono"];
+			$options[$index+1]["icono_menu"] = $valor["icono_menu"];
 			$options[$index+1]["url"] = $valor["url"];
 			if ($id_menu <> $options[$index+1]["id_menu"]){
 				if ($id_menu <> ""){
@@ -241,7 +241,7 @@ function cargar_menu (string $strNick){
 				}
 				echo "<li class='nav-item menu-open-".$options[$index+1]["page_menu_open"]."'>";
 				echo "<a href='#' class='nav-link active-".$options[$index+1]["page_link"]."'>";
-				echo "<i class='nav-icon far fa-circle'></i>";
+				echo "<i class='nav-icon ".$options[$index+1]["icono_menu"]."'></i>";
 				echo "<p>".$options[$index+1]["nombre_menu"]."<i class='right fas fa-angle-left'></i></p>
 							</a>";
 				echo "<ul class='nav nav-treeview'>";

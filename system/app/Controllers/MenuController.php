@@ -12,7 +12,7 @@ class Menu extends Controllers{
 		$data['page_id'] = 3;
 		$data['page_tag'] = "Menu Usuario";
 		$data['page_title'] = "Dashboard - Menu Usuario";
-		$data['page_name'] = "menu_usuarios";
+		$data['page_name'] = "Menu";
 		$data['page_menu'] = "menu";
 		$data['page_link'] = "active-menu";
 		$data['page_menu_open'] = "menu-open-menu";

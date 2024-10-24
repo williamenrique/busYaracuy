@@ -14,7 +14,8 @@ class MenuModel extends Mysql {
 	public function menuUser(string $strNick){
 		$this->strNick = $strNick;
 		// $sql = "SELECT id_menu, nombre_menu, icono, id_sub_menu, nombre_sub_menu, url  FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
-		$sql = "SELECT id_menu, nombre_menu, id_submenu, nombre_submenu, url,page_menu_open,page_link, page_link_activo   FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
+		// $sql = "SELECT id_menu, nombre_menu,icono_menu id_submenu, nombre_submenu, url,page_menu_open,page_link, page_link_activo   FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
+		$sql = "SELECT * FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
 		$request = $this->select_all($sql);
 		return $request;
 	}
