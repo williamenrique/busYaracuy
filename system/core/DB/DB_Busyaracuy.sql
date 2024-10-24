@@ -117,7 +117,7 @@ CREATE TABLE `table_dep_submenu` (
   KEY `fk_table_dep_submenu_table_sub_menu1_idx` (`id_submenu`),
   CONSTRAINT `fk_table_dep_submenu_table_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `table_departamento` (`id_departamento`),
   CONSTRAINT `fk_table_dep_submenu_table_sub_menu1` FOREIGN KEY (`id_submenu`) REFERENCES `table_submenu` (`id_submenu`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,7 @@ CREATE TABLE `table_dep_submenu` (
 
 LOCK TABLES `table_dep_submenu` WRITE;
 /*!40000 ALTER TABLE `table_dep_submenu` DISABLE KEYS */;
-INSERT INTO `table_dep_submenu` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,11);
+INSERT INTO `table_dep_submenu` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,11),(10,3,3),(11,3,4),(12,2,5),(13,2,6),(14,2,7),(15,2,8);
 /*!40000 ALTER TABLE `table_dep_submenu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +328,7 @@ CREATE TABLE `table_menu` (
 
 LOCK TABLES `table_menu` WRITE;
 /*!40000 ALTER TABLE `table_menu` DISABLE KEYS */;
-INSERT INTO `table_menu` VALUES (1,'PERSONAL',NULL,'user','user',NULL,1),(2,'UNIDADES',NULL,'unidades','unidades',NULL,1),(3,'ALMACEN',NULL,'producto','producto',NULL,1),(4,'DATA',NULL,'data','data',NULL,1),(5,'ESTACION',NULL,'estacion','estacion',NULL,1),(6,'MENU',NULL,'menu','menu',NULL,1);
+INSERT INTO `table_menu` VALUES (1,'PERSONAL',NULL,'user','user','fas fa-users',1),(2,'UNIDADES',NULL,'unidades','unidades','fas fa-bus',1),(3,'ALMACEN',NULL,'producto','producto','fas fa-receipt',1),(4,'DATA',NULL,'data','data','fas fa-database',1),(5,'ESTACION',NULL,'estacion','estacion','fas fa-gas-pump',1),(6,'MENU',NULL,'menu','menu','fas fa-sliders-h',1);
 /*!40000 ALTER TABLE `table_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -729,6 +729,7 @@ CREATE TABLE `table_user_rol` (
   `id_user_rol` int NOT NULL AUTO_INCREMENT,
   `user_nick` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `id_rol` int NOT NULL,
+  `id_departamento` int DEFAULT NULL,
   PRIMARY KEY (`id_user_rol`),
   KEY `fk_table_user_rol_rol1_idx` (`id_rol`),
   CONSTRAINT `fk_table_user_rol_rol1` FOREIGN KEY (`id_rol`) REFERENCES `table_roles` (`rol_id`)
@@ -741,7 +742,7 @@ CREATE TABLE `table_user_rol` (
 
 LOCK TABLES `table_user_rol` WRITE;
 /*!40000 ALTER TABLE `table_user_rol` DISABLE KEYS */;
-INSERT INTO `table_user_rol` VALUES (1,'ADMIN',1),(2,'MG-02',3),(3,'WILL',1),(4,'AR-06',2),(5,'TD-07',2),(6,'RS-08',2),(7,'JO-09',2),(8,'YM-017',2),(9,'KI-018',2),(10,'JR-019',3);
+INSERT INTO `table_user_rol` VALUES (1,'ADMIN',1,1),(2,'MG-02',3,3),(3,'WILL',1,1),(4,'AR-06',2,3),(5,'TD-07',2,3),(6,'RS-08',2,3),(7,'JO-09',2,3),(8,'YM-017',2,3),(9,'KI-018',2,3),(10,'JR-019',3,3);
 /*!40000 ALTER TABLE `table_user_rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -758,14 +759,15 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `nombres`,
  1 AS `apellidos`,
  1 AS `rol_id`,
- 1 AS `rol_nale`,
+ 1 AS `rol_name`,
  1 AS `id_menu`,
  1 AS `nombre_menu`,
+ 1 AS `icono_menu`,
+ 1 AS `page_menu_open`,
+ 1 AS `page_link`,
  1 AS `id_submenu`,
  1 AS `nombre_submenu`,
  1 AS `url`,
- 1 AS `page_menu_open`,
- 1 AS `page_link`,
  1 AS `page_link_activo`*/;
 SET character_set_client = @saved_cs_client;
 
@@ -798,7 +800,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_carga_menu` AS select `a`.`user_nick` AS `login`,`a`.`user_nombres` AS `nombres`,`a`.`user_apellidos` AS `apellidos`,`f`.`rol_id` AS `rol_id`,`f`.`rol_name` AS `rol_nale`,`e`.`id_menu` AS `id_menu`,`e`.`nombre_menu` AS `nombre_menu`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`e`.`page_menu_open` AS `page_menu_open`,`e`.`page_link` AS `page_link`,`g`.`page_link_activo` AS `page_link_activo` from (((((((`table_user` `a` join `table_user_rol` `b`) join `table_dep_submenu` `c`) join `table_menu_submenu` `d`) join `table_menu` `e`) join `table_roles` `f`) join `table_departamento` `h`) join `table_submenu` `g`) where ((`a`.`user_nick` = `b`.`user_nick`) and (`b`.`id_rol` = `f`.`rol_id`) and (`h`.`id_departamento` = `c`.`id_departamento`) and (`c`.`id_submenu` = `g`.`id_submenu`) and (`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`) and (`e`.`status` = 1)) */;
+/*!50001 VIEW `v_carga_menu` AS select `a`.`user_nick` AS `login`,`a`.`user_nombres` AS `nombres`,`a`.`user_apellidos` AS `apellidos`,`f`.`rol_id` AS `rol_id`,`f`.`rol_name` AS `rol_name`,`e`.`id_menu` AS `id_menu`,`e`.`nombre_menu` AS `nombre_menu`,`e`.`icono_menu` AS `icono_menu`,`e`.`page_menu_open` AS `page_menu_open`,`e`.`page_link` AS `page_link`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`g`.`page_link_activo` AS `page_link_activo` from ((((((`table_user` `a` join `table_user_rol` `b`) join `table_dep_submenu` `c`) join `table_menu_submenu` `d`) join `table_menu` `e`) join `table_roles` `f`) join `table_submenu` `g`) where ((`a`.`user_nick` = `b`.`user_nick`) and (`b`.`id_rol` = `f`.`rol_id`) and (`f`.`rol_id` = `c`.`id_departamento`) and (`c`.`id_submenu` = `g`.`id_submenu`) and (`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`) and (`e`.`status` = 1)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -830,4 +832,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-23 17:09:34
+-- Dump completed on 2024-10-24 14:03:12

@@ -4,6 +4,7 @@ window.addEventListener('load', function () {
 	ftnMenu()
 	ftnMenu1()
 	ftnSubMenu()
+	fntListMenu()
 }, false)
 
 
@@ -196,4 +197,22 @@ if (document.querySelector(".formMenuAsignar")) {
 		}
 	}
 }
-
+/*****************
+ * cargar los menu y submenu asociados
+ */
+fntListMenu = () =>{
+	//creamos la ruta de envio
+	// let ajaxUrl = base_url + "Menu/getAllMenu"
+	let ajaxUrl = base_url + "Menu/listMenu"
+	//creamos el objeto para os navegadores
+	var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
+	//abrimos la conexion y enviamos los parametros para la peticion
+	request.open("POST", ajaxUrl, true)
+	request.send()
+	request.onreadystatechange = function () {
+		if (request.readyState == 4 && request.status == 200) {
+			//option obtenidos del controlador
+			document.querySelector('#listAllMenu').innerHTML = request.responseText
+		}
+	}
+}

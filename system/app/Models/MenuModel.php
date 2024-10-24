@@ -13,8 +13,7 @@ class MenuModel extends Mysql {
 
 	public function menuUser(string $strNick){
 		$this->strNick = $strNick;
-		// $sql = "SELECT id_menu, nombre_menu, icono, id_sub_menu, nombre_sub_menu, url  FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
-		// $sql = "SELECT id_menu, nombre_menu,icono_menu id_submenu, nombre_submenu, url,page_menu_open,page_link, page_link_activo   FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
+		// $sql = "SELECT id_menu, nombre_menu,icono_menu, id_submenu, nombre_submenu, url,page_menu_open,page_link, page_link_activo   FROM  `v_carga_menu1` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
 		$sql = "SELECT * FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
 		$request = $this->select_all($sql);
 		return $request;
@@ -88,13 +87,19 @@ class MenuModel extends Mysql {
 	 */
 	public function listaUser(){
 		// $sql = "SELECT a.user_nombres,a.user_nick, b.rol_name FROM table_user a INNER JOIN table_roles b ON a.user_rol = b.rol_id WHERE a.user_status= 1 ORDER BY b.rol_id ";
-		$sql = "SELECT a.user_nombres,a.user_nick, b.rol_name FROM table_user a JOIN  table_roles b JOIN  table_user_rol c WHERE a.user_nick = c.user_nick AND a.user_rol = b.rol_id AND a.user_status= 1 ORDER BY b.rol_id; ";
+		$sql = "SELECT a.user_nombres, a.user_nick, b.rol_name, d.departamento FROM table_user a 
+					JOIN  table_roles b JOIN  table_user_rol c JOIN table_departamento d
+					WHERE a.user_nick = c.user_nick
+					AND a.id_departamento = d.id_departamento
+					AND a.user_rol = b.rol_id 
+					AND a.user_status= 1 ORDER BY b.rol_id";
 		$request = $this->select_all($sql);
 		return $request;
 	}
 	public function listaMenu(string $strNick){
 		$this->strNick = $strNick;
-		$sql = "SELECT id_menu, nombre_menu, icono, id_sub_menu, nombre_sub_menu, url,page_menu_open,page_link, page_link_activo   FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
+		$sql = "SELECT id_menu, nombre_menu, icono_menu, id_submenu, nombre_submenu, url,page_menu_open,page_link, page_link_activo   FROM  `v_carga_menu` 
+				WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
 		$request = $this->select_all($sql);
 		return $request;
 	}

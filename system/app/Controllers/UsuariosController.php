@@ -50,7 +50,7 @@ class Usuarios extends Controllers{
 					// creo carpeta en servidor si no existe
 					if (!file_exists($fileBase))
 					mkdir($fileBase, 0777, true);
-					$createNick= $this->model->createNick($requestUser, $intIdentificacion,$strEmail, $userNIck,$intlistRolId,$fileBase);
+					$createNick= $this->model->createNick($requestUser, $intIdentificacion,$strEmail, $userNIck,$intlistRolId,$fileBase,$intlistDep);
 					$arrResponse = array("status" => true, "msg" => "Usuario creado");
 					$source ="src/img/default.png";
 					$destination = 'storage/'.$userNIck.'/default.png';

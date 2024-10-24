@@ -28,8 +28,8 @@ class UsuariosModel extends Mysql {
 			//si no existe devolvemos el id de insert
 			$return = $requestInsert;
 			$userNIck = substr($strNombre,0,1).substr($strApellidos,0,1).'-0'.$requestInsert;
-			$insertRol = "INSERT INTO table_user_rol(user_nick,id_rol) VALUES(?,?)";
-			$arrDataRol = array($userNIck,$this->intlistRolId);
+			//$insertRol = "INSERT INTO table_user_rol(user_nick,id_rol,id_departamento) VALUES(?,?,?)";
+			//$arrDataRol = array($userNIck,$this->intlistRolId,$this->intlistDep);
 		}else{
 			//si existe un registro devolvemos 0
 			$return = 0;
@@ -49,12 +49,13 @@ class UsuariosModel extends Mysql {
 		return $request;
 	}
 	/********** funcioncrear nombre de usuario **********/
-	public function createNick(int $intIdUser,int $intIdentificacion,string $strEmail, string $strTxtNick,int $intlistRolId,string $fileBase ){
+	public function createNick(int $intIdUser,int $intIdentificacion,string $strEmail, string $strTxtNick,int $intlistRolId,string $fileBase,int $intlistDep){
 		$this->intIdUser = $intIdUser;
 		$this->strEmail = $strEmail;
 		$this->intIdentificacion = $intIdentificacion;
 		$this->strTxtNick = $strTxtNick;
 		$this->intlistRolId = $intlistRolId;
+		$this->$intlistDep = $intlistDep;
 		$this->fileBase = $fileBase;
 		$sql = "SELECT * FROM table_user WHERE user_id = $this->intIdUser";
 		$request = $this->select_all($sql);
@@ -62,8 +63,8 @@ class UsuariosModel extends Mysql {
 			$sql = "UPDATE table_user SET  user_nick = ?, user_ruta = ? , user_img = ? WHERE user_id = $this->intIdUser AND user_ci = $this->intIdentificacion";
 			$arrData = array($this->strTxtNick,$this->fileBase,$this->fileBase.'default.png');
 			$request = $this->update($sql,$arrData);
-			$insertRol = "INSERT INTO table_user_rol(user_nick,id_rol) VALUES(?,?)";
-			$arrDataRol = array($this->strTxtNick,$this->intlistRolId);
+			$insertRol = "INSERT INTO table_user_rol(user_nick,id_rol,id_departamento) VALUES(?,?,?)";
+			$arrDataRol = array($this->strTxtNick,$this->intlistRolId,$this->$intlistDep);
 			$Rol = $this->insert($insertRol,$arrDataRol);
 		}else{
 			$request = "error";

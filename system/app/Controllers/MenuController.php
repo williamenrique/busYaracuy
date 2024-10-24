@@ -227,15 +227,15 @@ class Menu extends Controllers{
 		foreach ($selectuser as $key ) {
 			$request = $this->model->listaMenu($key['user_nick']);
 			$htmlOptions .= '<div class="col-md-4">
-												<div class="card">
-													<div class="card-header">
-														<h3 class="card-title text-center">
-															'.$key['user_nombres'].'<strong class="ml-2">('.$key['rol_name'].')</strong>
-														</h3>
-													</div>
-													<!-- /.card-header -->
-													<div class="card-body">
-													';
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title text-center">
+											'.$key['user_nombres'].'<strong class="ml-2">('.$key['departamento'].')</strong>
+										</h3>
+									</div>
+									<!-- /.card-header -->
+									<div class="card-body">
+									';
 			foreach ($request as $dat) {
 				if ($id_menu <> $dat["id_menu"]){
 					if ($id_menu <> ""){
@@ -246,7 +246,7 @@ class Menu extends Controllers{
                     $htmlOptions.= '<span>'.$dat["nombre_menu"].'</span></a><ul class="sub">';
 					$id_menu = $dat["id_menu"];
 				}
-				$htmlOptions.= '<li><a href="http://localhost/menu/">'.$dat["nombre_sub_menu"].'</a></li>';
+				$htmlOptions.= '<li><a href="javascript:(void)">'.$dat["nombre_submenu"].'</a></li>';
 			}
 				$htmlOptions .='</div>
 											</div>

@@ -165,53 +165,7 @@ function destroySession() {
     @session_destroy();
 }
 
-function cargar_menuss (string $strNick){
-	require_once ("system/app/Models/MenuModel.php");
-	$objMenu = new MenuModel();
-	$arrData = $objMenu->menuUser($strNick);
-	$id_menu = "";
-	if ($arrData <> ""){
-		$options=array();
-		echo "<li class='nav-item'>
-				<a href='".base_url()."' class='nav-link active-home'>
-					<i class='nav-icon fas fa-th'></i>
-					<p>INICIO</p>
-				</a>
-			</li>";
-		foreach($arrData as $index => $valor){
-			$options[$index+1]["id_menu"] = $valor["id_menu"];
-			$options[$index+1]["nombre_menu"] = $valor["nombre_menu"];
-			$options[$index+1]["nombre_submenu"] = $valor["nombre_submenu"];
-			$options[$index+1]["page_menu_open"] = $valor["page_menu_open"];
-			$options[$index+1]["page_link_activo"] = $valor["page_link_activo"];
-			$options[$index+1]["page_link"] = $valor["page_link"];
-			// $options[$index+1]["icono"] = $valor["icono"];
-			$options[$index+1]["url"] = $valor["url"];
-			if ($id_menu <> $options[$index+1]["id_menu"]){
-				if ($id_menu <> ""){
-					echo "</ul>
-								</li>";
-				}
-				echo "<li class='nav-item ".$options[$index+1]["page_menu_open"]."'>";
-				echo "<a href='#' class='nav-link ".$options[$index+1]["page_link"]."'>";
-				echo "<i class='nav-icon far fa-circle'></i>";
-				echo "<p>".$options[$index+1]["nombre_menu"]."<i class='right fas fa-angle-left'></i></p>
-							</a>";
-				// echo "<span>".$options[$index+1]['nombre_menu']."</span></a>
-				// <ul class='sub'>";
-				echo "<ul class='nav nav-treeview'>";
-				$id_menu = $options[$index+1]['id_menu'];
-			}
-			echo "<li class='nav-item link-".$options[$index+1]["page_link_activo"]."'>";
-			echo "<a href='".base_url().$options[$index+1]["url"]."' class='nav-link'>";
-			echo "<i class='far fa-circle nav-icon ml-3'></i>
-						<p>".$options[$index+1]["nombre_submenu"]."</p>";
-			echo "
-					</a>
-				</li>";
-		}
-	}
-}
+
 function cargar_menu (string $strNick){
 	require_once ("system/app/Models/MenuModel.php");
 	$objMenu = new MenuModel();
