@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `almacen` /*!40100 DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `almacen`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: almacen
@@ -28,7 +26,7 @@ CREATE TABLE `table_cambiostatus` (
   `idCambioStatus` int NOT NULL AUTO_INCREMENT,
   `id_unidad` int NOT NULL,
   `idstatus` int DEFAULT NULL,
-  `textCambio` text COLLATE utf8mb3_spanish_ci,
+  `textCambio` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   `fechaCambio` timestamp NULL DEFAULT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`idCambioStatus`),
@@ -59,7 +57,7 @@ CREATE TABLE `table_cambiostatuspersonal` (
   `id_cambioPersonal` int NOT NULL AUTO_INCREMENT,
   `id_personal` int NOT NULL,
   `idStatus` int DEFAULT NULL,
-  `textCambio` text COLLATE utf8mb3_spanish_ci,
+  `textCambio` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id_cambioPersonal`),
   KEY `fk_table_cambiostatuspersonal_table_personal1_idx` (`id_personal`),
@@ -87,7 +85,7 @@ DROP TABLE IF EXISTS `table_cargo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_cargo` (
   `id_cargo` int NOT NULL AUTO_INCREMENT,
-  `cargo` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `cargo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `status_cargo` int DEFAULT NULL,
   PRIMARY KEY (`id_cargo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
@@ -141,7 +139,7 @@ DROP TABLE IF EXISTS `table_departamento`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_departamento` (
   `id_departamento` int NOT NULL AUTO_INCREMENT,
-  `departamento` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `departamento` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_departamento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -166,12 +164,12 @@ DROP TABLE IF EXISTS `table_despacho`;
 CREATE TABLE `table_despacho` (
   `id_despacho` int NOT NULL AUTO_INCREMENT,
   `id_flota` int NOT NULL,
-  `operador` varchar(50) COLLATE utf8mb3_spanish_ci NOT NULL,
-  `mecanico` varchar(50) COLLATE utf8mb3_spanish_ci NOT NULL,
-  `despachador` varchar(50) COLLATE utf8mb3_spanish_ci NOT NULL,
-  `fecha_despacho` varchar(12) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `operador` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `mecanico` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `despachador` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `fecha_despacho` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `user_id` int NOT NULL,
-  `observacion` text COLLATE utf8mb3_spanish_ci,
+  `observacion` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   PRIMARY KEY (`id_despacho`),
   KEY `fk_table_despacho_table_flota1_idx` (`id_flota`),
   KEY `fk_table_despacho_table_user1_idx` (`user_id`),
@@ -198,7 +196,7 @@ DROP TABLE IF EXISTS `table_enlace_producto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_enlace_producto` (
   `id_enlace_producto` int NOT NULL AUTO_INCREMENT,
-  `enlace_producto` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `enlace_producto` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_enlace_producto`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -222,13 +220,13 @@ DROP TABLE IF EXISTS `table_flota`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_flota` (
   `id_flota` int NOT NULL AUTO_INCREMENT,
-  `id_unidad` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `id_unidad` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `id_marca` int NOT NULL,
   `id_modelo` int NOT NULL,
-  `vim_unidad` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `fecha_creacion` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `vim_unidad` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `fecha_creacion` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `cap_pasajero` int DEFAULT NULL,
-  `tipo_combustible` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `tipo_combustible` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `status_unidad` int DEFAULT NULL,
   PRIMARY KEY (`id_flota`),
   KEY `fk_table_flota_table_modelo1_idx` (`id_modelo`),
@@ -257,9 +255,9 @@ DROP TABLE IF EXISTS `table_historia`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_historia` (
   `entrada` int DEFAULT NULL,
-  `salida` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `fecha` varchar(15) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `obs` text COLLATE utf8mb3_spanish_ci,
+  `salida` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `fecha` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `obs` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   `id_producto` int NOT NULL,
   `id_proveedor` int NOT NULL,
   `id_usuario` int NOT NULL,
@@ -290,7 +288,7 @@ DROP TABLE IF EXISTS `table_marca`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_marca` (
   `id_marca` int NOT NULL,
-  `marca_unidad` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `marca_unidad` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_marca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -314,10 +312,11 @@ DROP TABLE IF EXISTS `table_menu`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_menu` (
   `id_menu` int NOT NULL AUTO_INCREMENT,
-  `nombre_menu` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `descripcion` text COLLATE utf8mb3_spanish_ci,
-  `page_menu_open` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `page_link` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `nombre_menu` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `descripcion` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `page_menu_open` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `page_link` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `icono_menu` text COLLATE utf8mb3_spanish_ci,
   `status` int DEFAULT NULL,
   PRIMARY KEY (`id_menu`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
@@ -329,7 +328,7 @@ CREATE TABLE `table_menu` (
 
 LOCK TABLES `table_menu` WRITE;
 /*!40000 ALTER TABLE `table_menu` DISABLE KEYS */;
-INSERT INTO `table_menu` VALUES (1,'PERSONAL',NULL,'user','user',1),(2,'UNIDADES',NULL,'unidades','unidades',1),(3,'ALMACEN',NULL,'producto','producto',1),(4,'DATA',NULL,'data','data',1),(5,'ESTACION',NULL,'estacion','estacion',1),(6,'MENU',NULL,'menu','menu',1);
+INSERT INTO `table_menu` VALUES (1,'PERSONAL',NULL,'user','user',NULL,1),(2,'UNIDADES',NULL,'unidades','unidades',NULL,1),(3,'ALMACEN',NULL,'producto','producto',NULL,1),(4,'DATA',NULL,'data','data',NULL,1),(5,'ESTACION',NULL,'estacion','estacion',NULL,1),(6,'MENU',NULL,'menu','menu',NULL,1);
 /*!40000 ALTER TABLE `table_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -371,7 +370,7 @@ DROP TABLE IF EXISTS `table_modelo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_modelo` (
   `id_modelo` int NOT NULL,
-  `modelo_unidad` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `modelo_unidad` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_modelo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -395,10 +394,10 @@ DROP TABLE IF EXISTS `table_personal`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_personal` (
   `id_personal` int NOT NULL AUTO_INCREMENT,
-  `personal_cedula` varchar(15) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `personal_nombre` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `personal_cedula` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `personal_nombre` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `personal_cargo` int NOT NULL,
-  `personal_tlf` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `personal_tlf` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `personal_status` int DEFAULT NULL,
   PRIMARY KEY (`id_personal`),
   KEY `fk_table_personal_table_cargo1_idx` (`personal_cargo`),
@@ -427,7 +426,7 @@ CREATE TABLE `table_producto` (
   `id_producto` int NOT NULL AUTO_INCREMENT,
   `id_enlace_producto` int NOT NULL,
   `id_ubicacion` int NOT NULL,
-  `producto` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `producto` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `tag_producto` int DEFAULT NULL,
   `status_producto` int DEFAULT NULL,
   PRIMARY KEY (`id_producto`),
@@ -456,10 +455,10 @@ DROP TABLE IF EXISTS `table_proveedor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_proveedor` (
   `id_proveedor` int NOT NULL AUTO_INCREMENT,
-  `rif_proveedor` varchar(15) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `empresa_proveedor` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `responsable_proveedor` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `email_proveedor` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `rif_proveedor` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `empresa_proveedor` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `responsable_proveedor` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `email_proveedor` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `tlf_proveedor` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `status_proveedor` int DEFAULT NULL,
   PRIMARY KEY (`id_proveedor`)
@@ -539,8 +538,8 @@ DROP TABLE IF EXISTS `table_roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_roles` (
   `rol_id` int NOT NULL AUTO_INCREMENT,
-  `rol_name` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `rol_descripcion` text COLLATE utf8mb3_spanish_ci,
+  `rol_name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `rol_descripcion` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   `rol_status` int DEFAULT NULL,
   PRIMARY KEY (`rol_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
@@ -565,10 +564,10 @@ DROP TABLE IF EXISTS `table_submenu`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_submenu` (
   `id_submenu` int NOT NULL AUTO_INCREMENT,
-  `nombre_submenu` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `descripcion` text COLLATE utf8mb3_spanish_ci,
-  `url` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `page_link_activo` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `nombre_submenu` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `descripcion` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `url` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `page_link_activo` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `status` int DEFAULT NULL,
   PRIMARY KEY (`id_submenu`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
@@ -594,10 +593,10 @@ DROP TABLE IF EXISTS `table_timeline`;
 CREATE TABLE `table_timeline` (
   `time_id` int NOT NULL AUTO_INCREMENT,
   `time_id_user` int NOT NULL,
-  `time_codigo` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `time_fecha` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `time_inicio` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `time_fin` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `time_codigo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `time_fecha` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `time_inicio` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `time_fin` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`time_id`),
   KEY `fk_table_timeline_table_user1_idx` (`time_id_user`),
   CONSTRAINT `fk_table_timeline_table_user1` FOREIGN KEY (`time_id_user`) REFERENCES `table_user` (`user_id`)
@@ -622,7 +621,7 @@ DROP TABLE IF EXISTS `table_ubicacion`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_ubicacion` (
   `id_ubicacion` int NOT NULL AUTO_INCREMENT,
-  `ubicacion` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `ubicacion` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_ubicacion`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -647,19 +646,19 @@ DROP TABLE IF EXISTS `table_unidad_mantenimiento`;
 CREATE TABLE `table_unidad_mantenimiento` (
   `id_unidad_mantenimiento` int NOT NULL AUTO_INCREMENT,
   `id_flota` int NOT NULL,
-  `ruta_unidad` text COLLATE utf8mb3_spanish_ci,
-  `operardor_unidad` text COLLATE utf8mb3_spanish_ci,
-  `nomb_mecanico` text COLLATE utf8mb3_spanish_ci,
-  `km_unidad` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `tipo_mantenimiento` char(1) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `diagnostico` text COLLATE utf8mb3_spanish_ci,
-  `recomendacion` text COLLATE utf8mb3_spanish_ci,
-  `obsOperador` text COLLATE utf8mb3_spanish_ci,
-  `obsSupervisor` text COLLATE utf8mb3_spanish_ci,
-  `obsSalida` text COLLATE utf8mb3_spanish_ci,
-  `fecha_entrada` varchar(25) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `fecha_salida` varchar(25) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `status_mantenimiento` char(1) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `ruta_unidad` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `operardor_unidad` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `nomb_mecanico` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `km_unidad` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `tipo_mantenimiento` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `diagnostico` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `recomendacion` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `obsOperador` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `obsSupervisor` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `obsSalida` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `fecha_entrada` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `fecha_salida` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `status_mantenimiento` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id_unidad_mantenimiento`),
   KEY `fk_table_unidad_mantenimiento_table_flota1_idx` (`id_flota`),
@@ -689,18 +688,18 @@ DROP TABLE IF EXISTS `table_user`;
 CREATE TABLE `table_user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `user_ci` int DEFAULT NULL,
-  `user_nick` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `user_pass` text COLLATE utf8mb3_spanish_ci,
-  `user_nombres` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `user_apellidos` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `user_email` varchar(100) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `user_tlf` varchar(20) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `user_nick` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `user_pass` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
+  `user_nombres` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `user_apellidos` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `user_email` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `user_tlf` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `user_rol` int NOT NULL,
   `id_departamento` int NOT NULL,
   `user_status` int DEFAULT NULL,
-  `user_img` text COLLATE utf8mb3_spanish_ci,
+  `user_img` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   `user_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_ruta` text COLLATE utf8mb3_spanish_ci,
+  `user_ruta` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   PRIMARY KEY (`user_id`),
   KEY `fk_table_user_table_roles1_idx` (`user_rol`),
   KEY `fk_table_user_table_departamento1_idx` (`id_departamento`),
@@ -728,7 +727,7 @@ DROP TABLE IF EXISTS `table_user_rol`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_user_rol` (
   `id_user_rol` int NOT NULL AUTO_INCREMENT,
-  `user_nick` varchar(45) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `user_nick` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `id_rol` int NOT NULL,
   PRIMARY KEY (`id_user_rol`),
   KEY `fk_table_user_rol_rol1_idx` (`id_rol`),
@@ -831,4 +830,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-23 15:28:29
+-- Dump completed on 2024-10-23 17:09:34

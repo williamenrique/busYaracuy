@@ -14,7 +14,7 @@ class Login extends Controllers{
 	public function login(){
 		//invocar la vista con views y usamos getViews y pasamos parametros esta clase y la vista
 		//incluimos un arreglo que contendra toda la informacion que se enviara al home
-		$data['page_tag'] = "TESORERIA - ACCESO";
+		$data['page_tag'] = "BUSYARACUY - LOGIN";
 		$data['page_title'] = "Login";
 		$data['page_name'] = "login";
 		$data['page_functions'] = "functionLogin.js";
