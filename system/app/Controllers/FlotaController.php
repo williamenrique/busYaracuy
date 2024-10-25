@@ -28,20 +28,39 @@ class Flota extends Controllers{
 	
 			//recorrer el arreglo para colocara el status
 			for ($i=0; $i < count($arrData) ; $i++) {
-				if ($arrData[$i]['status_unidad'] == 0) {
-					$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-danger" onClick="fntStatus(0,'.$arrData[$i]['id_flota'].')">Desincorporado</a>';
-				}
-				if ($arrData[$i]['status_unidad'] == 1) {
-					$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-success" onClick="fntStatus(1,'.$arrData[$i]['id_flota'].')">Operativo</a>';
-				}
-				if ($arrData[$i]['status_unidad'] == 2) {
-					$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning">Mantenimiento</a>';
-				}
-				if ($arrData[$i]['status_unidad'] == 3) {
-					$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-info" onClick="fntStatus(3,'.$arrData[$i]['id_flota'].')">Inoperativo</a>';
-				}
-				if ($arrData[$i]['status_unidad'] == 4) {
-					$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning" onClick="fntStatus(4,'.$arrData[$i]['id_flota'].')">Critca</a>';
+				if($_SESSION['userData']['rol_id'] == 1 OR $_SESSION['userData']['rol_id'] == 2){
+
+					if ($arrData[$i]['status_unidad'] == 0) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-danger" onClick="fntStatus(0,'.$arrData[$i]['id_flota'].')">Desincorporado</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 1) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-success" onClick="fntStatus(1,'.$arrData[$i]['id_flota'].')">Operativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 2) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning">Mantenimiento</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 3) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-info" onClick="fntStatus(3,'.$arrData[$i]['id_flota'].')">Inoperativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 4) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning" onClick="fntStatus(4,'.$arrData[$i]['id_flota'].')">Critca</a>';
+					}
+				}else{
+					if ($arrData[$i]['status_unidad'] == 0) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-danger" >Desincorporado</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 1) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-success" >Operativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 2) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-warning">Mantenimiento</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 3) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-info" >Inoperativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 4) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-warning" ">Critca</a>';
+					}
 				}
 				$arrData[$i]['id_unidad'] ='<a href=flota/unidad/?unidad='.$arrData[$i]['id_flota'].' title="Ver">'.$arrData[$i]['id_unidad'].'</a>';
 			}
@@ -216,6 +235,7 @@ class Flota extends Controllers{
 								<label class="sr-only" for="inlineFormInputName">FECHA SALIDA</label>
 								<input type="date" class="form-control" placeholder="FECHA SALIDA" id="txtFechaSalida" name="txtFechaSalida">
 							</div>
+							
 							<button type="button" id="btnActionForm" onClick="fntOutMant('.$arrDataH[0]['id_flota'].')" class="btn btn-primary btn-sm">
 								</i><span id="btnText">Salir mantenimiento</span>
 							</button>
