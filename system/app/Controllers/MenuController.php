@@ -194,7 +194,7 @@ class Menu extends Controllers{
 					$intDep = decryption($_POST['departamento']);
 					$request = $this->model->insertDepSub($intDep,$intIdSubMenu);
 					if($request > 0){
-						$arrResponse = array("status" => true, "msg" => "Asignacion de rol y submenu exitoso");
+						$arrResponse = array("status" => true, "msg" => "Asignacion de Menu y submenu exitoso");
 					}else{
 						$arrResponse = array("status" => false, "msg" => "Error en la asignacion");
 					}

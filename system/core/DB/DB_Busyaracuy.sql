@@ -64,7 +64,7 @@ CREATE TABLE `table_cambiostatuspersonal` (
   KEY `fk_table_cambiostatuspersonal_table_user1_idx` (`user_id`),
   CONSTRAINT `fk_table_cambiostatuspersonal_table_personal1` FOREIGN KEY (`id_personal`) REFERENCES `table_personal` (`id_personal`),
   CONSTRAINT `fk_table_cambiostatuspersonal_table_user1` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,6 +102,36 @@ INSERT INTO `table_cargo` VALUES (1,'DIRECTOR GENERAL',1),(2,'COORDINADOR(A) DE 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `table_cierre`
+--
+
+DROP TABLE IF EXISTS `table_cierre`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `table_cierre` (
+  `id_cierre` int NOT NULL AUTO_INCREMENT,
+  `tipo_cierre` varchar(10) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `cant_cierre` varchar(10) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `monto_cierre` varchar(10) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `tasa_dia` varchar(10) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `fecha_cierre` varchar(10) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `id_user` int NOT NULL,
+  PRIMARY KEY (`id_cierre`),
+  KEY `fk_table_cierre_table_user1_idx` (`id_user`),
+  CONSTRAINT `fk_table_cierre_table_user1` FOREIGN KEY (`id_user`) REFERENCES `table_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_cierre`
+--
+
+LOCK TABLES `table_cierre` WRITE;
+/*!40000 ALTER TABLE `table_cierre` DISABLE KEYS */;
+/*!40000 ALTER TABLE `table_cierre` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `table_dep_submenu`
 --
 
@@ -117,7 +147,7 @@ CREATE TABLE `table_dep_submenu` (
   KEY `fk_table_dep_submenu_table_sub_menu1_idx` (`id_submenu`),
   CONSTRAINT `fk_table_dep_submenu_table_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `table_departamento` (`id_departamento`),
   CONSTRAINT `fk_table_dep_submenu_table_sub_menu1` FOREIGN KEY (`id_submenu`) REFERENCES `table_submenu` (`id_submenu`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +156,7 @@ CREATE TABLE `table_dep_submenu` (
 
 LOCK TABLES `table_dep_submenu` WRITE;
 /*!40000 ALTER TABLE `table_dep_submenu` DISABLE KEYS */;
-INSERT INTO `table_dep_submenu` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,11),(10,3,3),(11,3,4),(12,2,5),(13,2,6),(14,2,7),(15,2,8);
+INSERT INTO `table_dep_submenu` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,9),(10,1,10),(11,1,12),(12,1,11),(13,2,5),(14,2,7),(15,2,8),(16,3,3),(17,3,4),(18,3,2),(19,4,12);
 /*!40000 ALTER TABLE `table_dep_submenu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +180,7 @@ CREATE TABLE `table_departamento` (
 
 LOCK TABLES `table_departamento` WRITE;
 /*!40000 ALTER TABLE `table_departamento` DISABLE KEYS */;
-INSERT INTO `table_departamento` VALUES (1,'INFORMATICA'),(2,'ALMACEN'),(3,'OPERACIONES'),(4,'TESORERIA');
+INSERT INTO `table_departamento` VALUES (1,'INFORMATICA'),(2,'ALMACEN'),(3,'OPERACIONES'),(4,'ESTACION');
 /*!40000 ALTER TABLE `table_departamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +228,7 @@ CREATE TABLE `table_enlace_producto` (
   `id_enlace_producto` int NOT NULL AUTO_INCREMENT,
   `enlace_producto` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_enlace_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +237,7 @@ CREATE TABLE `table_enlace_producto` (
 
 LOCK TABLES `table_enlace_producto` WRITE;
 /*!40000 ALTER TABLE `table_enlace_producto` DISABLE KEYS */;
-INSERT INTO `table_enlace_producto` VALUES (1,'ZK6896HGA'),(2,'ZK6752D'),(3,'ZK6118HGA'),(4,'ZK6729D2'),(5,'ZK6852HG'),(6,'3800T-444E'),(7,'3600'),(8,'ZK6860HGA'),(9,'ENT610'),(10,'USO GENERAL'),(11,'DESCONTINUADO');
+INSERT INTO `table_enlace_producto` VALUES (1,'ZK6896HGA'),(2,'ZK6752D'),(3,'ZK6118HGA'),(4,'ZK6729D2'),(5,'ZK6852HG'),(6,'3800T-444E'),(7,'3600'),(8,'ZK6860HGA'),(9,'ENT610'),(10,'USO GENERAL'),(11,'DESCONTINUADO'),(12,'LUBRICANTES'),(13,'NEUMATICOs'),(14,'BATERIAs');
 /*!40000 ALTER TABLE `table_enlace_producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +378,7 @@ CREATE TABLE `table_menu_submenu` (
   KEY `fk_table_menu_submenu_table_sub_menu1_idx` (`id_submenu`),
   CONSTRAINT `fk_table_menu_submenu_table_menu1` FOREIGN KEY (`id_menu`) REFERENCES `table_menu` (`id_menu`),
   CONSTRAINT `fk_table_menu_submenu_table_sub_menu1` FOREIGN KEY (`id_submenu`) REFERENCES `table_submenu` (`id_submenu`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,7 +387,7 @@ CREATE TABLE `table_menu_submenu` (
 
 LOCK TABLES `table_menu_submenu` WRITE;
 /*!40000 ALTER TABLE `table_menu_submenu` DISABLE KEYS */;
-INSERT INTO `table_menu_submenu` VALUES (1,1,1),(2,1,2),(3,2,3),(4,2,4),(5,3,5),(6,3,6),(7,3,7),(8,3,8),(9,6,11);
+INSERT INTO `table_menu_submenu` VALUES (1,1,1),(2,1,2),(3,2,3),(4,2,4),(5,3,5),(6,3,6),(7,3,7),(8,3,8),(9,4,9),(10,4,10),(11,5,12),(12,6,11);
 /*!40000 ALTER TABLE `table_menu_submenu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -551,7 +581,7 @@ CREATE TABLE `table_roles` (
 
 LOCK TABLES `table_roles` WRITE;
 /*!40000 ALTER TABLE `table_roles` DISABLE KEYS */;
-INSERT INTO `table_roles` VALUES (1,'ADMINISTRADOR','administrador',1),(2,'ENCARGADO','encargado del sistema',1),(3,'EMPLEADO','Provicional',2);
+INSERT INTO `table_roles` VALUES (1,'ADMINISTRADOR','administrador',1),(2,'ENCARGADO','encargado del sistema',1),(3,'EMPLEADO','Provicional',1);
 /*!40000 ALTER TABLE `table_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -570,7 +600,7 @@ CREATE TABLE `table_submenu` (
   `page_link_activo` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `status` int DEFAULT NULL,
   PRIMARY KEY (`id_submenu`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -579,8 +609,68 @@ CREATE TABLE `table_submenu` (
 
 LOCK TABLES `table_submenu` WRITE;
 /*!40000 ALTER TABLE `table_submenu` DISABLE KEYS */;
-INSERT INTO `table_submenu` VALUES (1,'USUARIOS',NULL,'usuarios','user',1),(2,'PERSONAL',NULL,'personal','personal',1),(3,'FLOTA',NULL,'flota','flota',1),(4,'MANTENIMIENTO',NULL,'flota/ingresar_mant','mantenimiento',1),(5,'PRODUCTOS',NULL,'producto','producto',1),(6,'PROVEEDOR',NULL,'proveedor','proveedor',1),(7,'DESPACHO',NULL,'orden/despacho','despacho',1),(8,'LISTA DE ORDENES',NULL,'orden/listaordenes','listadeordenes',1),(9,'CLEAN',NULL,'datamant/clean','clean',1),(10,'UNIDAD MANT',NULL,'datamant','unidadmant',1),(11,'EDITAR MENU',NULL,'menu','editarmenu',1);
+INSERT INTO `table_submenu` VALUES (1,'USUARIOS',NULL,'usuarios','user',1),(2,'PERSONAL',NULL,'personal','personal',1),(3,'FLOTA',NULL,'flota','flota',1),(4,'MANTENIMIENTO',NULL,'flota/ingresar_mant','mantenimiento',1),(5,'PRODUCTOS',NULL,'producto','producto',1),(6,'PROVEEDOR',NULL,'proveedor','proveedor',1),(7,'DESPACHO',NULL,'orden/despacho','despacho',1),(8,'LISTA DE ORDENES',NULL,'orden/listaordenes','listadeordenes',1),(9,'CLEAN',NULL,'datamant/clean','clean',1),(10,'UNIDAD MANT',NULL,'datamant','unidadmant',1),(11,'EDITAR MENU',NULL,'menu','editarmenu',1),(12,'DESPACHO COMBUSTIBLE',NULL,'estacion','estacion',1);
 /*!40000 ALTER TABLE `table_submenu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `table_tasa_dia`
+--
+
+DROP TABLE IF EXISTS `table_tasa_dia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `table_tasa_dia` (
+  `id_tasa_dia` int NOT NULL AUTO_INCREMENT,
+  `tasa_dia` double DEFAULT NULL,
+  PRIMARY KEY (`id_tasa_dia`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_tasa_dia`
+--
+
+LOCK TABLES `table_tasa_dia` WRITE;
+/*!40000 ALTER TABLE `table_tasa_dia` DISABLE KEYS */;
+INSERT INTO `table_tasa_dia` VALUES (1,40);
+/*!40000 ALTER TABLE `table_tasa_dia` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `table_ticket_venta`
+--
+
+DROP TABLE IF EXISTS `table_ticket_venta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `table_ticket_venta` (
+  `id_ticket_venta` int NOT NULL AUTO_INCREMENT,
+  `nombre_ticket` text,
+  `ci_ticket` varchar(15) DEFAULT NULL,
+  `tipo_vehiculo_ticket` int DEFAULT NULL,
+  `placa_ticket` varchar(10) DEFAULT NULL,
+  `lts_ticket` int DEFAULT NULL,
+  `tipo_pago_ticket` int DEFAULT NULL,
+  `monto_ticket` varchar(10) DEFAULT NULL,
+  `tasa_dia` double DEFAULT NULL,
+  `fecha_ticket` varchar(15) DEFAULT NULL,
+  `hora_ticket` varchar(10) DEFAULT NULL,
+  `id_user` int NOT NULL,
+  `status_ticket` int DEFAULT NULL,
+  PRIMARY KEY (`id_ticket_venta`),
+  KEY `fk_table_ticket_venta_table_user1_idx` (`id_user`),
+  CONSTRAINT `fk_table_ticket_venta_table_user1` FOREIGN KEY (`id_user`) REFERENCES `table_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `table_ticket_venta`
+--
+
+LOCK TABLES `table_ticket_venta` WRITE;
+/*!40000 ALTER TABLE `table_ticket_venta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `table_ticket_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -701,11 +791,11 @@ CREATE TABLE `table_user` (
   `user_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `user_ruta` text CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci,
   PRIMARY KEY (`user_id`),
-  KEY `fk_table_user_table_roles1_idx` (`user_rol`),
   KEY `fk_table_user_table_departamento1_idx` (`id_departamento`),
+  KEY `fk_table_user_table_roles1_idx` (`user_rol`),
   CONSTRAINT `fk_table_user_table_departamento1` FOREIGN KEY (`id_departamento`) REFERENCES `table_departamento` (`id_departamento`),
   CONSTRAINT `fk_table_user_table_roles1` FOREIGN KEY (`user_rol`) REFERENCES `table_roles` (`rol_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -714,7 +804,7 @@ CREATE TABLE `table_user` (
 
 LOCK TABLES `table_user` WRITE;
 /*!40000 ALTER TABLE `table_user` DISABLE KEYS */;
-INSERT INTO `table_user` VALUES (1,2000000,'ADMIN','ODEvZ0hkUFRKQkkyenppY2puNXFKQT09','Admin','Admin','admin@admin','5555555555',1,1,1,'storage/ADMIN/default.png','2024-06-22 00:30:55','system/app/Views/Docs/AUN-01/'),(2,17699446,'MG-02','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Marianny  ','Gomez','busyaracuy@gmail.com','4120550426',3,3,1,'storage/MG-02/default.png','2024-06-30 18:25:37','system/app/Views/Docs/MG-07/'),(5,14607920,'WILL','OCs4Z1hFT083MklFOU15V1NpMS9jdz09','William Enrique','Infante','william21enrique@gmail.com','4125181629',1,1,1,'storage/WILL/5-7a8b0bb7.png','2024-05-21 00:47:38','storage/WILL/'),(6,70133695,'AR-06','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Alexis ','Ramon','soporte@gmail.com','4144314020',2,3,1,'storage/AR-06/default.png','2024-07-01 17:51:13','storage/AR-06/'),(7,16481170,'TD-07','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Tony','Dasilva','soprte2@gmail.com','4120949732',2,3,1,'storage/TD-07/default.png','2024-04-18 19:26:03','storage/TD-07/'),(8,14211080,'RS-08','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Ronni','Sanchez','soporte4@gmail.com','4125085635',2,3,1,'storage/RS-08/default.png','2024-04-18 19:28:30','storage/RS-08/'),(9,16261541,'JO-09','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Jose','Oviedo','joseoviedotovar2022@gmail.com','4124750831',2,3,1,'storage/JO-09/default.png','2024-04-29 23:29:13','storage/JO-09/'),(17,15769775,'YM-017','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Ybet','Muñoz','ybet.naca@gmail.com','4125181629',2,1,1,'storage/YM-017/default.png','2024-10-15 20:34:34','storage/YM-017/'),(18,3000000,'KI-018','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Kamila ','Infante','kamila@gmail.com','5545456',2,2,1,'storage/KI-018/default.png','2024-10-17 18:38:23','storage/KI-018/'),(19,12512663,'JR-019','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Jose','Reyes','reyes@hotmail.com','56422',3,2,1,'storage/JR-019/default.png','2024-10-17 18:39:34','storage/JR-019/');
+INSERT INTO `table_user` VALUES (1,2000000,'ADMIN','ODEvZ0hkUFRKQkkyenppY2puNXFKQT09','Admin','Admin','admin@admin','5555555555',1,1,1,'storage/ADMIN/default.png','2024-06-22 00:30:55','system/ADMIN/'),(2,17699446,'MG-02','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Marianny  ','Gomez','busyaracuy@gmail.com','4120550426',2,3,1,'storage/MG-02/default.png','2024-06-30 18:25:37','system/MG-02/'),(5,14607920,'WILL','OCs4Z1hFT083MklFOU15V1NpMS9jdz09','William Enrique','Infante','william21enrique@gmail.com','4125181629',1,1,1,'storage/WILL/5-6e2f5a82.png','2024-05-21 00:47:38','storage/WILL/'),(6,70133695,'AR-06','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Alexis ','Ramon','soporte@gmail.com','4144314020',3,3,1,'storage/AR-06/default.png','2024-07-01 17:51:13','storage/AR-06/'),(7,16481170,'TD-07','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Tony','Dasilva','soprte2@gmail.com','4120949732',2,3,1,'storage/TD-07/default.png','2024-04-18 19:26:03','storage/TD-07/'),(8,14211080,'RS-08','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Ronni','Sanchez','soporte4@gmail.com','4125085635',2,3,1,'storage/RS-08/default.png','2024-04-18 19:28:30','storage/RS-08/'),(9,16261541,'JO-09','ZEYwTERJRlVGMW95a3RiOUtGaENRdz09','Jose','Oviedo','joseoviedotovar2022@gmail.com','4124750831',2,3,1,'storage/JO-09/default.png','2024-04-29 23:29:13','storage/JO-09/');
 /*!40000 ALTER TABLE `table_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -733,7 +823,7 @@ CREATE TABLE `table_user_rol` (
   PRIMARY KEY (`id_user_rol`),
   KEY `fk_table_user_rol_rol1_idx` (`id_rol`),
   CONSTRAINT `fk_table_user_rol_rol1` FOREIGN KEY (`id_rol`) REFERENCES `table_roles` (`rol_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -742,7 +832,7 @@ CREATE TABLE `table_user_rol` (
 
 LOCK TABLES `table_user_rol` WRITE;
 /*!40000 ALTER TABLE `table_user_rol` DISABLE KEYS */;
-INSERT INTO `table_user_rol` VALUES (1,'ADMIN',1,1),(2,'MG-02',3,3),(3,'WILL',1,1),(4,'AR-06',2,3),(5,'TD-07',2,3),(6,'RS-08',2,3),(7,'JO-09',2,3),(8,'YM-017',2,3),(9,'KI-018',2,3),(10,'JR-019',3,3);
+INSERT INTO `table_user_rol` VALUES (1,'ADMIN',1,1),(2,'MG-02',2,3),(3,'WILL',1,1),(4,'AR-06',3,3),(5,'TD-07',2,3),(6,'RS-08',2,3),(7,'JO-09',2,3);
 /*!40000 ALTER TABLE `table_user_rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -768,7 +858,8 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `id_submenu`,
  1 AS `nombre_submenu`,
  1 AS `url`,
- 1 AS `page_link_activo`*/;
+ 1 AS `page_link_activo`,
+ 1 AS `status_submenu`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -784,7 +875,8 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `id_submenu`,
  1 AS `nombre_submenu`,
  1 AS `url`,
- 1 AS `page_link_activo`*/;
+ 1 AS `page_link_activo`,
+ 1 AS `status`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -800,7 +892,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_carga_menu` AS select `a`.`user_nick` AS `login`,`a`.`user_nombres` AS `nombres`,`a`.`user_apellidos` AS `apellidos`,`f`.`rol_id` AS `rol_id`,`f`.`rol_name` AS `rol_name`,`e`.`id_menu` AS `id_menu`,`e`.`nombre_menu` AS `nombre_menu`,`e`.`icono_menu` AS `icono_menu`,`e`.`page_menu_open` AS `page_menu_open`,`e`.`page_link` AS `page_link`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`g`.`page_link_activo` AS `page_link_activo` from ((((((`table_user` `a` join `table_user_rol` `b`) join `table_dep_submenu` `c`) join `table_menu_submenu` `d`) join `table_menu` `e`) join `table_roles` `f`) join `table_submenu` `g`) where ((`a`.`user_nick` = `b`.`user_nick`) and (`b`.`id_rol` = `f`.`rol_id`) and (`f`.`rol_id` = `c`.`id_departamento`) and (`c`.`id_submenu` = `g`.`id_submenu`) and (`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`) and (`e`.`status` = 1)) */;
+/*!50001 VIEW `v_carga_menu` AS select `a`.`user_nick` AS `login`,`a`.`user_nombres` AS `nombres`,`a`.`user_apellidos` AS `apellidos`,`f`.`rol_id` AS `rol_id`,`f`.`rol_name` AS `rol_name`,`e`.`id_menu` AS `id_menu`,`e`.`nombre_menu` AS `nombre_menu`,`e`.`icono_menu` AS `icono_menu`,`e`.`page_menu_open` AS `page_menu_open`,`e`.`page_link` AS `page_link`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`g`.`page_link_activo` AS `page_link_activo`,`g`.`status` AS `status_submenu` from ((((((`table_user` `a` join `table_user_rol` `b`) join `table_dep_submenu` `c`) join `table_menu_submenu` `d`) join `table_menu` `e`) join `table_roles` `f`) join `table_submenu` `g`) where ((`a`.`user_nick` = `b`.`user_nick`) and (`b`.`id_rol` = `f`.`rol_id`) and (`b`.`id_departamento` = `c`.`id_departamento`) and (`c`.`id_submenu` = `g`.`id_submenu`) and (`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`) and (`e`.`status` = 1)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -818,7 +910,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_submenu` AS select `e`.`id_menu` AS `id_menu`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`g`.`page_link_activo` AS `page_link_activo` from ((`table_menu_submenu` `d` join `table_menu` `e`) join `table_submenu` `g`) where ((`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`)) */;
+/*!50001 VIEW `v_submenu` AS select `e`.`id_menu` AS `id_menu`,`g`.`id_submenu` AS `id_submenu`,`g`.`nombre_submenu` AS `nombre_submenu`,`g`.`url` AS `url`,`g`.`page_link_activo` AS `page_link_activo`,`g`.`status` AS `status` from ((`table_menu_submenu` `d` join `table_menu` `e`) join `table_submenu` `g`) where ((`g`.`id_submenu` = `d`.`id_submenu`) and (`e`.`id_menu` = `d`.`id_menu`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -832,4 +924,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-24 14:03:12
+-- Dump completed on 2024-10-25 16:33:19

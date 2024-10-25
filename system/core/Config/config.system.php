@@ -9,7 +9,8 @@ const titulo = "Tienda Virtual en construccion";
 date_default_timezone_set('America/Caracas');
 $user = gethostname();
 $path = get_current_user();
-$ruta = 'C:/Users/'.$user.'/Desktop/';
+$ruta = 'C:/Users/'.$user.'/';
+// $ruta = 'C:/Users/'.$user.'/servidor/';
 // define('ruta',"C:".$path.$user.'\Desktop';
 
 //rutas de assets
