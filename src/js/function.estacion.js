@@ -171,6 +171,8 @@ fntTicket = (idTicket) => {
 
 			let srtNombreOperador = objData.user_nombres
 			fntImprimir(intTicket, srtNombre, srtCI, srtListTipoVehiculo, srtLTS, srtListTipoPago, srtFecha, srtHora,srtNombreOperador,srtPlaca,srtMonto)
+		}else{
+			notifi('Error de impresion verifique la impresora','error')
 		}
 	}
 }
@@ -300,7 +302,7 @@ fntImprimirCierre = (srtPago) => {
 			url: base_url + "cierredia.php",
 			data:{dataTicket:  jObject},
 			success:function(server){
-				console.log(server)//cuando reciva la respuesta lo imprimo
+				//console.log(server)//cuando reciva la respuesta lo imprimo
 			}
     })
 }
