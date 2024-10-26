@@ -122,7 +122,7 @@ class Estacion extends Controllers{
 			// $dataCierre = $this->model->setCierre($arrData);
 			$arrResponse = array("status" => true, "msg" => "Cierre completo", "dataCierre" => $arrData);
 		}else{
-			$arrResponse = array("status" => false, "msg" => "Cierre completo");
+			$arrResponse = array("status" => false, "msg" => "Error al cerrar");
 		}
 		echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 		die();

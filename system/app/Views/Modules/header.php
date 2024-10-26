@@ -84,7 +84,7 @@
 								alt="User Image">
 						</div>
 						<div class="info">
-							<a href="#" class="d-block"><?= $_SESSION['userData']['user_nombres']?></a>
+							<a href="<?= base_url()?>usuarios/perfil" class="d-block"><?= $_SESSION['userData']['user_nombres']?></a>
 							<a href="#" class="d-block" style="font-size: 10px"><?= $_SESSION['userData']['user_email']?></a>
 						</div>
 					</div>

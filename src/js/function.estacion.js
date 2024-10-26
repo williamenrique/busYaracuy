@@ -172,7 +172,7 @@ fntTicket = (idTicket) => {
 			let srtNombreOperador = objData.user_nombres
 			fntImprimir(intTicket, srtNombre, srtCI, srtListTipoVehiculo, srtLTS, srtListTipoPago, srtFecha, srtHora,srtNombreOperador,srtPlaca,srtMonto)
 		}else{
-			notifi('Error de impresion verifique la impresora','error')
+			notifi('Verifique la impresora','error')
 		}
 	}
 }
@@ -215,7 +215,6 @@ document.querySelector('.btnUpdateTasa').addEventListener('click', () => {
 			var objData = JSON.parse(request.responseText)
 			if(objData.status){
 				notifi(objData.msg, 'info')
-
 			}
 		}
 	}	
@@ -290,6 +289,8 @@ fntCierre = () => {
 			} else {
 				notifi(objData.msg, 'error')
 			}
+		} else {
+			notifi('Verifique la impresora', 'error')
 		}
 	}
 }
@@ -302,7 +303,10 @@ fntImprimirCierre = (srtPago) => {
 			url: base_url + "cierredia.php",
 			data:{dataTicket:  jObject},
 			success:function(server){
-				//console.log(server)//cuando reciva la respuesta lo imprimo
+				console.log(server)//cuando reciva la respuesta lo imprimo
+			},
+			error: function(xhr) {
+				notifi('Ocurrio un error', 'error')
 			}
     })
 }
@@ -321,7 +325,7 @@ fntCierrePendiente = () => {
 		if (request.readyState == 4 && request.status == 200) {
 			//obtener el json y convertirlo a un objeto en javascript
 			cierrP.innerHTML = request.responseText
-		}
+		} 
 	}
 }
 // realizar el cierre resagado
@@ -346,6 +350,8 @@ fntCierreP = (fechaActiva) => {
 				fntCierrePendiente()
 				// fntBackup()
 			}
+		} else {
+			notifi('Verifique la impresora', 'error')
 		}
 	}
 }
@@ -379,12 +385,12 @@ fntIraReporte = (srtDate) => {
         //todo va bien 
         if (request.readyState == 4 && request.status == 200) {
             var objData = JSON.parse(request.responseText)
-					//condionamos la respuesta del array del controlador
-					if (objData.status) { 
-						notifi(objData.msg,'info')
-					} else {
-						notifi(objData.msg,'error')
-					}
+			//condionamos la respuesta del array del controlador
+			if (objData.status) { 
+				notifi(objData.msg,'info')
+			} else {
+				notifi(objData.msg,'error')
+			}
         }
     }
 }

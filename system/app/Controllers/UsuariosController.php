@@ -145,7 +145,7 @@ class Usuarios extends Controllers{
 	public function perfil(){
 		$data['page_tag'] = "Perfil de usuario";
 		$data['page_title'] = "PERFIL USUARIO";
-		$data['page_name'] = "perfil";
+		$data['page_name'] = "PERFIL";
 		$data['page_menu'] = "";
 		$data['page_link'] = "usuario";
 		$data['page_menu_open'] = "";
