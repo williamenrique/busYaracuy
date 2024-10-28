@@ -52,7 +52,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="operatividad"></div>
+					<div class="operatividad card-body table-responsive p-0"></div>
 				</div>
 			</section>
 		<?php endif;

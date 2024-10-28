@@ -104,7 +104,7 @@ class Home extends Controllers{
 		$htmlOptions = '';
 		$inoperativo = count($arrData);
 		
-		$htmlOptions .= '<table class="table">
+		$htmlOptions .= '<table class="table table-head-fixed text-nowrap">
 							<thead>
 							<tr>
 								<th scope="col">MODELOS</th>

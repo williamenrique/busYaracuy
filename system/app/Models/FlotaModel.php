@@ -60,7 +60,7 @@ class FlotaModel extends Mysql {
 	}
 
 	/********** crear unidad**********/
-	public function insertUnidad(string $srtIdUnidad, int $intMarcaUnidad, int $intModelo, string $srtVim,string $srtFechaUnidad, int $srtCapacidad, string $srtTipoCombustible){
+	public function insertUnidad(string $srtIdUnidad, int $intMarcaUnidad, int $intModelo, string $srtVim,string $srtFechaUnidad, int $srtCapacidad, string $srtTipoCombustible, string $strListTransmision){
 		//asignamos las propiedades a las variable
 		$return = "";
 		$this->srtIdUnidad = $srtIdUnidad;
@@ -70,13 +70,14 @@ class FlotaModel extends Mysql {
 		$this->srtFechaUnidad = $srtFechaUnidad;
 		$this->srtCapacidad = $srtCapacidad;
 		$this->srtTipoCombustible = $srtTipoCombustible;
+		$this->strListTransmision = $strListTransmision;
 		//seleccionamos todos los rol para comprobar que no exista
 		$sql = "SELECT * FROM table_flota WHERE id_unidad = '{$this->srtIdUnidad}'";
 		$request = $this->select_all($sql);
 		//validar si ya existe si no hace el insert
 		if(empty($request)){
-			$sql_insert =  "INSERT INTO table_flota(id_unidad,id_marca,id_modelo,vim_unidad,fecha_creacion,cap_pasajero,tipo_combustible,status_unidad) VALUES (?,?,?,?,?,?,?,?)"; // se prepara el insert
-			$arrData = array($this->srtIdUnidad,$this->intMarcaUnidad,$this->intModelo,$this->srtVim,$this->srtFechaUnidad,$this->srtCapacidad,$this->srtTipoCombustible,1);// armamos el array con los datos obtenidos
+			$sql_insert =  "INSERT INTO table_flota(id_unidad,id_marca,id_modelo,vim_unidad,fecha_creacion,cap_pasajero,tipo_combustible,transmision,status_unidad) VALUES (?,?,?,?,?,?,?,?,?)"; // se prepara el insert
+			$arrData = array($this->srtIdUnidad,$this->intMarcaUnidad,$this->intModelo,$this->srtVim,$this->srtFechaUnidad,$this->srtCapacidad,$this->srtTipoCombustible,$strListTransmision,1);// armamos el array con los datos obtenidos
 			$request_insert = $this->insert($sql_insert,$arrData);//enviamos el query y el array de datos 
 			$return = $request_insert;//retorna el id insertado
 		}else{

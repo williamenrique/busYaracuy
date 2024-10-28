@@ -100,14 +100,15 @@ class Flota extends Controllers{
 		$srtIdUnidad = $_POST["txtIdUnidad"];
 		$intMarcaUnidad = intval($_POST['listMarcaUnidad']);
 		$intModelo = intval($_POST["listModelo"]);
+		$strListTransmision = $_POST["listTransmision"];
 		$srtVim = strtoupper($_POST["txtVimUnidad"]);
 		$srtFechaUnidad = $_POST["txtFechaUnidad"];
 		$srtCapacidad = $_POST["txtCapacidad"];
 		$srtTipoCombustible = strtoupper($_POST["txtTipoCombustible"]);
-		if($srtIdUnidad == "" || $intMarcaUnidad == "" || $intModelo == "" || $srtVim == "" || $srtFechaUnidad == "" || $srtCapacidad == "" || $srtTipoCombustible == ""){
+		if($srtIdUnidad == "" || $intMarcaUnidad == "" || $intModelo == "" || $strListTransmision =="0" || $srtVim == "" || $srtFechaUnidad == "" || $srtCapacidad == "" || $srtTipoCombustible == "0"){
 			$arrResponse = array('status'=> false,'msg' => 'Debe llenar los campos'); 
 		}else{
-			$request_unidad = $this->model->insertUnidad($srtIdUnidad,$intMarcaUnidad,$intModelo, $srtVim,$srtFechaUnidad,$srtCapacidad,$srtTipoCombustible);
+			$request_unidad = $this->model->insertUnidad($srtIdUnidad,$intMarcaUnidad,$intModelo, $srtVim,$srtFechaUnidad,$srtCapacidad,$srtTipoCombustible,$strListTransmision);
 			$option = 1;
 			if($request_unidad > 0){
 			/***************si es mayor a 0 indica que si se ejecuto el query***************/
