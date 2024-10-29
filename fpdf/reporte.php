@@ -1,5 +1,5 @@
 <?php
-require "./plantilla.php";
+require "./reporte_plantilla.php";
 // $nombreGrado = $row_grado['grado'];
 $tituloReporte = "Reporte Abastecimiento";
 $pdf = new PDF("P", "mm", "letter");

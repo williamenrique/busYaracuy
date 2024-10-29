@@ -209,7 +209,7 @@ class Orden extends Controllers{
                                 <span class="bg-red">'.$arrData[$i]['fecha_despacho'].'</span>
                             </div>
                             <div>
-                                <i class="fas fa-envelope bg-blue"></i>
+                                <i class="far fa-clipboard bg-blue" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')"></i>
                                 <div class="timeline-item">
                                     <h3 class="time timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">UNIDAD: </a> '.$arrData[$i]['id_unidad'].'</h3>
                                     <h3 class="timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">COD :</a> '.$arrData[$i]['id_despacho'].'</h3>
@@ -261,6 +261,7 @@ class Orden extends Controllers{
                                         }
                                     $htmlOptions .='
                                         <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
+                                        <a href="'.base_url().'fpdf/despacho.php" target="_blank" style="color: blue">GENERAR PDF</a>
                                     </div>
                                 </div>
                             </div>
@@ -294,7 +295,7 @@ class Orden extends Controllers{
                                     <span class="bg-red">'.$arrData[$i]['fecha_despacho'].'</span>
                                 </div>
                                 <div>
-                                    <i class="fas fa-envelope bg-blue"></i>
+                                    <i class="far fa-clipboard bg-blue" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')"></i>
                                     <div class="timeline-item">
                                         <h3 class="time timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">UNIDAD: </a> '.$arrData[$i]['id_unidad'].'</h3>
                                         <h3 class="timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">COD :</a> '.$arrData[$i]['id_despacho'].'</h3>
@@ -346,6 +347,7 @@ class Orden extends Controllers{
                                             }
                                         $htmlOptions .='
                                             <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
+                                            <a href="'.base_url().'fpdf/despacho.php" target="_blank" style="color: blue">GENERAR PDF</a>
                                         </div>
                                     </div>
                                 </div>
@@ -359,6 +361,42 @@ class Orden extends Controllers{
         echo $htmlOptions;
 		die();
     }
+    // generar el pdf de la orden de despacho
+    public function reporteDesp(int $idCodDespacho){
+        $request = $this->model->selectDepacho($idCodDespacho);
+        // informacion despacho
+        $infoDesp = (file_exists('./data/infoDesp.txt') ? unlink('./data/infoDesp.txt') : fopen("./data/infoDesp.txt", "w"));
+        $infoDesp = fopen("./data/infoDesp.txt", "a");
+        fwrite($infoDesp,$request['id_despacho'].';');//0
 
+        fwrite($infoDesp,$request['id_unidad'].';');//1
+        fwrite($infoDesp,$request['fecha_despacho'].';');//2
+        fwrite($infoDesp,$request['modelo_unidad'].';');//3
+        fwrite($infoDesp,$request['marca_unidad'].';');//4
+        fwrite($infoDesp,$request['tipo_combustible'].';');//5
+        fwrite($infoDesp,$request['transmision'].';');//6
+
+        fwrite($infoDesp,$request['mecanico'].';');//7
+        fwrite($infoDesp,$request['operador'].';');//8
+        fwrite($infoDesp,$request['despachador'].';');//9  
+
+        fwrite($infoDesp,$request['observacion'].';');//10
+        fwrite($infoDesp,$request['user_nombres'].';');//11
+
+        // fwrite($infoDesp,$request['vim_unidad'].';');
+        // fwrite($infoDesp,$request['fecha_creacion'].';');
+        // contenido despacho tabla
+        $artDesp = (file_exists('./data/reporteDesp.txt') ? unlink('./data/reporteDesp.txt') : fopen("./data/reporteDesp.txt", "w"));
+        $artDesp = fopen("./data/reporteDesp.txt", "a");
+        $arrDataDesp = $this->model->getListArtDesp($idCodDespacho);
+        for ($i=0; $i < count($arrDataDesp); $i++) {
+            fwrite($artDesp, 
+                $arrDataDesp[$i]['id_producto'].';'
+                .$arrDataDesp[$i]['producto'].';'
+                .$arrDataDesp[$i]['cant_despacho'].';'.PHP_EOL);
+        }
+        
+		fclose($artDesp);
+    }
     
 }

@@ -211,3 +211,40 @@ function cargar_menu (string $strNick){
 		}
 	}
 }
+
+function reporteDespPdf(int $idCodDespacho){
+	require_once ("system/app/Models/OrdenModel.php");
+	$data = new OrdenModel();
+	$data = $this->model->selectDepacho($idCodDespacho);
+	// Creación del objeto de la clase heredada
+	$pdf = new PDF(); //hacemos una instancia de la clase
+	$pdf->AliasNbPages();
+	$pdf->AddPage(); //añade l apagina / en blanco
+	$pdf->SetMargins(10, 10, 10); //MARGENES
+	$pdf->SetAutoPageBreak(true, 20); //salto de pagina automatico
+
+	// -----------ENCABEZADO------------------
+	$pdf->SetX(15);
+	$pdf->SetFont('Helvetica', 'B', 15);
+	$pdf->Cell(10, 8, 'N', 1, 0, 'C', 0);
+	$pdf->Cell(60, 8, 'Codigo', 1, 0, 'C', 0);
+	$pdf->Cell(80, 8, 'Nombre', 1, 0, 'C', 0);
+	$pdf->Cell(35, 8, 'Precio', 1, 1, 'C', 0);
+	// -------TERMINA----ENCABEZADO------------------
+
+	$pdf->SetFillColor(233, 229, 235); //color de fondo rgb
+	$pdf->SetDrawColor(61, 61, 61); //color de linea  rgb
+
+	$pdf->SetFont('Arial', '', 12);
+
+	//El ancho de las celdas
+	$pdf->SetWidths(array(10, 60, 80, 35)); //???
+
+	// esto no lo mencione en el video pero también pueden poner la alineación de cada COLUMNA!!!
+	$pdf->SetAligns(array('C','C','C','L'));
+
+	for ($i = 0; $i < count($data); $i++) {
+
+		$pdf->Row(array($i + 1, $data[$i]['codigo'], ucwords(strtolower(utf8_decode($data[$i]['nombre']))), '$' . $data[$i]['precio']), 15);
+	}
+}
