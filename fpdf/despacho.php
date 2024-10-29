@@ -1,10 +1,5 @@
 <?php
 require "./despacho_plantilla.php";
-// require "../system/core/Config/config.system.php";
-define('METHOD','AES-256-CBC');
-define('SECRET_KEY','$busYaracuy');
-define('SECRET_IV','101712');
-require "../system/core/Helpers/Helpers.php";
 $pdf = new PDF("P", "mm", "letter");
 $artDesp = $pdf->LoadData("../data/reporteDesp.txt");
 $infoDesp = $pdf->LoadData("../data/infoDesp.txt");
