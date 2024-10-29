@@ -56,7 +56,7 @@
 				</div>
 			</section>
 		<?php endif;
-		($_SESSION['userData']['departamento'] == 'INFORMATICA') ? dep(sessionUser($_SESSION['idUser'])): "";?>
+		// ($_SESSION['userData']['departamento'] == 'INFORMATICA') ? dep(sessionUser($_SESSION['idUser'])): "";?>
 		</div>
 	</section>
 	<!-- /.content -->

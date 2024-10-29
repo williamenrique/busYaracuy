@@ -202,74 +202,68 @@ class Orden extends Controllers{
         }else{
             for ($i=0; $i < count($arrData); $i++) {
                 $arrDataDesp = $this->model->getListArtDesp($arrData[$i]['id_despacho']);
-                    $htmlOptions .= 
-                        '
-                        <div class="timeline">
-                            <div class="time-label">
-                                <span class="bg-red">'.$arrData[$i]['fecha_despacho'].'</span>
-                            </div>
-                            <div>
-                                <i class="far fa-clipboard bg-blue" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')"></i>
-                                <div class="timeline-item">
-                                    <h3 class="time timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">UNIDAD: </a> '.$arrData[$i]['id_unidad'].'</h3>
-                                    <h3 class="timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">COD :</a> '.$arrData[$i]['id_despacho'].'</h3>
-                                    <div class="timeline-body">
-                                        <strong class="mr-1">MODELO :</strong><span class="mr-2">'.$arrData[$i]['modelo_unidad'].'</span>
-                                        <strong class="mr-1">MARCA :</strong><span>'.$arrData[$i]['marca_unidad'].'</span>
-                                        <strong class="mr-1">COMBUSTIBLE :</strong><span>'.$arrData[$i]['tipo_combustible'].'</span><br>
-                                        <strong class="mr-1">MECANICO :</strong><span class="mr-2">'.$arrData[$i]['mecanico'].'</span>
-                                        <strong class="mr-1">OPERADOR :</strong><span>'.$arrData[$i]['operador'].'</span><br>
-                                        <strong class="mr-1">DESPACHADO :</strong><span class="mr-2">'.$arrData[$i]['despachador'].'</span><br>
-                                        <hr>
-                                    ';
-                                    for ($j=0; $j < count($arrDataDesp); $j++) { 
-                                        if($arrDataDesp[$j]['status_producto'] == 0){
-                                            $htmlOptions .='
-                                            <ul>
-                                                <li>
-                                                    <del>
-                                                        <strong class="mr-1">COD-</strong>
-                                                        <span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span>
-                                                        <span class="mr-2"  data-bs-toggle="tooltip" data-bs-title="ARTICULO ELIMINADO"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
-                                                    
-                                                        <strong class="mr-1">CANT :</strong>
-                                                        <span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span
-                                                    </del>
-                                                    <span class="mr-2">ARTICULO ELIMNADO</span><br>
-                                                </li>
-                                            </ul>
-                                                ';
-                                        }else{
-
-                                            $htmlOptions .='
-                                            <ul>
-                                                <li>
-                                                    <strong class="mr-1">COD-</strong><span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span><span class="mr-2"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
-                                                    <strong class="mr-1">CANT :</strong><span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span><br>
-                                                </li>
-                                            </ul>
-                                                ';
-                                        }
+                $htmlOptions .= 
+                '<div class="timeline">
+                        <div class="time-label">
+                            <span class="bg-red">'.$arrData[$i]['fecha_despacho'].'</span>
+                        </div>
+                        <div>
+                            <i class="far fa-clipboard bg-blue" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')"></i>
+                            <div class="timeline-item">
+                                <h3 class="time timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">UNIDAD: </a> '.$arrData[$i]['id_unidad'].'</h3>
+                                <h3 class="timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">COD :</a> '.$arrData[$i]['id_despacho'].'</h3>
+                                <div class="timeline-body">
+                                    <strong class="mr-1">MODELO :</strong><span class="mr-2">'.$arrData[$i]['modelo_unidad'].'</span>
+                                    <strong class="mr-1">MARCA :</strong><span>'.$arrData[$i]['marca_unidad'].'</span>
+                                    <strong class="mr-1">COMBUSTIBLE :</strong><span>'.$arrData[$i]['tipo_combustible'].'</span><br>
+                                    <strong class="mr-1">MECANICO :</strong><span class="mr-2">'.$arrData[$i]['mecanico'].'</span>
+                                    <strong class="mr-1">OPERADOR :</strong><span>'.$arrData[$i]['operador'].'</span><br>
+                                    <strong class="mr-1">DESPACHADO :</strong><span class="mr-2">'.$arrData[$i]['despachador'].'</span><br>
+                                    <hr>
+                                ';
+                                for ($j=0; $j < count($arrDataDesp); $j++) { 
+                                    if($arrDataDesp[$j]['status_producto'] == 0){
+                                        $htmlOptions .='
+                                        <ul>
+                                            <li>
+                                                <del>
+                                                    <strong class="mr-1">COD-</strong>
+                                                    <span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span>
+                                                    <span class="mr-2"  data-bs-toggle="tooltip" data-bs-title="ARTICULO ELIMINADO"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
+                                                
+                                                    <strong class="mr-1">CANT :</strong>
+                                                    <span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span
+                                                </del>
+                                                <span class="mr-2">ARTICULO ELIMNADO</span><br>
+                                            </li>
+                                        </ul> ';
+                                    }else{
+                                        $htmlOptions .='
+                                        <ul>
+                                            <li>
+                                                <strong class="mr-1">COD-</strong><span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span><span class="mr-2"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
+                                                <strong class="mr-1">CANT :</strong><span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span><br>
+                                            </li>
+                                        </ul>';
                                     }
-                                    
-                                    $htmlOptions .='
-                                    </div>
-                                    <div class="timeline-footer">
-                                        ';
-                                        if($arrData[$i]['observacion'] != ""){
-                                            $htmlOptions .='<strong class="mr-1">OBSERVACION :</strong><span class="mr-2">'.$arrData[$i]['observacion'].'</span><br>';
-                                        }
-                                    $htmlOptions .='
-                                        <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
-                                        <a href="'.base_url().'fpdf/despacho.php" target="_blank" style="color: blue">GENERAR PDF</a>
-                                    </div>
+                                }
+                                $htmlOptions .='
+                                </div>
+                                <div class="timeline-footer">
+                                    ';
+                                    if($arrData[$i]['observacion'] != ""){
+                                        $htmlOptions .='<strong class="mr-1">OBSERVACION :</strong><span class="mr-2">'.$arrData[$i]['observacion'].'</span><br>';
+                                    }
+                                $htmlOptions .='
+                                    <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
+                                    <a href="'.base_url().'fpdf/despacho.php" target="_blank" style="color: blue">GENERAR PDF</a>
                                 </div>
                             </div>
-                        <div>
-                            <i class="fas fa-bus-alt"></i>
                         </div>
+                    <div>
+                        <i class="fas fa-bus-alt"></i>
                     </div>
-                        ';
+                </div>';
             }
         }
         echo $htmlOptions;
@@ -368,24 +362,17 @@ class Orden extends Controllers{
         $infoDesp = (file_exists('./data/infoDesp.txt') ? unlink('./data/infoDesp.txt') : fopen("./data/infoDesp.txt", "w"));
         $infoDesp = fopen("./data/infoDesp.txt", "a");
         fwrite($infoDesp,$request['id_despacho'].';');//0
-
         fwrite($infoDesp,$request['id_unidad'].';');//1
         fwrite($infoDesp,$request['fecha_despacho'].';');//2
         fwrite($infoDesp,$request['modelo_unidad'].';');//3
         fwrite($infoDesp,$request['marca_unidad'].';');//4
         fwrite($infoDesp,$request['tipo_combustible'].';');//5
         fwrite($infoDesp,$request['transmision'].';');//6
-
         fwrite($infoDesp,$request['mecanico'].';');//7
         fwrite($infoDesp,$request['operador'].';');//8
         fwrite($infoDesp,$request['despachador'].';');//9  
-
         fwrite($infoDesp,$request['observacion'].';');//10
         fwrite($infoDesp,$request['user_nombres'].';');//11
-
-        // fwrite($infoDesp,$request['vim_unidad'].';');
-        // fwrite($infoDesp,$request['fecha_creacion'].';');
-        // contenido despacho tabla
         $artDesp = (file_exists('./data/reporteDesp.txt') ? unlink('./data/reporteDesp.txt') : fopen("./data/reporteDesp.txt", "w"));
         $artDesp = fopen("./data/reporteDesp.txt", "a");
         $arrDataDesp = $this->model->getListArtDesp($idCodDespacho);
@@ -395,7 +382,6 @@ class Orden extends Controllers{
                 .$arrDataDesp[$i]['producto'].';'
                 .$arrDataDesp[$i]['cant_despacho'].';'.PHP_EOL);
         }
-        
 		fclose($artDesp);
     }
     
