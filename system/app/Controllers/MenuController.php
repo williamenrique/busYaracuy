@@ -225,7 +225,7 @@ class Menu extends Controllers{
 		$id_menu = "";
 		$selectuser = $this->model->listaUser();
 		foreach ($selectuser as $key ) {
-			$request = $this->model->listaMenu($key['user_nick']);
+			$request = $this->model->menuUser($key['user_nick']);
 			$htmlOptions .= '<div class="col-md-4">
 								<div class="card">
 									<div class="card-header">

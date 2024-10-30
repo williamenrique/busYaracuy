@@ -14,7 +14,39 @@ class MenuModel extends Mysql {
 	public function menuUser(string $strNick){
 		$this->strNick = $strNick;
 		// $sql = "SELECT id_menu, nombre_menu,icono_menu, id_submenu, nombre_submenu, url,page_menu_open,page_link, page_link_activo   FROM  `v_carga_menu1` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
-		$sql = "SELECT * FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
+		//$sql = "SELECT * FROM  `v_carga_menu` WHERE login = '$this->strNick' ORDER BY nombre_menu asc";
+		$sql = "SELECT 
+		`a`.`user_nick` AS `login`,
+		`a`.`user_nombres` AS `nombres`,
+		`a`.`user_apellidos` AS `apellidos`,
+		`f`.`rol_id` AS `rol_id`,
+		`f`.`rol_name` AS `rol_name`,
+		`e`.`id_menu` AS `id_menu`,
+		`e`.`nombre_menu` AS `nombre_menu`,
+		`e`.`icono_menu` AS `icono_menu`,
+		`e`.`page_menu_open` AS `page_menu_open`,
+		`e`.`page_link` AS `page_link`,
+		`g`.`id_submenu` AS `id_submenu`,
+		`g`.`nombre_submenu` AS `nombre_submenu`,
+		`g`.`url` AS `url`,
+		`g`.`page_link_activo` AS `page_link_activo`
+	FROM
+		((((((`table_user` `a`
+		JOIN `table_user_rol` `b`)
+		JOIN `table_dep_submenu` `c`)
+		JOIN `table_menu_submenu` `d`)
+		JOIN `table_menu` `e`)
+		JOIN `table_roles` `f`)
+		JOIN `table_submenu` `g`)
+	WHERE
+		((`a`.`user_nick` = `b`.`user_nick`)
+			AND (`b`.`id_rol` = `f`.`rol_id`)
+			AND (`b`.`id_departamento` = `c`.`id_departamento`)
+			AND (`c`.`id_submenu` = `g`.`id_submenu`)
+			AND (`g`.`id_submenu` = `d`.`id_submenu`)
+			AND (`e`.`id_menu` = `d`.`id_menu`)
+			AND (`e`.`status` = 1)) 
+			AND `a`.`user_nick` = '$this->strNick' ORDER BY e.nombre_menu asc ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -44,7 +76,22 @@ class MenuModel extends Mysql {
 	}
 	public function getSubMenu(int $intIdMenu){
 		$this->intIdMenu = $intIdMenu;
-		$sql = "SELECT id_submenu, nombre_submenu FROM v_submenu WHERE id_menu = $this->intIdMenu";
+	//	$sql = "SELECT id_submenu, nombre_submenu FROM v_submenu WHERE id_menu = $this->intIdMenu";
+		$sql = "SELECT 
+				e.id_menu AS id_menu,
+				g.id_submenu AS id_submenu,
+				g.nombre_submenu AS nombre_submenu,
+				g.url AS url,
+				g.page_link_activo AS page_link_activo,
+				g.status AS status
+			FROM
+				((table_menu_submenu d
+				JOIN table_menu e)
+				JOIN table_submenu g)
+			WHERE
+				((g.id_submenu = d.id_submenu)
+				AND (e.id_menu = d.id_menu))
+				AND e.id_menu = $this->intIdMenu";
 		$request = $this->select_all($sql);
 		return $request;
 	}
