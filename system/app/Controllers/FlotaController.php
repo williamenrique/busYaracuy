@@ -155,7 +155,7 @@ class Flota extends Controllers{
 	public function unidad(){	
 		$data['page_tag'] = "FLOTA";
 		$data['page_title'] = "FL";
-		$data['page_name'] = "Flota";
+		$data['page_name'] = "Unidad";
 		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
 		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
 		$data['page_link_acitvo'] = "link-mantenimiento";// seleccionar el link en el momento dentro del desplegable
@@ -186,6 +186,7 @@ class Flota extends Controllers{
 					<div class="invoice p-3 mb-3">
 						<div class="row">
 							<div class="col-12">
+								<a href='.base_url().'flota/unidadEdit/?unidad='.$arrData['id_flota'].' title="EDITAR"><i class="fas fa-edit text-blue"></i></a>
 								<h5>'.$arrData['id_unidad'].' <small class="float-right">CREACION:'.$arrData["fecha_creacion"].'</small></h5>
 							</div>
 						</div>
@@ -252,6 +253,7 @@ class Flota extends Controllers{
 					<div class="invoice p-3 mb-3">
 						<div class="row">
 							<div class="col-12">
+								<a href='.base_url().'flota/unidadEdit/?unidad='.$arrDataH[0]['id_flota'].' title="EDITAR"><i class="fas fa-edit text-blue"></i></a>
 								<h5>'.$arrDataH[0]['id_unidad'].' <small class="float-right">CREACION:'.$arrDataH[0]["fecha_creacion"].'</small></h5>
 							</div>
 						</div>
@@ -438,6 +440,124 @@ class Flota extends Controllers{
 			}
 		}
 		echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+		die();
+	}
+	/*********
+	 * TODO:
+	 * //invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion de la vista ingresar mantenimiento 
+	 */
+	public function unidadEdit(){
+		$data['page_tag'] = "MANTENIMIENTO";
+		$data['page_title'] = "FL";
+		$data['page_name'] = "Unidad";
+		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-unidadEdit";// seleccionar el link en el momento dentro del desplegable
+		$data['page_functions'] = "function.flota.js";
+		$this->views->getViews($this, "unidadEdit", $data);
+	}
+
+	public function getUnidadEdit(int $idUnidad){
+		$arrData = $this->model->getUnidadEdit($idUnidad);
+		$htmlOptions = "";
+		$htmlOptions = '<div class="card">
+							<div class="card-body">
+								<form id="formUnidadEdit" autocomplete="off">
+									<input type="hidden" name="idUnidad" id="idUnidad" value="'.$arrData['id_flota'].'">
+									<div class="form-row align-items-center">
+										<div class="col-sm-2 my-1">
+											<label class="sr-only" for="inlineFormInputName">Id Unidad</label>
+											<input type="text" class="form-control" value="'.$arrData['id_unidad'].'"  placeholder="Id de unidad" id="txtIdUnidad" name="txtIdUnidad" readonly>
+										</div>
+										<div class="col-sm-2 my-1">
+											<label class="sr-only" for="inlineFormInputName">MARCA</label>
+											<input type="text" class="form-control" value="'.$arrData['marca_unidad'].'"  placeholder="MARCA" id="txtMarcaUnidad" name="txtMarcaUnidad" readonly>
+										</div>
+										<div class="col-sm-2 my-1">
+											<label class="sr-only" for="inlineFormInputName">MODELO</label>
+											<input type="text" class="form-control" value="'.$arrData['modelo_unidad'].'"  placeholder="MODELO" id="txtModeloUnidad" name="txtModeloUnidad" readonly>
+										</div>
+										<div class="col-sm-3 my-1">
+											<label class="sr-only" for="inlineFormInputName">Vim Unidad</label>
+											<input type="text" class="form-control" value="'.$arrData['vim_unidad'].'"  placeholder="Vim Unidad" id="txtVimUnidad" name="txtVimUnidad" readonly>
+										</div>
+										<div class="col-sm-2 my-1">
+											<label class="sr-only" for="inlineFormInputName">Fecha Unidad</label> 
+											<input type="text" class="form-control" value="'.$arrData['fecha_creacion'].'"  placeholder="Fecha Unidad" id="txtFechaUnidad" name="txtFechaUnidad" readonly>
+										</div>
+										<div class="col-sm-2 my-1">
+											<label class="sr-only" for="inlineFormInputName">Capacidad</label>
+											<input type="text" class="form-control" value="'.$arrData['cap_pasajero'].'"  placeholder="Capacidad" id="txtCapacidad" name="txtCapacidad" onkeypress="return soloNumeros(event);">
+										</div>
+										<div class="col-auto my-1">';
+							if($arrData['transmision'] == "SINCRONICO"){
+							$htmlOptions .=	'
+											<input type="radio" class="btn-check" name="optionTransmision" id="sincronico" value="SINCRONICO" autocomplete="off" checked>
+											<label class="btn" for="sincronico">SINCRONICO</label>
+											<input type="radio" class="btn-check" name="optionTransmision" id="automatico" value="AUTOMATICO" autocomplete="off">
+											<label class="btn" for="automatico">AUTOMATICO</label>
+											';
+										}else{
+							$htmlOptions .=	'
+											<input type="radio" class="btn-check" name="optionTransmision" id="sincronico" value="SINCRONICO" autocomplete="off" >
+											<label class="btn" for="sincronico">SINCRONICO</label>
+											<input type="radio" class="btn-check" name="optionTransmision" id="automatico" value="AUTOMATICO" autocomplete="off" checked>
+											<label class="btn" for="automatico">AUTOMATICO</label>
+											';
+										}
+							$htmlOptions .=	'
+										</div>
+										<div class="col-auto my-1">';
+							if($arrData['tipo_combustible'] == "DIESEL"){
+							$htmlOptions .=	'			
+											<input type="radio" class="btn-check" name="optionCombustible" id="gas" value="G.L.P" autocomplete="off" >
+											<label class="btn" for="gas">G.L.P</label>
+											<input type="radio" class="btn-check" name="optionCombustible" id="diesel" value="DIESEL" autocomplete="off" checked>
+											<label class="btn" for="diesel">DIESEL</label>
+										';
+									}else{
+							$htmlOptions .=	'			
+											<input type="radio" class="btn-check" name="optionCombustible" id="gas" value="G.L.P" autocomplete="off" checked>
+											<label class="btn" for="gas">G.L.P</label>
+											<input type="radio" class="btn-check" name="optionCombustible" id="diesel" value="DIESEL" autocomplete="off" >
+											<label class="btn" for="diesel">DIESEL</label>
+										';
+									}
+							$htmlOptions .=	'
+										</div>
+										<div class="col-auto">
+											<button type="button" id="btnUpdateUnd" onclick="fntUpdateUnd()" class="btn btn-primary btn-sm ml-3"> <i
+												class="fas fa-plus"></i><span id="btnText">ACTUALIZAR</span>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>';
+		echo $htmlOptions;
+		die();
+	}
+	// obtener los datos de la vista y enviarlos al modelo para la actualizacion
+	public function updateUnidad(){
+		if($_POST){
+			$idUnidad= intval($_POST['idUnidad']);// 
+			$txtIdUnidad= $_POST['txtIdUnidad'];// BY-02
+			$txtMarcaUnidad= $_POST['txtMarcaUnidad'];// YUTONG
+			$txtModeloUnidad= $_POST['txtModeloUnidad'];// ZK6896HGA
+			$txtVimUnidad= $_POST['txtVimUnidad'];// LZYTDGD6XE1000716
+			$txtFechaUnidad= $_POST['txtFechaUnidad'];// 2014
+			$txtCapacidad= $_POST['txtCapacidad'];// 25
+			$optionTransmision= $_POST['optionTransmision'];// 1
+			$optionCombustible= $_POST['optionCombustible'];// DIESEL
+			$request = $this->model->updateUnidad($idUnidad,$txtCapacidad,$optionTransmision,$optionCombustible);
+			if($request> 0){
+				$arrResponse = array('status'=> true,'msg' => 'Unidad actualizada');
+			}else{
+				$arrResponse = array('status'=> false,'msg' => 'Error al actualizar');
+			}
+			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+		}
 		die();
 	}
 }

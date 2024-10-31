@@ -312,33 +312,6 @@ function fntListOper() {
 		}
 	}
 }
-// obtener el valor del select al clicarlo de los operadores
-// if(document.getElementById('listOperador')){
-// 	var listOperador = document.getElementById('listOperador')
-// 	listOperador.addEventListener('change',
-// 	  function(){
-// 		var selectedOption = this.options[listOperador.selectedIndex]
-// 		let ajaxUrl = base_url + "Orden/getPersonal/" + selectedOption.value
-// 		//creamos el objeto para os navegadores
-// 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
-// 		//abrimos la conexion y enviamos los parametros para la peticion
-// 		request.open("GET", ajaxUrl, true)
-// 		request.send()
-// 		request.onreadystatechange = function () {
-// 			if (request.readyState == 4 && request.status == 200) {
-// 				//creamos el objeto de los datos obtenidos del controlador
-// 				var objData = JSON.parse(request.responseText)
-// 				//evaluamos
-// 				if(objData.status){
-// 					document.querySelector("#operador").innerHTML = objData.data.personal_nombre
-// 					document.querySelector("#txtOper").value = objData.data.personal_nombre
-// 				}else {
-// 					Swal.fire('error', objData.msg)
-// 				}
-// 			}
-// 		}
-// 	})
-// }
 // obtener lista de operadores
 function fntListMec() {
 	if (document.querySelector('#listMecanico')) {
@@ -359,33 +332,6 @@ function fntListMec() {
 		}
 	}
 }
-// obtener el valor del select al clicarlo de los mecanicos
-// if(document.getElementById('listMecanico')){
-// 	var listMecanico = document.getElementById('listMecanico')
-// 	listMecanico.addEventListener('change',
-// 	  function(){
-// 		var selectedOption = this.options[listMecanico.selectedIndex]
-// 		let ajaxUrl = base_url + "Orden/getPersonal/" + selectedOption.value
-// 		//creamos el objeto para os navegadores
-// 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
-// 		//abrimos la conexion y enviamos los parametros para la peticion
-// 		request.open("GET", ajaxUrl, true)
-// 		request.send()
-// 		request.onreadystatechange = function () {
-// 			if (request.readyState == 4 && request.status == 200) {
-// 				//creamos el objeto de los datos obtenidos del controlador
-// 				var objData = JSON.parse(request.responseText)
-// 				//evaluamos
-// 				if(objData.status){
-// 					document.querySelector("#mecanico").innerHTML = objData.data.personal_nombre
-// 					document.querySelector("#txtMec").value = objData.data.personal_nombre
-// 				}else {
-// 					Swal.fire('error', objData.msg)
-// 				}
-// 			}
-// 		}
-// 	})
-// }
 /**********si existe el select cargamos las unidades en los select**********/
 if (document.querySelector('#listUnidad')) {
 	let ajaxUrl = base_url + "Flota/getSelectUnidad"
@@ -423,7 +369,7 @@ if(document.querySelector('#formIngMantUnidad')){
 			//validamos la respuesta del servidor al enviar los datos
 			if (request.readyState == 4 && request.status == 200) {
 				//obtener el json y convertirlo a un objeto en javascript
-				var objData = JSON.parse(request.responseText)
+				let objData = JSON.parse(request.responseText)
 				//condionamos la respuesta del array del controlador
 				if (objData.status) {
 					formIngMantUnidad.reset()
@@ -468,6 +414,49 @@ function fntOutMant(idFlota){
 				// recargar la pagina
 			} else {
 				notifi(objData.msg, 'error')
+			}
+		}
+	}
+}
+/***************
+ * TODO: editar unidad
+ ***************/
+if(document.getElementById('idGetUnidadEdit')){
+	//obtener los datos de la unidad en mantenimiento
+	let idGetUnidadEdit = document.querySelector('#idGetUnidadEdit').value
+	//creamos el objeto para os navegadores
+	let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
+	let ajaxUrl = base_url + "Flota/getUnidadEdit/" + idGetUnidadEdit
+	//abrimos la conexion y enviamos los parametros para la peticion
+	request.open("GET", ajaxUrl, true)
+	request.send()
+	request.onreadystatechange = function () {
+		//todo va bien 
+		if (request.readyState == 4 && request.status == 200) {
+			//creamos el objeto de los datos obtenidos del controlador
+			document.querySelector('#boxUnidadEdit').innerHTML = request.responseText
+		}
+	}
+}
+// actualizar una unidad
+fntUpdateUnd = () =>{
+	let formUnidadEdit = document.getElementById('formUnidadEdit')
+	let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
+	let ajaxUrl = base_url + "Flota/updateUnidad"
+	//creamos un objeto del formulario con los datos haciendo referencia a formData
+	let formData = new FormData(formUnidadEdit)
+	request.open("POST", ajaxUrl, true)
+	request.send(formData)
+	request.onreadystatechange = function () {
+		//validamos la respuesta del servidor al enviar los datos
+		if (request.readyState == 4 && request.status == 200) {
+			//obtener el json y convertirlo a un objeto en javascript
+			let objData = JSON.parse(request.responseText)
+			//condionamos la respuesta del array del controlador
+			if(objData.status){
+				notifi(objData.msg,'info')
+			}else{
+				notifi(objData.msg,'error')
 			}
 		}
 	}

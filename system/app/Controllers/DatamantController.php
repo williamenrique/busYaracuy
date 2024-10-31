@@ -17,7 +17,7 @@ class Datamant extends Controllers{
 		//incluimos un arreglo que contendra toda la informacion que se enviara al home
 		$data['page_tag'] = "FLOTA";
 		$data['page_title'] = "TODA LA FLOTA";
-		$data['page_name'] = "data";
+		$data['page_name'] = "DATA ";
 		$data['page_link'] = "active-data";//activar el menu desplegable o link solo
 		$data['page_menu_open'] = "menu-open-data";//abrir el desplegable
 		$data['page_link_acitvo'] = "link-data";// seleccionar el link en el momento dentro del 

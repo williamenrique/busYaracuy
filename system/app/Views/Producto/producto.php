@@ -80,18 +80,6 @@
 											</div>
 											
 										</div>
-										<!-- <div class="form-row align-items-center">
-											<div class="col-sm-3 my-1">
-												<label class="sr-only" for="inlineFormInputName">TELEFONO</label>
-												<input type="text" class="form-control" placeholder="TELEFONO" id="txtTelefono" name="txtTelefono">
-											</div>
-											<div class="col-sm-3 my-1">
-												<label class="sr-only" for="inlineFormInputName">EMAIL</label>
-												<input type="text" class="form-control" placeholder="EMAIL" id="txtEmail" name="txtEmail">
-											</div>
-										</div>
-										<div class="col-auto my-1">
-										</div> -->
 										<button type="submit" id="btnActionForm" class="btn btn-primary btn-sm "> <i
 												class="fas fa-plus"></i><span id="btnText" class="ml-1">Agregar</span>
 										</button>
