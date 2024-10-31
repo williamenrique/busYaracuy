@@ -77,4 +77,39 @@ class Datamant extends Controllers{
 		$data['page_functions'] = "function.data.mant.js";
 		$this->views->getViews($this, "clean", $data);
 	}
+	/* TODO: escaner
+	//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+	*/
+	public function scaner(){
+		//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+		$data['page_tag'] = "CLEAN";
+		$data['page_title'] = "CLEAN";
+		$data['page_name'] = "Escaner";
+		$data['page_link'] = "active-data";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-data";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-scaner";// seleccionar el link en el momento dentro del 
+		$data['page_functions'] = "function.data.mant.js";
+		$this->views->getViews($this, "scaner", $data);
+	}
+
+	public function setScaner(){
+		$idUser = intval($_SESSION['idUser']); 
+        $idUnidad = intval($_POST['idUnidad']);
+        $strObsScaner = strtoupper($_POST['strObsScaner']);
+        $fechaScaner = $_POST['fechaScaner'];
+		if($idUnidad == '0' ||  $strObsScaner == "" || $fechaScaner == ""){
+			$arrResponse = array('status' => false, 'msg' => 'Debe llenar los campos');
+		}else{
+			$request = $this->model->setScaner($idUser,$idUnidad,$strObsScaner,$fechaScaner);
+			if($request > 0){
+				$arrResponse = array('status' => true, 'msg' => 'Registro exitoso');
+			}else{
+				$arrResponse = array('status' => false, 'msg' => 'Error al registrar');
+			}
+			echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+		}
+		die();
+	}
 }
