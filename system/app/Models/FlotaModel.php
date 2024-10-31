@@ -115,7 +115,7 @@ class FlotaModel extends Mysql {
 		$this->idFlota = $idFlota;
 		$sql = "SELECT f.*,  model.* , marca.* FROM table_flota f 
 				INNER JOIN table_modelo model ON model.id_modelo = f.id_modelo
-				INNER JOIN table_marca marca ON marca.id_marca = f.id_modelo 
+				INNER JOIN table_marca marca ON marca.id_marca = f.id_marca 
 				WHERE f.id_flota = $this->idFlota";
 		$request = $this->select($sql);
 		return $request;
@@ -159,7 +159,9 @@ class FlotaModel extends Mysql {
 	}
 	/***************** listar las unidades en mantenimiento no repetidas***********************/
 	public function selectFlotaMantenimiento(){
-		$sql = "SELECT f.*, um.* FROM table_unidad_mantenimiento um INNER JOIN table_flota f ON f.id_flota = um.id_flota WHERE um.status_mantenimiento = 1 ORDER BY um.fecha_entrada DESC";
+		$sql = "SELECT f.*, um.* FROM table_unidad_mantenimiento um 
+				INNER JOIN table_flota f ON f.id_flota = um.id_flota 
+				WHERE um.status_mantenimiento = 1 ORDER BY um.fecha_entrada DESC";
 		$request = $this->select_all($sql);
 		return $request;
 	}

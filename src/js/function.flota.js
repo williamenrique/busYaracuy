@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				{ 'data': 'id_unidad' },
 				{ 'data': 'marca_unidad' },
 				{ 'data': 'modelo_unidad' },
+				{ 'data': 'transmision' },
 				{ 'data': 'vim_unidad' },
 				{ 'data': 'fecha_creacion' },
 				{ 'data': 'tipo_combustible' },

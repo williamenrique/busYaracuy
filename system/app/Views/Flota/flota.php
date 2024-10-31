@@ -103,6 +103,7 @@
                                         <th>ID</th>
                                         <th>MARCA</th>
                                         <th>MODELO</th>
+                                        <th>TRANSMISION</th>
                                         <th>VIM</th>
                                         <th>FECHA</th>
                                         <th>TIPO</th>
@@ -115,6 +116,7 @@
                                         <th>ID</th>
                                         <th>MARCA</th>
                                         <th>MODELO</th>
+                                        <th>TRANSMISION</th>
                                         <th>VIM</th>
                                         <th>FECHA</th>
                                         <th>TIPO</th>

@@ -25,7 +25,6 @@ class Flota extends Controllers{
 	/********** listar todos las unidades para la tabla**********/
 	public function getFlota(){
 		$arrData = $this->model->selectFlota();
-	
 			//recorrer el arreglo para colocara el status
 			for ($i=0; $i < count($arrData) ; $i++) {
 				if($_SESSION['userData']['rol_id'] == 1 OR $_SESSION['userData']['rol_id'] == 2){
