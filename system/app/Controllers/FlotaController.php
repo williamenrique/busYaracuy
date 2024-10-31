@@ -22,7 +22,7 @@ class Flota extends Controllers{
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "flota", $data);
 	}
-	/**********funcion de listar todos las unidades para la tabla**********/
+	/********** listar todos las unidades para la tabla**********/
 	public function getFlota(){
 		$arrData = $this->model->selectFlota();
 	
@@ -69,7 +69,7 @@ class Flota extends Controllers{
 		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 		die();
 	}
-	/**********funcion de listar todos las marcas de unidades **********/
+	/********** listar todos las marcas de unidades **********/
 	public function getSelectMarca(){
 		$htmlOptions = "";
 		$arrData = $this->model->selectMarca();
@@ -81,7 +81,7 @@ class Flota extends Controllers{
 		echo $htmlOptions;
 		die();
 	}
-	/**********funcion de listar todos los modelos de unidades**********/
+	/********** listar todos los modelos de unidades **********/
 	public function getSelectModelo(){
 		$htmlOptions = "";
 		$arrData = $this->model->selectModelos();
@@ -93,7 +93,7 @@ class Flota extends Controllers{
 		echo $htmlOptions;
 		die();
 	}
-	/**********funcion de guardar unidad en flota**********/
+	/********** guardar unidad en flota **********/
 	public function setUnidad(){
 		//almacenar los datos en variables
 		// $intIdUnidad = intVal($_POST['idUnidad']);
@@ -122,7 +122,7 @@ class Flota extends Controllers{
 		echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
 		die();
 	}
-	/*************cambiar estado de la unidad***************/
+	/************* cambiar estado de la unidad ***************/
 	public function statusUnidad(){
 		if($_POST){
 			$idStatus = intval($_POST['idStatus']);
@@ -149,7 +149,8 @@ class Flota extends Controllers{
 		}
 		die();
 	}
-	/* //invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+	/* TODO: unidad 
+	//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
 		//incluimos un arreglo que contendra toda la informacion que se enviara al home
 	*/
 	public function unidad(){	
@@ -162,7 +163,7 @@ class Flota extends Controllers{
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "unidad", $data);
 	}
-	/************obtener informacion de la unidad y mostrarla en el timeline*********************/
+	/************ obtener informacion de la unidad y mostrarla en el timeline *********************/
 	public function getUnidad(int $idUnidad){
 		$idUnidad = intval($idUnidad);
 		if($idUnidad > 0){
@@ -318,7 +319,7 @@ class Flota extends Controllers{
 			die();
 		}
 	}
-	/************sacar unidad del mantenimiento*********************/
+	/************ sacar unidad del mantenimiento *********************/
 	public function outMantenimiento(int $idUnidad){
 		$idUnidad = intval($idUnidad);
 		$txtFechaSalida = $_POST['txtFechaSalida'];
@@ -339,7 +340,7 @@ class Flota extends Controllers{
 		die();
 	}
 	/*********
-	 * TODO:
+	 * TODO: ingreso a mantenimiento
 	 * //invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
 		//incluimos un arreglo que contendra toda la informacion de la vista ingresar mantenimiento 
 	 */
@@ -379,7 +380,7 @@ class Flota extends Controllers{
         echo $htmlOptions;
         die();
     }
-	/*********** funcion obtener unidades en mantenimiento para la tabla*****************/
+	/*********** obtener unidades en mantenimiento para la tabla *****************/
 	public function listUnidadMantenimiento(){
 		$arrData = $this->model->selectFlotaMantenimiento();
 		//provar que trae el array
@@ -400,7 +401,7 @@ class Flota extends Controllers{
 		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 		die();
 	}
-	/*************funcion de listar todos unidades para mantenimiento y cargarlo en el select******************/
+	/************* listar todos unidades para mantenimiento y cargarlo en el select ******************/
 	public function getSelectUnidad(){
 		$htmlOptions = "";
 		$arrData = $this->model->selectUnidad();
@@ -413,7 +414,7 @@ class Flota extends Controllers{
 		echo $htmlOptions;
 		die();
 	}
-	/***************funcion ingresar unidad a mantenimiento*****************/
+	/*************** ingresar unidad a mantenimiento *****************/
 	public function setIMantenimiento(){
 		$intidUnidad = $_POST['idUnidad'];
 		$srtListUnidad = $_POST['listUnidad'];
@@ -443,7 +444,7 @@ class Flota extends Controllers{
 		die();
 	}
 	/*********
-	 * TODO:
+	 * TODO: editar unidad
 	 * //invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
 		//incluimos un arreglo que contendra toda la informacion de la vista ingresar mantenimiento 
 	 */
@@ -457,9 +458,11 @@ class Flota extends Controllers{
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "unidadEdit", $data);
 	}
-
+	// obtener una tarjeta de una uniidad en especifico para ser editada
 	public function getUnidadEdit(int $idUnidad){
 		$arrData = $this->model->getUnidadEdit($idUnidad);
+		$arrDataModelo = $this->model->selectModelos();
+		$arrDataMarca = $this->model->selectMarca();
 		$htmlOptions = "";
 		$htmlOptions = '<div class="card">
 							<div class="card-body">
@@ -470,14 +473,27 @@ class Flota extends Controllers{
 											<label class="sr-only" for="inlineFormInputName">Id Unidad</label>
 											<input type="text" class="form-control" value="'.$arrData['id_unidad'].'"  placeholder="Id de unidad" id="txtIdUnidad" name="txtIdUnidad" readonly>
 										</div>
-										<div class="col-sm-2 my-1">
-											<label class="sr-only" for="inlineFormInputName">MARCA</label>
-											<input type="text" class="form-control" value="'.$arrData['marca_unidad'].'"  placeholder="MARCA" id="txtMarcaUnidad" name="txtMarcaUnidad" readonly>
+										<div class="col-sm-3 my-1">
+											<select id="listMarca" data-live-search="true" name="listMarca" class="form-control"
+												data-style="btn-outline-primary" data-size="5">';
+												$htmlOptions .= '<option value="'.$arrData['id_marca'].'" selected>'.$arrData['marca_unidad'].'</option>';
+									for ($i=0; $i < count($arrDataMarca); $i++) { 
+										$htmlOptions .= '<option value="'.$arrDataMarca[$i]['id_marca'].'">'.$arrDataMarca[$i]['marca_unidad'].'</option>';
+									}		
+						$htmlOptions .=	'	
+											</select>
 										</div>
-										<div class="col-sm-2 my-1">
-											<label class="sr-only" for="inlineFormInputName">MODELO</label>
-											<input type="text" class="form-control" value="'.$arrData['modelo_unidad'].'"  placeholder="MODELO" id="txtModeloUnidad" name="txtModeloUnidad" readonly>
+										<div class="col-sm-3 my-1">
+											<select id="listModelo" data-live-search="true" name="listModelo" class="form-control"
+												data-style="btn-outline-primary" data-size="5">';
+												$htmlOptions .= '<option value="'.$arrData['id_modelo'].'" selected>'.$arrData['modelo_unidad'].'</option>';
+									for ($j=0; $j < count($arrDataModelo); $j++) { 
+										$htmlOptions .= '<option value="'.$arrDataModelo[$j]['id_modelo'].'">'.$arrDataModelo[$j]['modelo_unidad'].'</option>';
+									}		
+						$htmlOptions .=	'	
+											</select>
 										</div>
+								
 										<div class="col-sm-3 my-1">
 											<label class="sr-only" for="inlineFormInputName">Vim Unidad</label>
 											<input type="text" class="form-control" value="'.$arrData['vim_unidad'].'"  placeholder="Vim Unidad" id="txtVimUnidad" name="txtVimUnidad" readonly>
@@ -543,14 +559,14 @@ class Flota extends Controllers{
 		if($_POST){
 			$idUnidad= intval($_POST['idUnidad']);// 
 			$txtIdUnidad= $_POST['txtIdUnidad'];// BY-02
-			$txtMarcaUnidad= $_POST['txtMarcaUnidad'];// YUTONG
-			$txtModeloUnidad= $_POST['txtModeloUnidad'];// ZK6896HGA
+			$txtMarcaUnidad= intval($_POST['listMarca']);// YUTONG
+			$txtModeloUnidad= intval($_POST['listModelo']);// ZK6896HGA
 			$txtVimUnidad= $_POST['txtVimUnidad'];// LZYTDGD6XE1000716
 			$txtFechaUnidad= $_POST['txtFechaUnidad'];// 2014
 			$txtCapacidad= $_POST['txtCapacidad'];// 25
 			$optionTransmision= $_POST['optionTransmision'];// 1
 			$optionCombustible= $_POST['optionCombustible'];// DIESEL
-			$request = $this->model->updateUnidad($idUnidad,$txtCapacidad,$optionTransmision,$optionCombustible);
+			$request = $this->model->updateUnidad($idUnidad,$txtMarcaUnidad,$txtModeloUnidad,$txtCapacidad,$optionTransmision,$optionCombustible);
 			if($request> 0){
 				$arrResponse = array('status'=> true,'msg' => 'Unidad actualizada');
 			}else{

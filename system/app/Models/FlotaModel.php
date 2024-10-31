@@ -20,6 +20,12 @@ class FlotaModel extends Mysql {
 		return $request;
 	}
     /**********funcion para traer todos los modelos**********/
+	public function selectMarca(){
+		$sql = "SELECT * FROM table_marca";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+    /**********funcion para traer todos los modelos**********/
 	public function selectModelos(){
 		$sql = "SELECT * FROM table_modelo";
 		$request = $this->select_all($sql);
@@ -177,24 +183,29 @@ class FlotaModel extends Mysql {
 		$request_insert = $this->insert($sql_insert,$arrData);//enviamos el query y el array de datos
 		return $request_insert;
 	}
+	/**********************
+	 *  EDITAR
+	***********************/
 	/********** una unidad por id para editar**********/
 	public function getUnidadEdit(int $idFlota){
 		$this->idFlota = $idFlota;
 		$sql = "SELECT f.*,  model.* , marca.* FROM table_flota f 
 				INNER JOIN table_modelo model ON model.id_modelo = f.id_modelo
-				INNER JOIN table_marca marca ON marca.id_marca = f.id_modelo 
+				INNER JOIN table_marca marca ON marca.id_marca = f.id_marca  
 				WHERE f.id_flota = $this->idFlota";
 		$request = $this->select($sql);
 		return $request;
 	}
 	/**********actualizar unidad por id para editar**********/
-	public function updateUnidad(int $intUnidad,string $strCapacidad,string $strTransmision,string $strCombustible){
+	public function updateUnidad(int $intUnidad,int $intMarcaUnidad,int $intModeloUnidad,string $strCapacidad,string $strTransmision,string $strCombustible){
 		$this->intUnidad = $intUnidad;
+		$this->intMarcaUnidad = $intMarcaUnidad;
+		$this->intModeloUnidad = $intModeloUnidad;
 		$this->strCapacidad = $strCapacidad;
 		$this->strTransmision = $strTransmision;
 		$this->strCombustible = $strCombustible;
-		$sql = "UPDATE table_flota SET cap_pasajero = ? , tipo_combustible = ? , transmision = ? WHERE id_flota = $this->intUnidad";
-		$arrData = array($this->strCapacidad,$this->strCombustible,$this->strTransmision);
+		$sql = "UPDATE table_flota SET id_marca = ?, id_modelo = ?, cap_pasajero = ? , tipo_combustible = ? , transmision = ? WHERE id_flota = $this->intUnidad";
+		$arrData = array($this->intMarcaUnidad,$this->intModeloUnidad,$this->strCapacidad,$this->strCombustible,$this->strTransmision);
 		$request = $this->update($sql,$arrData);
 		return $request;
 	}
