@@ -11,6 +11,7 @@
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="<?=  base_url()?>">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Usuario</a></li>
 						<li class="breadcrumb-item active"><?= $data['page_name']?></li>
 					</ol>
 				</div>

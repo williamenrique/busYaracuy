@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="<?= CSS ?>custom.css">
 	</head>
 
-	<body class="hold-transition sidebar-mini layout-fixed">
+	<body class="hold-transition sidebar-mini layout-fixed" onload="mueveReloj()">
 		<!-- Site wrapper -->
 		<div class="wrapper">
 			<!-- Navbar -->
@@ -84,7 +84,7 @@
 								alt="User Image">
 						</div>
 						<div class="info">
-							<a href="#" class="d-block"><?= $_SESSION['userData']['user_nombres']?></a>
+							<a href="<?= base_url()?>usuarios/perfil" class="d-block"><?= $_SESSION['userData']['user_nombres']?></a>
 							<a href="#" class="d-block" style="font-size: 10px"><?= $_SESSION['userData']['user_email']?></a>
 						</div>
 					</div>
@@ -101,111 +101,7 @@
 					</div>
 					<!-- Sidebar Menu -->
 					<nav class="mt-2">
-						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-							<!-- comienza el menu lateral -->
-							<li class="nav-item">
-								<a href="<?= base_url() ?>" class="nav-link active-home">
-									<i class="nav-icon fas fa-th"></i>
-									<p>INCIO</p>
-								</a>
-							</li>
-							<!-- enlaces combinados -->
-							<li class="nav-item menu-open-user">
-								<a href="#" class="nav-link active-user">
-									<i class="nav-icon fas fa-users"></i>
-									<p> PERSONAL
-										<i class="right fas fa-angle-left"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-								<?php if($_SESSION['userData']['departamento'] == 'INFORMATICA' OR $_SESSION['userData']['rol_id'] == '1'){?>
-									<li class="nav-item link-user">
-										<a href="<?= base_url()?>usuarios" class="nav-link usuarios">
-											<i class="far fa-circle nav-icon"></i>
-											<p>USUARIOS</p>
-										</a>
-									</li>
-								<?php }?>
-									<li class="nav-item link-personal">
-										<a href="<?= base_url()?>personal" class="nav-link">
-											<i class="far fa-circle nav-icon"></i>
-											<p>PERSONAL</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<!-- enlaces solos -->
-					<?php if($_SESSION['userData']['departamento'] == 'OPERACIONES' OR $_SESSION['userData']['id_departamento'] == '1'){?>
-							<li class="nav-item">
-								<a href="<?= base_url() ?>flota" class="nav-link active-flota">
-									<i class="nav-icon fas fa-bus"></i>
-									<p>FLOTA</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="<?= base_url()?>flota/ingresar_mant" class="nav-link active-ingresar_mant">
-									<i class="nav-icon fas fa-wrench"></i>
-									<p>MANTENIMIENTO</p>
-								</a>
-							</li>
-					<?php }?>
-					<?php if($_SESSION['userData']['departamento'] == 'ALMACEN' OR $_SESSION['userData']['id_departamento'] == '1'){?>
-							<li class="nav-item">
-								<a href="<?= base_url() ?>producto" class="nav-link active-producto">
-									<i class="nav-icon fab fa-product-hunt"></i>
-									<p>PRODUCTOS</p>
-								</a>
-							</li>
-							</li>
-					<?php if($_SESSION['userData']['user_rol'] == 1 OR $_SESSION['userData']['user_rol'] == 2){?>
-							<li class="nav-item">
-								<a href="<?= base_url() ?>proveedor" class="nav-link active-proveedor">
-									<i class="nav-icon fas fa-truck-moving"></i>
-									<p>PROVEEDOR</p>
-								</a>
-							</li>
-					<?php }?>
-							<li class="nav-item">
-								<a href="<?= base_url() ?>orden/despacho" class="nav-link active-despacho">
-									<i class="nav-icon fas fa-box-open"></i>
-									<p>DESPACHO</p>
-								</a>
-							</li>
-							
-							<li class="nav-item">
-								<a href="<?= base_url() ?>Orden/listaordenes" class="nav-link active-listOrden">
-									<i class="nav-icon far fa-list-alt"></i>
-									<p>LISTA DE ORDENES</p>
-								</a>
-							</li>
-							<!-- fin de los enlaces -->
-					<?php }?>
-							<!-- enlaces combinados -->
-					<?php if($_SESSION['userData']['id_departamento'] == '1'){?>
-							<li class="nav-item menu-open-data">
-								<a href="#" class="nav-link active-data">
-									<i class="nav-icon fas fa-database"></i>
-									<p>DATA
-										<i class="right fas fa-angle-left"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item link-clean">
-										<a href="<?= base_url()?>datamant/clean" class="nav-link">
-											<i class="far fa-circle nav-icon"></i>
-											<p>CLEAN</p>
-										</a>
-									</li>
-									<li class="nav-item link-data">
-										<a href="<?= base_url()?>datamant" class="nav-link">
-											<i class="far fa-circle nav-icon"></i>
-											<p>UNIDAD MANT</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-					<?php }?>
-						</ul>
+						<?php require_once 'aside.php'?>
 					</nav>
 					<!-- /.sidebar-menu -->
 				</div>

@@ -21,4 +21,118 @@ class Home extends Controllers{
 		$data['page_functions'] = "function.home.js";
 		$this->views->getViews($this, "home", $data);
 	}
+	public function getOperativo(){
+		$arrData = $this->model->getOperatividadEstadistica();
+		$htmlOptions = '';
+		$operativo = count($arrData);
+		$arrDataCount = $this->model->getUnidades();
+		$count = count($arrDataCount);
+		$porcentaje = "";
+		$htmlOptions .='<div class="row">';
+		for ($i=0; $i < count($arrData); $i++) { 
+			if($arrData[$i]['status_unidad'] ==  1){
+				$htmlOptions .= '
+						<div class="col-lg-3 col-6">
+					        <!-- small box -->
+					        <div class="small-box bg-success">
+								<div class="inner">
+									<h3>'.$arrData[$i]['cantUnd'].'</h3>
+									<p> <span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES<br> OPERATIVA</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-bag"></i>
+								</div>
+								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a> 
+							</div>
+    					</div>';
+			}
+			if($arrData[$i]['status_unidad'] ==  2){
+				$htmlOptions .= '
+						<div class="col-lg-3 col-6">
+					        <!-- small box -->
+					        <div class="small-box bg-warning">
+								<div class="inner">
+									<h3>'.$arrData[$i]['cantUnd'].'</h3>
+									<p><span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES MANTENIMIENTO</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-bag"></i>
+								</div>
+								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
+							</div>
+    					</div>';
+			}
+			if($arrData[$i]['status_unidad'] ==  3){
+				$htmlOptions .= '
+						<div class="col-lg-3 col-6">
+					        <!-- small box -->
+					        <div class="small-box bg-secondary">
+								<div class="inner">
+									<h3>'.$arrData[$i]['cantUnd'].'</h3>
+									<p> <span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES INOPERATIVAS</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-bag"></i>
+								</div>
+								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
+							</div>
+    					</div>';
+			}
+			if($arrData[$i]['status_unidad'] ==  0){
+				$htmlOptions .= '
+						<div class="col-lg-3 col-6">
+					        <!-- small box -->
+					        <div class="small-box bg-danger">
+								<div class="inner">
+									<h3>'.$arrData[$i]['cantUnd'].'</h3>
+									<p> <span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES DESINCORPORADAS</p>
+								</div>
+								<div class="icon">
+									<i class="ion ion-bag"></i>
+								</div>
+								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
+							</div>
+    					</div>';
+			}
+		}
+		$htmlOptions .= '</div>';
+		echo $htmlOptions;
+		die();
+	}
+	public function getOperatividad(){
+		$arrData = $this->model->getOperatividad();
+		$htmlOptions = '';
+		$inoperativo = count($arrData);
+		
+		$htmlOptions .= '<table class="table table-head-fixed text-nowrap">
+							<thead>
+							<tr>
+								<th scope="col">MODELOS</th>
+								<th scope="col">TRANSMISION</th>
+								<th scope="col">COMBUSTIBLE</th>
+								<th scope="col">CANTIDAD</th>
+								<th scope="col">OPERATIVO</th>
+								<th scope="col">INOPERATIVO</th>
+								<th scope="col">CTITICAS</th>
+							</tr>
+							</thead>
+							<tbody>
+								';
+					for ($i=0; $i < count($arrData); $i++) { 
+						$htmlOptions .= '<tr>
+								      <th scope="row">'.$arrData[$i]['MODELO'].'</th>
+								      <td>'.$arrData[$i]['TRANSMISION'].'</td>
+								      <td>'.$arrData[$i]['COMBUSTIBLE'].'</td>
+								      <td>'.$arrData[$i]['CANT'].'</td>
+								      <td>'.$arrData[$i]['OPERATIVO'].'</td>
+								      <td>'.$arrData[$i]['INOPERATIVO'].'</td>
+								      <td>'.$arrData[$i]['DESINCORPORADO'].'</td>
+								    </tr>';
+					}
+						'    
+							</tbody>
+						</table>';
+		echo $htmlOptions;
+		die();
+	}
 }

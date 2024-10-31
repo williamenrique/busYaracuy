@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="col-sm-3 my-1">
                                         <select class="custom-select" name="listMarcaUnidad" id="listMarcaUnidad">
-                                            <option selected>Marca Unidad</option>
+                                            <option selected>MARCA UNIDAD</option>
                                             <option value="1">YUTONG</option>
                                             <option value="2">INTERNATIONAL</option>
                                             <option value="3">FREITHLINE</option>
@@ -53,20 +53,32 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-3 my-1">
-                                        <label class="sr-only" for="inlineFormInputName">Vim Unidad</label>
-                                        <input type="text" class="form-control" placeholder="Vim Unidad" id="txtVimUnidad" name="txtVimUnidad">
+                                        <label class="sr-only" for="inlineFormInputName">VIM UNIDAD</label>
+                                        <input type="text" class="form-control" placeholder="VIM UNIDAD" id="txtVimUnidad" name="txtVimUnidad">
                                     </div>
                                     <div class="col-sm-3 my-1">
-                                        <label class="sr-only" for="inlineFormInputName">Fecha Unidad</label>
-                                        <input type="text" class="form-control" placeholder="Fecha Unidad ej: 2015" id="txtFechaUnidad" name="txtFechaUnidad">
+                                        <label class="sr-only" for="inlineFormInputName">FECHA UNIDAD</label>
+                                        <input type="text" class="form-control" placeholder="FECHA UNIDAD ej: 2015" id="txtFechaUnidad" name="txtFechaUnidad">
                                     </div>
                                     <div class="col-sm-3 my-1">
-                                        <label class="sr-only" for="inlineFormInputName">Capacidad</label>
-                                        <input type="text" class="form-control" placeholder="Capacidad" id="txtCapacidad" name="txtCapacidad" onkeypress="return soloNumeros(event);">
+                                        <label class="sr-only" for="inlineFormInputName">CAPACIDAD</label>
+                                        <input type="text" class="form-control" placeholder="CAPACIDAD" id="txtCapacidad" name="txtCapacidad" onkeypress="return soloNumeros(event);">
                                     </div>
-                                    <div class="col-sm-3 my-1">
-                                        <label class="sr-only" for="inlineFormInputName">Tipo Combustible</label>
-                                        <input type="text" class="form-control" placeholder="Tipo Combustible" id="txtTipoCombustible" name="txtTipoCombustible" onkeypress="return soloLetras(event);">
+                                    <div class="col-sm-2 my-1">
+                                        <select id="txtTipoCombustible" data-live-search="true" name="txtTipoCombustible" class="form-control"
+                                            data-style="btn-outline-primary" data-size="5">
+                                            <option value="0">COMBUSTIBLE</option>
+                                            <option value=">G.L.P">G.L.P</option>
+                                            <option value="DIESEL">DIESEL</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 my-1">
+                                        <select id="listTransmision" data-live-search="true" name="listTransmision" class="form-control"
+                                            data-style="btn-outline-primary" data-size="5">
+                                            <option value="0">TRANSMISION</option>
+                                            <option value="SINCRONICO">SINCRONICO</option>
+                                            <option value="AUTOMATICO">AUTOMATICO</option>
+                                        </select>
                                     </div>
                                     <div class="col-auto my-1">
                                         <button type="submit" id="btnActionForm" class="btn btn-primary btn-sm ml-3"> <i

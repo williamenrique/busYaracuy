@@ -32,7 +32,7 @@ if (document.querySelector("." + page_menu_open)) {
 <script src="<?= PLUGINS ?>js/vfs_fonts.js"></script>
 <script src="<?= PLUGINS ?>js/buttons.html5.min.js"></script>
 <script src="<?= PLUGINS ?>js/buttons.print.min.js"></script>
-<script src="<?= PLUGINS ?>js/buttons.colVis.min.js"></script>s
+<script src="<?= PLUGINS ?>js/buttons.colVis.min.js"></script>
 <script src="<?= PLUGINS ?>js/adminlte.js"></script>
 <script src="<?= JS ?>function.main.js"></script>
 <script src="<?= JS.$data['page_functions']?>"></script>

@@ -16,35 +16,55 @@ class Flota extends Controllers{
 		$data['page_tag'] = "FLOTA";
 		$data['page_title'] = "FL";
 		$data['page_name'] = "Flota";
-		$data['page_link'] = "active-flota";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
+		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
 		$data['page_link_acitvo'] = "link-flota";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "flota", $data);
 	}
-
 	/**********funcion de listar todos las unidades para la tabla**********/
 	public function getFlota(){
 		$arrData = $this->model->selectFlota();
-		//recorrer el arreglo para colocara el status
-		for ($i=0; $i < count($arrData) ; $i++) {
-			if ($arrData[$i]['status_unidad'] == 0) {
-				$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-danger" onClick="fntStatus(0,'.$arrData[$i]['id_flota'].')">Desincorporado</a>';
+	
+			//recorrer el arreglo para colocara el status
+			for ($i=0; $i < count($arrData) ; $i++) {
+				if($_SESSION['userData']['rol_id'] == 1 OR $_SESSION['userData']['rol_id'] == 2){
+
+					if ($arrData[$i]['status_unidad'] == 0) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-danger" onClick="fntStatus(0,'.$arrData[$i]['id_flota'].')">Desincorporado</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 1) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-success" onClick="fntStatus(1,'.$arrData[$i]['id_flota'].')">Operativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 2) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning">Mantenimiento</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 3) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-info" onClick="fntStatus(3,'.$arrData[$i]['id_flota'].')">Inoperativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 4) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning" onClick="fntStatus(4,'.$arrData[$i]['id_flota'].')">Critca</a>';
+					}
+				}else{
+					if ($arrData[$i]['status_unidad'] == 0) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-danger" >Desincorporado</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 1) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-success" >Operativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 2) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-warning">Mantenimiento</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 3) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-info" >Inoperativo</a>';
+					}
+					if ($arrData[$i]['status_unidad'] == 4) {
+						$arrData[$i]['status_unidad'] = '<a style="font-size: 15px;" class="badge badge-warning" ">Critca</a>';
+					}
+				}
+				$arrData[$i]['id_unidad'] ='<a href=flota/unidad/?unidad='.$arrData[$i]['id_flota'].' title="Ver">'.$arrData[$i]['id_unidad'].'</a>';
 			}
-			if ($arrData[$i]['status_unidad'] == 1) {
-				$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-success" onClick="fntStatus(1,'.$arrData[$i]['id_flota'].')">Operativo</a>';
-			}
-			if ($arrData[$i]['status_unidad'] == 2) {
-				$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning">Mantenimiento</a>';
-			}
-			if ($arrData[$i]['status_unidad'] == 3) {
-				$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-info" onClick="fntStatus(3,'.$arrData[$i]['id_flota'].')">Inoperativo</a>';
-			}
-			if ($arrData[$i]['status_unidad'] == 4) {
-				$arrData[$i]['status_unidad'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-warning" onClick="fntStatus(4,'.$arrData[$i]['id_flota'].')">Critca</a>';
-			}
-			$arrData[$i]['id_unidad'] ='<a href=flota/unidad/?unidad='.$arrData[$i]['id_flota'].' title="Ver">'.$arrData[$i]['id_unidad'].'</a>';
-		}
+		
 		//convertir el arreglo de datos en un formato json
 		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 		die();
@@ -80,14 +100,15 @@ class Flota extends Controllers{
 		$srtIdUnidad = $_POST["txtIdUnidad"];
 		$intMarcaUnidad = intval($_POST['listMarcaUnidad']);
 		$intModelo = intval($_POST["listModelo"]);
+		$strListTransmision = $_POST["listTransmision"];
 		$srtVim = strtoupper($_POST["txtVimUnidad"]);
 		$srtFechaUnidad = $_POST["txtFechaUnidad"];
 		$srtCapacidad = $_POST["txtCapacidad"];
 		$srtTipoCombustible = strtoupper($_POST["txtTipoCombustible"]);
-		if($srtIdUnidad == "" || $intMarcaUnidad == "" || $intModelo == "" || $srtVim == "" || $srtFechaUnidad == "" || $srtCapacidad == "" || $srtTipoCombustible == ""){
+		if($srtIdUnidad == "" || $intMarcaUnidad == "" || $intModelo == "" || $strListTransmision =="0" || $srtVim == "" || $srtFechaUnidad == "" || $srtCapacidad == "" || $srtTipoCombustible == "0"){
 			$arrResponse = array('status'=> false,'msg' => 'Debe llenar los campos'); 
 		}else{
-			$request_unidad = $this->model->insertUnidad($srtIdUnidad,$intMarcaUnidad,$intModelo, $srtVim,$srtFechaUnidad,$srtCapacidad,$srtTipoCombustible);
+			$request_unidad = $this->model->insertUnidad($srtIdUnidad,$intMarcaUnidad,$intModelo, $srtVim,$srtFechaUnidad,$srtCapacidad,$srtTipoCombustible,$strListTransmision);
 			$option = 1;
 			if($request_unidad > 0){
 			/***************si es mayor a 0 indica que si se ejecuto el query***************/
@@ -134,10 +155,10 @@ class Flota extends Controllers{
 	public function unidad(){	
 		$data['page_tag'] = "FLOTA";
 		$data['page_title'] = "FL";
-		$data['page_name'] = "Unidad";
-		$data['page_link'] = "active-flota";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
-		$data['page_link_acitvo'] = "link-flota";// seleccionar el link en el momento dentro del desplegable
+		$data['page_name'] = "Flota";
+		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-mantenimiento";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "unidad", $data);
 	}
@@ -215,6 +236,7 @@ class Flota extends Controllers{
 								<label class="sr-only" for="inlineFormInputName">FECHA SALIDA</label>
 								<input type="date" class="form-control" placeholder="FECHA SALIDA" id="txtFechaSalida" name="txtFechaSalida">
 							</div>
+							
 							<button type="button" id="btnActionForm" onClick="fntOutMant('.$arrDataH[0]['id_flota'].')" class="btn btn-primary btn-sm">
 								</i><span id="btnText">Salir mantenimiento</span>
 							</button>
@@ -323,9 +345,9 @@ class Flota extends Controllers{
 		$data['page_tag'] = "MANTENIMIENTO";
 		$data['page_title'] = "FL";
 		$data['page_name'] = "Unidad";
-		$data['page_link'] = "active-ingresar_mant";//activar el menu desplegable o link solo
-		$data['page_menu_open'] = "menu-open-plantilla";//abrir el desplegable
-		$data['page_link_acitvo'] = "link-flota";// seleccionar el link en el momento dentro del desplegable
+		$data['page_link'] = "active-unidades";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-unidades";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-mantenimiento";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.flota.js";
 		$this->views->getViews($this, "ingresar_mant", $data);
 	}
