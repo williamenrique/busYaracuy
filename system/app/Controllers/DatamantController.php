@@ -84,8 +84,8 @@ class Datamant extends Controllers{
 	public function scaner(){
 		//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
 		//incluimos un arreglo que contendra toda la informacion que se enviara al home
-		$data['page_tag'] = "CLEAN";
-		$data['page_title'] = "CLEAN";
+		$data['page_tag'] = "ESCANER";
+		$data['page_title'] = "ESCANER";
 		$data['page_name'] = "Escaner";
 		$data['page_link'] = "active-data";//activar el menu desplegable o link solo
 		$data['page_menu_open'] = "menu-open-data";//abrir el desplegable
@@ -94,15 +94,29 @@ class Datamant extends Controllers{
 		$this->views->getViews($this, "scaner", $data);
 	}
 
+	/*************funcion de listar todos unidades para mantenimiento y cargarlo en el select******************/
+	public function getUnidades(){
+		$htmlOptions = "";
+		$arrData = $this->model->selectUnidad();
+		if(count($arrData) > 0){
+			$htmlOptions .= '<option value="0" selected>SELECCIONE UNIDAD</option>';
+			for ($i=0; $i < count($arrData); $i++) { 
+				$htmlOptions .= '<option value="'.$arrData[$i]['id_flota'].'">'.$arrData[$i]['id_unidad'].'</option>';
+			}
+		}
+		echo $htmlOptions;
+		die();
+	}
+	/************* insertar registro de scaner ******************/
 	public function setScaner(){
 		$idUser = intval($_SESSION['idUser']); 
-        $idUnidad = intval($_POST['idUnidad']);
-        $strObsScaner = strtoupper($_POST['strObsScaner']);
-        $fechaScaner = $_POST['fechaScaner'];
-		if($idUnidad == '0' ||  $strObsScaner == "" || $fechaScaner == ""){
+        $idUnidad = intval($_POST['unidadesList']);
+        $strObsScaner = strtoupper($_POST['txtObsScaner']);
+        $strFechaScaner = $_POST['txtFechaScaner'];
+		if($idUnidad == '0' ||  $strObsScaner == "" || $strFechaScaner == ""){
 			$arrResponse = array('status' => false, 'msg' => 'Debe llenar los campos');
 		}else{
-			$request = $this->model->setScaner($idUser,$idUnidad,$strObsScaner,$fechaScaner);
+			$request = $this->model->setScaner($idUser,$idUnidad,$strObsScaner,$strFechaScaner);
 			if($request > 0){
 				$arrResponse = array('status' => true, 'msg' => 'Registro exitoso');
 			}else{
@@ -112,4 +126,24 @@ class Datamant extends Controllers{
 		}
 		die();
 	}
+	/************* obtener registro de scaner ******************/
+	public function getRegScaner($strBuscar){
+		$htmlOptions = "";
+		$arrData = $this->model->searchReg($strBuscar);
+		if(count($arrData) > 0){
+			$htmlOptions .= '<ul>';
+			for ($i=0; $i < count($arrData); $i++) { 
+				$htmlOptions .= '<li>'.$arrData[$i]["id_unidad"].'     '.$arrData[$i]["fecha_scaner"].'      '.$arrData[$i]["obs_scaner"].'</li>';
+			}
+			$htmlOptions .= '</ul>';
+		}else{
+			$htmlOptions .= '<div class="alert alert-info alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+								<h5><i class="icon fas fa-info"></i> INFO</h5>
+								NO SE ENCONTRO REGISTRO.
+							</div>';
+		}
+		echo $htmlOptions;
+	}
+
 }

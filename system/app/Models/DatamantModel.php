@@ -23,6 +23,12 @@ class DatamantModel extends Mysql {
         $request = $this->delete($sql);
         return $request;
     }
+    // obtener unidades
+    public function selectUnidad(){
+        $sql = "SELECT id_flota, id_unidad FROM  table_flota";
+        $request = $this->select_all($sql);
+        return $request;
+    }
     // registrar scaner
     public function setScaner(int $idUser, int $idUnidad,string $strObsScaner,string $fechaScaner){
         $this->idUser = $idUser; 
@@ -32,6 +38,14 @@ class DatamantModel extends Mysql {
         $sql = "INSERT INTO table_registro_scaner (id_user, id_flota, obs_scaner,fecha_scaner,status_scaner) VALUES (?,?,?,?,?)";
         $arrData = array($this->idUser,$this->idUnidad,$this->strObsScaner,$this->fechaScaner,1);
         $request = $this->insert($sql, $arrData);
+        return $request;
+    }
+    public function searchReg(string $strSearch){
+        $this->strSearch = $strSearch;
+        $sql = "SELECT flota.id_unidad, scaner.*  FROM table_registro_scaner scaner
+                INNER JOIN table_flota flota ON flota.id_flota = scaner.id_flota
+                WHERE flota.id_flota LIKE  '%$this->strSearch%' OR scaner.fecha_scaner LIKE '%$this->strSearch%'";
+        $request = $this->select_all($sql);
         return $request;
     }
 
