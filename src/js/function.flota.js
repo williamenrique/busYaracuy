@@ -316,7 +316,7 @@ function fntListOper() {
 // obtener lista de operadores
 function fntListMec() {
 	if (document.querySelector('#listMecanico')) {
-		let ajaxUrl = base_url + "FLota/getListMec"
+		let ajaxUrl = base_url + "Flota/getListMec"
 		//creamos el objeto para os navegadores
 		var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 		//abrimos la conexion y enviamos los parametros para la peticion
