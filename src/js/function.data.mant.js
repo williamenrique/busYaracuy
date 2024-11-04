@@ -187,7 +187,24 @@ window.addEventListener('load', function () {
     buscarReg()
 },false)
 
-// funcion para generar el pdf del despacho para imprimir
+// funcion para generar el pdf delscaner
+fntImpScanere = () =>{
+    let strBuscar = document.getElementById('txtBuscar').value
+	// let ajaxUrl = base_url + "Datamant/reporteScaner/" + strBuscar
+    $.ajax({
+        type:'post',
+        cache:false,
+        url: base_url + "Datamant/reporteScaner/" + strBuscar,
+        // data:{dataTicket:  jObject},
+        success:function(server){
+            console.log(server)//cuando reciva la respuesta lo imprimo
+        },
+        error: function(xhr) {
+            notifi('Ocurrio un error', 'error')
+        }
+})
+}
+
 fntImpScaner = () =>{
     let strBuscar = document.getElementById('txtBuscar').value
 	let ajaxUrl = base_url + "Datamant/reporteScaner/" + strBuscar
@@ -198,14 +215,14 @@ fntImpScaner = () =>{
     request.send()
     request.onreadystatechange = function () {
         //todo va bien 
-        if (request.readyState == 4 && request.status == 200) {
-            var objData = JSON.parse(request.responseText)
-			//condionamos la respuesta del array del controlador
-			if (objData.status) { 
-				notifi(objData.msg,'info')
-			} else {
-				notifi(objData.msg,'error')
-			}
-        }
+        // if (request.readyState == 4 && request.status == 200) {
+        //     var objData = JSON.parse(request.responseText)
+		// 	//condionamos la respuesta del array del controlador
+		// 	if (objData.status) { 
+		// 		notifi(objData.msg,'info')
+		// 	} else {
+		// 		notifi(objData.msg,'error')
+		// 	}
+        // }
     }
 }

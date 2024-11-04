@@ -1,4 +1,5 @@
 <?php
+sleep(1);
 require "./scaner_plantilla.php";
 $pdf = new PDF("P", "mm", "letter");
 $scaner = $pdf->LoadData("../data/scaner.txt");
