@@ -186,3 +186,26 @@ window.addEventListener('load', function () {
     listUnidades()
     buscarReg()
 },false)
+
+// funcion para generar el pdf del despacho para imprimir
+fntImpScaner = () =>{
+    let strBuscar = document.getElementById('txtBuscar').value
+	let ajaxUrl = base_url + "Datamant/reporteScaner/" + strBuscar
+    //creamos el objeto para os navegadores
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
+    //abrimos la conexion y enviamos los parametros para la peticion
+    request.open("POST", ajaxUrl, true)
+    request.send()
+    request.onreadystatechange = function () {
+        //todo va bien 
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText)
+			//condionamos la respuesta del array del controlador
+			if (objData.status) { 
+				notifi(objData.msg,'info')
+			} else {
+				notifi(objData.msg,'error')
+			}
+        }
+    }
+}

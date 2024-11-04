@@ -44,7 +44,7 @@ class DatamantModel extends Mysql {
         $this->strSearch = $strSearch;
         $sql = "SELECT flota.id_unidad, scaner.*  FROM table_registro_scaner scaner
                 INNER JOIN table_flota flota ON flota.id_flota = scaner.id_flota
-                WHERE flota.id_flota LIKE  '%$this->strSearch%' OR scaner.fecha_scaner LIKE '%$this->strSearch%'";
+                WHERE flota.id_unidad LIKE  '%$this->strSearch%' OR scaner.fecha_scaner LIKE '%$this->strSearch%'ORDER BY scaner.fecha_scaner DESC";
         $request = $this->select_all($sql);
         return $request;
     }

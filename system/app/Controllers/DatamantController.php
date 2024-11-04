@@ -132,8 +132,9 @@ class Datamant extends Controllers{
 		$arrData = $this->model->searchReg($strBuscar);
 		if(count($arrData) > 0){
 			$htmlOptions .= '<ul>';
+			$htmlOptions .= '<a type="button" href="'.base_url().'fpdf/scaner.php" target="_blank" class="btn btn-sm btn-success mb-2" onclick="fntImpScaner()">PDF</a>';
 			for ($i=0; $i < count($arrData); $i++) { 
-				$htmlOptions .= '<li>'.$arrData[$i]["id_unidad"].'     '.$arrData[$i]["fecha_scaner"].'      '.$arrData[$i]["obs_scaner"].'</li>';
+				$htmlOptions .= '<li><strong class="mr-2 fw-bold">'.$arrData[$i]["id_unidad"].'</strong><span class="mr-2">'.formatear_fecha($arrData[$i]["fecha_scaner"]).'</span>'.$arrData[$i]["obs_scaner"].'</li>';
 			}
 			$htmlOptions .= '</ul>';
 		}else{
@@ -144,6 +145,19 @@ class Datamant extends Controllers{
 							</div>';
 		}
 		echo $htmlOptions;
+	}
+	// generar el pdf de la orden de despacho
+	public function reporteScaner(string $strBuscar){
+		$request = $this->model->searchReg($strBuscar);
+		$scaner = (file_exists('./data/scaner.txt') ? unlink('./data/scaner.txt') : fopen("./data/scaner.txt", "w"));
+		$scaner = fopen("./data/scaner.txt", "a");
+		for ($i=0; $i < count($request); $i++) {
+			fwrite($scaner, 
+				$request[$i]['id_unidad'].';'
+				.formatear_fecha($request[$i]['fecha_scaner']).';'
+				.$request[$i]['obs_scaner'].';'.PHP_EOL);
+		}
+		fclose($scaner);
 	}
 
 }

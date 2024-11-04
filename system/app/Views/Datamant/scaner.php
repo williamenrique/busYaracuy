@@ -57,7 +57,7 @@
 				<div class="col-12">
 					
 				</div>
-				<div class="col-md-8">
+				<div class="col-12">
 					<div class="card">
 						<div class="card-header ">
 							<div class="row align-items-center">
