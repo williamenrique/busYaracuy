@@ -526,7 +526,7 @@ CREATE TABLE `table_registro_scaner` (
   KEY `fk_table_registro_scaner_table_flota1_idx` (`id_flota`),
   CONSTRAINT `fk_table_registro_scaner_table_flota1` FOREIGN KEY (`id_flota`) REFERENCES `table_flota` (`id_flota`),
   CONSTRAINT `fk_table_registro_scaner_table_user1` FOREIGN KEY (`id_user`) REFERENCES `table_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -535,6 +535,7 @@ CREATE TABLE `table_registro_scaner` (
 
 LOCK TABLES `table_registro_scaner` WRITE;
 /*!40000 ALTER TABLE `table_registro_scaner` DISABLE KEYS */;
+INSERT INTO `table_registro_scaner` VALUES (1,5,99,'NO SE PUDO HACER CORTE DE CILINDRO','2024-09-27',1),(2,5,81,'FILTROS','2024-09-27',1),(3,5,91,'RIEL (YUCHAY) NO SE PUDO HACER CORTE DE CILINDRO','2024-09-27',1),(4,5,114,'ACTUADOR','2024-09-27',1),(5,5,98,'PRESIóN DE RIEL (YUCHAY)','2024-09-27',1),(6,5,143,'INYECTORES 2 Y 4','2024-09-27',1),(7,5,114,'PRESIóN D E RIEL Y SENSOR DE PRESIóN DE ACEITE','2024-09-30',1),(8,5,113,'INJECTORES 3','2024-09-30',1),(9,5,113,'INJECTORES 2 GOTEA','2024-10-01',1),(10,5,71,'INJECTOR 6 Y CONECTOR INJECTOR 2','2024-10-07',1),(11,5,77,'INJECTOR 1','2024-10-08',1),(12,5,113,'INJECTOR 2 O RAMAL','2024-10-08',1),(13,5,113,'INJECTORES 4,5 Y 6','2024-10-09',1),(14,5,64,'MAP Y SENSOR DE RIEL','2024-10-09',1),(15,5,64,'INJECTOR 2 Y 5','2024-10-22',1),(16,5,78,'INJECTOR 4','2024-10-28',1),(17,5,84,'BORRAR CODIGOS','2024-10-28',1),(18,5,113,'MAP INJECTOR 6','2024-10-28',1),(19,5,99,'INJECTOR 3','2024-10-30',1),(20,5,113,'INJECTOR 6','2024-10-31',1),(21,5,114,' ACTUADOR','2024-11-01',1);
 /*!40000 ALTER TABLE `table_registro_scaner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -878,4 +879,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-01 10:35:30
+-- Dump completed on 2024-11-04  8:12:50
