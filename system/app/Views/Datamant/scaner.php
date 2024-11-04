@@ -64,7 +64,7 @@
 								<div class="col-sm-6">
 									<h3 class="card-title">
 										<i class="fas fa-list-ul mr-2"></i>
-										REGISTRO SCANERr
+										REGISTRO SCANER
 									</h3>
 								</div>
 								

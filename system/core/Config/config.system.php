@@ -25,7 +25,7 @@ const LOAD = BASE_URL."system/core/Libraries/Load.php";
 //constantes de base de datos
 const DB_HOST = "localhost";
 const DB_USER = "root";
-const DB_PASS = "";
+const DB_PASS = "root";
 const DB_NAME = "almacen";
 const DB_CHARSET = "charset=utf8";
 
