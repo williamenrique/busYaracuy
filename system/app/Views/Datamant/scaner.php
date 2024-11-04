@@ -64,7 +64,7 @@
 								<div class="col-sm-6">
 									<h3 class="card-title">
 										<i class="fas fa-list-ul mr-2"></i>
-										REGISTRO SCANER
+										REGISTRO SCANERr
 									</h3>
 								</div>
 								
@@ -76,8 +76,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="card-body" id="boxScaner">
-							
+						<div class="card-body">
+							<div id="boxScaner"></div>
 						</div>
 					</div>
 				</div>

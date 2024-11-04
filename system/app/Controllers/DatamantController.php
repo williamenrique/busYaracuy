@@ -131,8 +131,8 @@ class Datamant extends Controllers{
 		$htmlOptions = "";
 		$arrData = $this->model->searchReg($strBuscar);
 		if(count($arrData) > 0){
-			$htmlOptions .= '<ul>';
 			$htmlOptions .= '<a type="button" href="'.base_url().'fpdf/scaner.php" target="_blank" class="btn btn-sm btn-success mb-2" onclick="fntImpScaner()">PDF</a>';
+			$htmlOptions .= '<ul style="position: relative;overflow: auto;max-height: 60vh;width: 100%">';
 			for ($i=0; $i < count($arrData); $i++) { 
 				$htmlOptions .= '<li><strong class="mr-2 fw-bold">'.$arrData[$i]["id_unidad"].'</strong><span class="mr-2">'.formatear_fecha($arrData[$i]["fecha_scaner"]).'</span>'.$arrData[$i]["obs_scaner"].'</li>';
 			}
