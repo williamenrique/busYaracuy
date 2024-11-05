@@ -163,7 +163,7 @@ const buscarReg = () =>{
         //validamos la respuesta del servidor al enviar los datos
         if (request.readyState == 4 && request.status == 200) {
             //obtener el json y convertirlo a un objeto en javascript
-            document.getElementById('boxScaner').innerHTML =  request.responseText  
+            document.getElementById('boxScaner').innerHTML =  request.responseText
         }
     }
 }
@@ -185,10 +185,11 @@ btnBuscar.addEventListener('click', function(){
 window.addEventListener('load', function () {
     listUnidades()
     buscarReg()
+    // xhr()
 },false)
 
 // funcion para generar el pdf delscaner
-fntImpScanere = () =>{
+fntImpScaner = () =>{
     let strBuscar = document.getElementById('txtBuscar').value
 	// let ajaxUrl = base_url + "Datamant/reporteScaner/" + strBuscar
     $.ajax({
@@ -205,7 +206,7 @@ fntImpScanere = () =>{
 })
 }
 
-fntImpScaner = () =>{
+fntImpScanere = () =>{
     let strBuscar = document.getElementById('txtBuscar').value
 	let ajaxUrl = base_url + "Datamant/reporteScaner/" + strBuscar
     //creamos el objeto para os navegadores

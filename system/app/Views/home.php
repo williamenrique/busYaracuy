@@ -20,7 +20,7 @@
 	<!-- Main content -->
 	<section class="content">
 		<div class="container-fluid">
-		<?php if($_SESSION['userData']['departamento'] == 'INFORMATICA' OR $_SESSION['userData']['departamento'] == 'ALMACEN'):?>
+		<?php if($_SESSION['userData']['departamento'] == 'ALMACEN'):?>
 			<section id="almacen">
 				<div class="row">
 					<div class="col-12">
@@ -51,8 +51,16 @@
 						<div class="panelFlota"></div>
 					</div>
 				</div>
+			</section>
+			<section>
 				<div class="row">
-					<div class="operatividad card-body table-responsive p-0"></div>
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body table-responsive p-0">
+								<div class="operatividad">fgf</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</section>
 		<?php endif;

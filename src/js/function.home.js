@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	getOperatividad()
 },false)
 
-function getOperativo(){
+const getOperativo = () =>{
 	let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 	let ajaxUrl = base_url + 'Home/getOperativo'
 	//prepara los datos por ajax preparando el dom
@@ -19,7 +19,13 @@ function getOperativo(){
 	}
 }
 
-function getOperatividad(){
+
+
+
+
+
+
+const getOperatividad = () =>{
 	let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 	let ajaxUrl = base_url + 'Home/getOperatividad'
 	//prepara los datos por ajax preparando el dom

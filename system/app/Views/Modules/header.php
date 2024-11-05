@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="<?= CSS ?>custom.css">
 	</head>
 
-	<body class="hold-transition sidebar-mini layout-fixed" onload="mueveReloj()">
+	<body class="hold-transition sidebar-mini layout-fixed" >
 		<!-- Site wrapper -->
 		<div class="wrapper">
 			<!-- Navbar -->

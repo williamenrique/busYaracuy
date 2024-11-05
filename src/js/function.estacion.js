@@ -359,6 +359,7 @@ window.addEventListener('load', () => {
 	cargarTasa()
 	fntCargarDetalle()
 	fntCierrePendiente()
+	mueveReloj()
 }, false)
 // mantener el reloj funcionando
 mueveReloj = (dateObject = new Date()) => {
