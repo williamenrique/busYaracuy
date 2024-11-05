@@ -205,7 +205,6 @@ fntImpScaner = () =>{
         }
 })
 }
-
 fntImpScanere = () =>{
     let strBuscar = document.getElementById('txtBuscar').value
 	let ajaxUrl = base_url + "Datamant/reporteScaner/" + strBuscar
