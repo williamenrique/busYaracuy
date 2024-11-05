@@ -46,6 +46,7 @@
 		<?php endif;
 		 if($_SESSION['userData']['departamento'] == 'INFORMATICA' OR $_SESSION['userData']['departamento'] == 'OPERACIONES'):?>
 			<section id="operaciones">
+				<a href="<?= base_url()?>fpdf/operatividad.php" class="btn btn-primary mb-2 " id="btnImp" target="_blank">IMPRIMIR</a>
 				<div class="row">
 					<div class="col-12">
 						<div class="panelFlota"></div>
@@ -57,7 +58,7 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body table-responsive p-0">
-								<div class="operatividad">fgf</div>
+								<div class="operatividad"></div>
 							</div>
 						</div>
 					</div>

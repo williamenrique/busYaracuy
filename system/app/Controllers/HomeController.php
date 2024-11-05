@@ -22,7 +22,7 @@ class Home extends Controllers{
 		$this->views->getViews($this, "home", $data);
 	}
 	public function getOperativo(){
-		$arrData = $this->model->getOperatividadEstadistica();
+		$arrData = $this->model->getOperativo();
 		$htmlOptions = '';
 		$operativo = count($arrData);
 		$arrDataCount = $this->model->getUnidades();
@@ -134,5 +134,30 @@ class Home extends Controllers{
 						</table>';
 		echo $htmlOptions;
 		die();
+	}
+	public function fntImpOperatividad(){
+		$requestCant = $this->model->cantUnid();
+		$infoCant = (file_exists('./data/infoOperatividad.txt') ? unlink('./data/infoOperatividad.txt') : fopen("./data/infoOperatividad.txt", "w"));
+        $infoCant = fopen("./data/infoOperatividad.txt", "a");
+        fwrite($infoCant,$requestCant['CANT'].';');//0
+        fwrite($infoCant,$requestCant['OPERATIVO'].';');//1
+        fwrite($infoCant,$requestCant['MANTENIMIENTO'].';');//2
+        fwrite($infoCant,$requestCant['INOPERATIVO'].';');//3
+        fwrite($infoCant,$requestCant['DESINCORPORADO'].';');//4
+		
+		$request = $this->model->getOperatividad();
+		$operatividad = (file_exists('./data/operatividad.txt') ? unlink('./data/operatividad.txt') : fopen("./data/operatividad.txt", "w"));
+        $operatividad = fopen("./data/operatividad.txt", "a");
+        for ($i=0; $i < count($request); $i++) {
+            fwrite($operatividad, 
+                $request[$i]['MODELO'].';'
+                .$request[$i]['TRANSMISION'].';'
+                .$request[$i]['COMBUSTIBLE'].';'
+                .$request[$i]['CANT'].';'
+                .$request[$i]['OPERATIVO'].';'
+                .$request[$i]['INOPERATIVO'].';'
+                .$request[$i]['DESINCORPORADO'].';'.PHP_EOL);
+        }
+		fclose($operatividad);
 	}
 }
