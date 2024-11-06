@@ -154,6 +154,7 @@ class OrdenModel extends Mysql {
 		return $request;
 	}
 	// obtener orden de despacho para la impersion y generar pdf
+	public function selectDepacho(int $strCod){
 		$this->strCod = $strCod;
 		$sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*  FROM table_flota flota
 				INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
