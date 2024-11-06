@@ -49,7 +49,6 @@ class Proveedor extends Controllers{
 	public function getProveedores(){
 		$arrData = $this->model->selectProveedores();
 		for ($i=0; $i < count($arrData) ; $i++) {
-			//$arrData[$i]['rol_name'] = '<a style="font-size: 15px; cursor:pointer" onclick="fntEditUser('.$arrData[$i]['user_id'].')">'.$arrData[$i]['rol_name'].'</a>';
 			if ($arrData[$i]['status_proveedor'] == 1) {
 				$arrData[$i]['status_proveedor'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-info" onClick="fntStatus(2,'.$arrData[$i]['id_proveedor'].')">Activo</a>';
 			}else{

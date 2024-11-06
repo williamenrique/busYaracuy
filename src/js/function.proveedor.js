@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /*********************************
  * funcion boton eliminar usuario
  ********************************/
-function fntDelProveedor(idProveedor) {
+const fntDelProveedor = (idProveedor) => {
 	//obtenemos el valor del atributo individual
 	var idProveedor = idProveedor
 	Swal.fire({
@@ -119,7 +119,6 @@ function fntDelProveedor(idProveedor) {
 			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
 			//enviamos
 			request.send(strData)
-			// request.send()
 			request.onreadystatechange = function () {
 				//comprobamos la peticion
 				if (request.readyState == 4 && request.status == 200) {
@@ -138,11 +137,9 @@ function fntDelProveedor(idProveedor) {
 								title: objData.msg
 							})
 						})
-						//Swal.fire('Proceso Exitoso!', objData.msg, 'success')
 						let tableProveedor = $('#tableProveedor').DataTable()
 						tableProveedor.ajax.reload(function () {
 							//cada vez que se haga una accion se recarga la tabla y los botones
-							// fntRolesUsuarios()
 						})
 					} else {
 						Swal.fire('Atencion!', objData.msg, 'error')
@@ -155,7 +152,7 @@ function fntDelProveedor(idProveedor) {
 /******************
  * cambiar status
  *****************/
-function fntStatus(status,idProveedor) {
+const fntStatus = (status,idProveedor) => {
 	//obtenemos el valor del atributo individual
 	var status = status
 	Swal.fire({
@@ -172,7 +169,6 @@ function fntStatus(status,idProveedor) {
 			let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 			let ajaxUrl = base_url + 'Proveedor/statusProveedor/'
 			//id del atributo lr que obtuvimos enla variable
-			// let strData = [{"status" :status,"idProveedor": idProveedor}]
 			let strData = new URLSearchParams("idProveedor="+idProveedor+"&status="+status)
 			request.open("POST", ajaxUrl, true)
 			//forma en como se enviara
@@ -199,9 +195,6 @@ function fntStatus(status,idProveedor) {
 									title: objData.msg
 								})
 							})
-							// if (boxUserHigh) {
-							// 	tableUserHigh.ajax.reload()
-							// }
 						} else {
 							$(function () {
 								var Toast = Swal.mixin({
@@ -216,7 +209,6 @@ function fntStatus(status,idProveedor) {
 								})
 							})
 						}
-						//Swal.fire('Proceso Exitoso!', objData.msg, 'success')
 						let tableProveedor = $('#tableProveedor').DataTable()
 						tableProveedor.ajax.reload()
 					} else {

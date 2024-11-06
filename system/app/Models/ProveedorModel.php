@@ -52,13 +52,6 @@ class ProveedorModel extends Mysql {
 		$sql = "UPDATE table_proveedor SET status_proveedor = ? WHERE id_proveedor = $this->intIdProveedor";
 		$arrData = array(0);
 		$request = $this->update($sql,$arrData);
-		//almacenar errores
-		// $pagina_error = $_SERVER['PHP_SELF']. addslashes($request);
-		// $usuario = $_SESSION['userData']['user_id'];
-
-		// $sqlLog = "INSERT INTO table_log(log_idUser,log_descripcion,log_comando) VALUES(?,?,?)";
-		// $arrDataLog = array($usuario,$pagina_error,$sql);
-		// $log = $this->insert($sqlLog,$arrDataLog);
 		return $request;
 	}
 	//eliminar proveedor/
