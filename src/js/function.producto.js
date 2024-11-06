@@ -132,7 +132,7 @@ window.addEventListener('load', function () {
     fntgetArticulos()
 },false)
 // obtener lista de modelos
-function fntEnlaceArt() {
+const fntEnlaceArt = () => {
 	if (document.querySelector('#listEnlace')) {
 		let ajaxUrl = base_url + "Producto/getSelectEnlace"
 		//creamos el objeto para os navegadores
@@ -152,7 +152,7 @@ function fntEnlaceArt() {
 	}
 }
 // obtener lista de proveedores
-function fntProveedores() {
+const fntProveedores = () => {
 	if (document.querySelector('#listProveedor')) {
 		let ajaxUrl = base_url + "Producto/getSelectProvee"
 		//creamos el objeto para os navegadores
@@ -172,7 +172,7 @@ function fntProveedores() {
 	}
 }
 // obtener lista de ubicacon en los estantes
-function fntUbicacion() {
+const fntUbicacion = () => {
 	if (document.querySelector('#listUbicacion')) {
 		let ajaxUrl = base_url + "Producto/getSelectUbic"
 		//creamos el objeto para os navegadores
@@ -184,15 +184,13 @@ function fntUbicacion() {
 			if (request.readyState == 4 && request.status == 200) {
 				//option obtenidos del controlador
 				document.querySelector('#listUbicacion').innerHTML = request.responseText
-				//seleccionando el primer option
-				// document.querySelector('#listUbicacion').value = 1
 				$("#listUbicacion").selectpicker('render')
 			}
 		}
 	}
 }
 // obtener listado de articulo para llenar el select
-function fntgetArticulos() {
+const fntgetArticulos = () =>{
 	let ajaxUrl = base_url + "Producto/getListProductos"
 	//creamos el objeto para os navegadores
 	var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
@@ -203,8 +201,6 @@ function fntgetArticulos() {
 		if (request.readyState == 4 && request.status == 200) {
 			//option obtenidos del controlador
 			document.querySelector('#listArticuloExistente').innerHTML = request.responseText
-			//seleccionando el primer option
-			// document.querySelector('#listArticuloExistente').value = 1
 			$("#listArticuloExistente").selectpicker('render')
 		}
 	}
@@ -240,7 +236,7 @@ if(document.getElementById('listArticuloExistente')){
 	})
 }
 // funcion boton eliminar producto
-function fntDelProduct (idProducto) {
+const fntDelProduct = (idProducto) => {
 	//obtenemos el valor del atributo individual
 	var idProducto = idProducto
 	Swal.fire({

@@ -13,16 +13,16 @@ class Producto extends Controllers{
 		//incluimos un arreglo que contendra toda la informacion que se enviara al home
 	 */
 	public function producto(){
-		$data['page_tag'] = "PRODUCTO";
+		$data['page_tag'] = "ARTICULO";
 		$data['page_title'] = "Plantilla";
-		$data['page_name'] = "Producto";
+		$data['page_name'] = "Articulo";
 		$data['page_link'] = "active-producto";//activar el menu desplegable o link solo
 		$data['page_menu_open'] = "menu-open-producto";//abrir el desplegable
 		$data['page_link_acitvo'] = "link-producto";// seleccionar el link en el momento dentro del desplegable
 		$data['page_functions'] = "function.producto.js";
 		$this->views->getViews($this, "producto", $data);
 	}
-	// obtener losmodelos y cargarlos en una lista y enlazarlo co el articulo entrante
+	// obtener los modelos y cargarlos en una lista y enlazarlo con el articulo entrante
 	public function getSelectEnlace(){
 		$htmlOptions = "";
 		$arrData = $this->model->selectEnlace();
@@ -37,7 +37,7 @@ class Producto extends Controllers{
 		echo $htmlOptions;
 		die();
 	}
-	// obtener losmodelos y cargarlos en una lista 
+	// obtener los modelos y cargarlos en una lista 
 	public function getSelectUbic(){
 		$htmlOptions = "";
 		$htmlOptions = "<option value='0'>UBICACION</option>";
@@ -171,7 +171,7 @@ class Producto extends Controllers{
 		}
 		die();
 	}
-	// eliminar usuario
+	// eliminar articulo
 	public function delProducto(){
 		if($_POST){
 			$idProducto = intval($_POST['idProducto']);

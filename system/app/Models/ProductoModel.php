@@ -5,19 +5,19 @@ class ProductoModel extends Mysql {
 	//heradar la clase padre 
 		parent::__construct();
 	}
-    /**********funcion para traer los modelos **********/
+    /********** funcion para traer los modelos **********/
 	public function selectEnlace(){
 		$sql = "SELECT * FROM table_enlace_producto";
 		$request = $this->select_all($sql);
 		return $request;
 	}
-    /**********funcion para traer los proveedores **********/
+    /********** funcion para traer los proveedores **********/
 	public function selectProvee(){
 		$sql = "SELECT * FROM table_proveedor WHERE status_proveedor = 1";
 		$request = $this->select_all($sql);
 		return $request;
 	}
-    /**********funcion para traer las ubicaciones para el almacenado de los articulos **********/
+    /********** funcion para traer las ubicaciones para el almacenado de los articulos **********/
 	public function selectUbic(){
 		$sql = "SELECT * FROM table_ubicacion";
 		$request = $this->select_all($sql);
@@ -96,13 +96,6 @@ class ProductoModel extends Mysql {
 		$sql = "UPDATE table_producto SET status_producto = ? WHERE id_producto = $this->intIdProducto";
 		$arrData = array(0);
 		$request = $this->update($sql,$arrData);
-		//almacenar errores
-		// $pagina_error = $_SERVER['PHP_SELF']. addslashes($request);
-		// $usuario = $_SESSION['userData']['user_id'];
-
-		// $sqlLog = "INSERT INTO table_log(log_idUser,log_descripcion,log_comando) VALUES(?,?,?)";
-		// $arrDataLog = array($usuario,$pagina_error,$sql);
-		// $log = $this->insert($sqlLog,$arrDataLog);
 		return $request;
 	}
 	
