@@ -64,8 +64,7 @@
 					</div>
 				</div>
 			</section>
-		<?php endif;
-		// ($_SESSION['userData']['departamento'] == 'INFORMATICA') ? dep(sessionUser($_SESSION['idUser'])): "";?>
+		<?php endif;?>
 		</div>
 	</section>
 	<!-- /.content -->

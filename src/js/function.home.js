@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	getOperativo()
 	getOperatividad()
 },false)
-
+// tarjetas de la flota
 const getOperativo = () =>{
 	let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 	let ajaxUrl = base_url + 'Home/getOperativo'
@@ -18,7 +18,7 @@ const getOperativo = () =>{
 		}
 	}
 }
-
+// mostrar la operatividad en tabla
 const getOperatividad = () =>{
 	let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
 	let ajaxUrl = base_url + 'Home/getOperatividad'
@@ -33,13 +33,13 @@ const getOperatividad = () =>{
 		}
 	}
 }
+// imprimir la operatividad
 let btnImp = document.getElementById('btnImp')
 btnImp.addEventListener('click', function(){
     $.ajax({
         type:'post',
         cache:false,
         url: base_url + "Home/fntImpOperatividad",
-        // data:{dataTicket:  jObject},
         success:function(server){
             console.log(server)//cuando reciva la respuesta lo imprimo
         },

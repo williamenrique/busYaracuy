@@ -21,89 +21,74 @@ class Home extends Controllers{
 		$data['page_functions'] = "function.home.js";
 		$this->views->getViews($this, "home", $data);
 	}
+	// tarjetas de estadistica de la flota
 	public function getOperativo(){
-		$arrData = $this->model->getOperativo();
+		$arrData = $this->model->cantUnid();
 		$htmlOptions = '';
-		$operativo = count($arrData);
-		$arrDataCount = $this->model->getUnidades();
-		$count = count($arrDataCount);
-		$porcentaje = "";
 		$htmlOptions .='<div class="row">';
-		for ($i=0; $i < count($arrData); $i++) { 
-			if($arrData[$i]['status_unidad'] ==  1){
-				$htmlOptions .= '
-						<div class="col-lg-3 col-6">
-					        <!-- small box -->
-					        <div class="small-box bg-success">
-								<div class="inner">
-									<h3>'.$arrData[$i]['cantUnd'].'</h3>
-									<p> <span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES<br> OPERATIVA</p>
+		$htmlOptions .= '
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-success">
+									<div class="inner">
+										<h3>'.$arrData['OPERATIVO'].'</h3>
+										<p> <span class="mr-2">'. round(intval($arrData['OPERATIVO']) / intval($arrData['CANT']) * 100 ).'%</span>UNIDADES<br> OPERATIVA</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-bag"></i>
+									</div>
+									<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a> 
 								</div>
-								<div class="icon">
-									<i class="ion ion-bag"></i>
+							</div>';
+		$htmlOptions .= '
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-warning">
+									<div class="inner">
+										<h3>'.$arrData['MANTENIMIENTO'].'</h3>
+										<p><span class="mr-2">'. round(intval($arrData['MANTENIMIENTO']) / intval($arrData['CANT']) * 100 ).'%</span>UNIDADES MANTENIMIENTO</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-bag"></i>
+									</div>
+									<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
 								</div>
-								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a> 
-							</div>
-    					</div>';
-			}
-			if($arrData[$i]['status_unidad'] ==  2){
-				$htmlOptions .= '
-						<div class="col-lg-3 col-6">
-					        <!-- small box -->
-					        <div class="small-box bg-warning">
-								<div class="inner">
-									<h3>'.$arrData[$i]['cantUnd'].'</h3>
-									<p><span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES MANTENIMIENTO</p>
+							</div>';
+		$htmlOptions .= '
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-secondary">
+									<div class="inner">
+										<h3>'.$arrData['INOPERATIVO'].'</h3>
+										<p> <span class="mr-2">'. round(intval($arrData['INOPERATIVO']) / intval($arrData['CANT']) * 100 ).'%</span>UNIDADES INOPERATIVAS</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-bag"></i>
+									</div>
+									<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
 								</div>
-								<div class="icon">
-									<i class="ion ion-bag"></i>
+							</div>';
+		$htmlOptions .= '
+							<div class="col-lg-3 col-6">
+								<!-- small box -->
+								<div class="small-box bg-danger">
+									<div class="inner">
+										<h3>'.$arrData['DESINCORPORADO'].'</h3>
+										<p> <span class="mr-2">'. round(intval($arrData['DESINCORPORADO']) / intval($arrData['CANT']) * 100 ).'%</span>UNIDADES DESINCORPORADAS</p>
+									</div>
+									<div class="icon">
+										<i class="ion ion-bag"></i>
+									</div>
+									<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
 								</div>
-								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
-							</div>
-    					</div>';
-			}
-			if($arrData[$i]['status_unidad'] ==  3){
-				$htmlOptions .= '
-						<div class="col-lg-3 col-6">
-					        <!-- small box -->
-					        <div class="small-box bg-secondary">
-								<div class="inner">
-									<h3>'.$arrData[$i]['cantUnd'].'</h3>
-									<p> <span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES INOPERATIVAS</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-bag"></i>
-								</div>
-								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
-							</div>
-    					</div>';
-			}
-			if($arrData[$i]['status_unidad'] ==  0){
-				$htmlOptions .= '
-						<div class="col-lg-3 col-6">
-					        <!-- small box -->
-					        <div class="small-box bg-danger">
-								<div class="inner">
-									<h3>'.$arrData[$i]['cantUnd'].'</h3>
-									<p> <span class="mr-2">'. round(intval($arrData[$i]['cantUnd']) / intval($count) * 100 ).'%</span>UNIDADES DESINCORPORADAS</p>
-								</div>
-								<div class="icon">
-									<i class="ion ion-bag"></i>
-								</div>
-								<a href="'.base_url().'flota" class="small-box-footer">Más informacion <i class="fas fa-arrow-circle-right"></i></a>
-							</div>
-    					</div>';
-			}
-		}
-		$htmlOptions .= '</div>';
+							</div>';
 		echo $htmlOptions;
-		die();
 	}
+	// tabla de operatividad
 	public function getOperatividad(){
 		$arrData = $this->model->getOperatividad();
 		$htmlOptions = '';
 		$inoperativo = count($arrData);
-		
 		$htmlOptions .= '<table class="table table-head-fixed text-nowrap">
 							<thead>
 							<tr>
@@ -135,6 +120,7 @@ class Home extends Controllers{
 		echo $htmlOptions;
 		die();
 	}
+	// imprimir la operatividad diaria
 	public function fntImpOperatividad(){
 		$requestCant = $this->model->cantUnid();
 		$infoCant = (file_exists('./data/infoOperatividad.txt') ? unlink('./data/infoOperatividad.txt') : fopen("./data/infoOperatividad.txt", "w"));
