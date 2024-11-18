@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "responsive": true, "lengthChange": true, "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print"]
     })
- 	// singresar un nuevo producto 
+ 	// ingresar un nuevo producto 
     if (document.querySelector('#formNewArticulo')) {
 		var formNewArticulo = document.querySelector('#formNewArticulo')
 		//agregar el evento al boton del formulario

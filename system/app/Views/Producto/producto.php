@@ -40,12 +40,11 @@
 									<!-- formulario nuevo articulo -->
 									<form id="formNewArticulo">
 										<div class="form-row align-items-center">
+
 											<div class="col-sm-3 my-1">
 												<label class="sr-only" for="inlineFormInputName">ARTICULO</label>
-												<input type="text" class="form-control" placeholder="NOMBRE ARTICULO" id="txtArticulo"
-													name="txtArticulo">
+												<input type="text" class="form-control" placeholder="NOMBRE ARTICULO" id="txtArticulo" name="txtArticulo">
 											</div>
-											
 											<div class="col-sm-6">
 												<input type="radio" class="btn-check" name="optionsArticulo" id="activo" value="1" autocomplete="off" checked>
 												<label class="btn" for="activo">ACTIVOS</label>
@@ -60,13 +59,23 @@
 													<!-- <option value="0">SELECCIONE MODELO</option> -->
 												</select>
 											</div>
+
+											<div class="col-sm-5">
+												<input type="radio" class="btn-check" name="optionsPresentacion" id="unidad" value="unidad" autocomplete="off" checked>
+												<label class="btn" for="unidad">UNIDAD</label>
+												<input type="radio" class="btn-check" name="optionsPresentacion" id="litro" value="litro" autocomplete="off">
+												<label class="btn" for="litro">LITROS</label>
+												<input type="radio" class="btn-check" name="optionsPresentacion" id="kilo" value="kilo" autocomplete="off">
+												<label class="btn" for="kilo">KILOS</label>
+												<input type="radio" class="btn-check" name="optionsPresentacion" id="juego" value="juego" autocomplete="off">
+												<label class="btn" for="juego">JUEGO</label>
+											</div>
 											<div class="col-sm-3 my-1">
 												<select id="listProveedor" data-live-search="true" name="listProveedor" class="form-control"
 													data-style="btn-outline-primary" data-size="5">
 													<!-- <option value="0">SELECCIONE PROVEEDOR</option> -->
 												</select>
 											</div>
-											
 											<div class="col-sm-3 my-1">
 												<select id="listUbicacion" data-live-search="true" name="listUbicacion" class="form-control"
 													data-style="btn-outline-primary" data-size="5">
@@ -74,11 +83,10 @@
 												</select>
 											</div>
 											
-											<div class="col-sm-3 my-1">
+											<div class="col-sm-2 my-1">
 												<label class="sr-only" for="inlineFormInputName">CANTIDAD</label>
 												<input type="text" class="form-control" placeholder="CANTIDAD" id="txtCantidad" name="txtCantidad">
 											</div>
-											
 										</div>
 										<button type="submit" id="btnActionForm" class="btn btn-primary btn-sm "> <i
 												class="fas fa-plus"></i><span id="btnText" class="ml-1">Agregar</span>

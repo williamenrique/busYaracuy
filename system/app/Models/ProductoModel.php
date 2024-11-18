@@ -24,12 +24,13 @@ class ProductoModel extends Mysql {
 		return $request;
 	}
     // insertar proveedor
-	public function insertProducto(string $srtArticlo,int $intModelo, int $intProveedor, int $intUbicacion, string $srtCant, int $intOptionArticulo){
+	public function insertProducto(string $srtArticlo,int $intModelo, int $intProveedor, int $intUbicacion, string $srtCant, int $intOptionArticulo, string $strPresentArticulo){
 		$this->srtArticlo = $srtArticlo;
 		$this->intProveedor = $intProveedor;
 		$this->intUbicacion = $intUbicacion;
 		$this->srtCant = $srtCant;
 		$this->intModelo = $intModelo;
+		$this->strPresentArticulo = $strPresentArticulo;
 		$this->intOptionArticulo = $intOptionArticulo;
 
 		$sql = "SELECT * FROM table_producto WHERE producto = '$this->srtArticlo'";
@@ -37,9 +38,9 @@ class ProductoModel extends Mysql {
 		//validar si ya existe si no hace el insert
 		if(empty($request)){
 			// $return = "vacio";
-			$sql = "INSERT INTO table_producto(id_enlace_producto,id_ubicacion,producto,tag_producto,status_producto) 
-				VALUES (?,?,?,?,?)";
-			$arrData = array($this->intModelo,$this->intUbicacion,$this->srtArticlo,$this->intOptionArticulo,1);
+			$sql = "INSERT INTO table_producto(id_enlace_producto,id_ubicacion,producto,tag_producto,present_producto,status_producto) 
+				VALUES (?,?,?,?,?,?)";
+			$arrData = array($this->intModelo,$this->intUbicacion,$this->srtArticlo,$this->intOptionArticulo,$this->strPresentArticulo,1);
 			$request_insert = $this->insert($sql,$arrData);//enviamos el query y el array de datos 
 			$return = $request_insert;//retorna el id insertado
 			if($return > 0){

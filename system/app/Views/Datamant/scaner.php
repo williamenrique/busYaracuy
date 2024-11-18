@@ -71,6 +71,7 @@
 								<div class="col-sm-6 d-flex">
 									<!-- <form id="formSearch" class="d-flex"> -->
 										<input type="text" id="txtBuscar" class="form-control input-group input-group-sm"  placeholder="BUSCAR" style="float: right">
+										<input type="date" id="txtDate" class="form-control input-group input-group-sm">
 										<button type="button" id="btnBuscar" class="btn btn-info">BUSCAR</button>
 									<!-- </form> -->
 								</div>

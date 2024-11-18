@@ -76,12 +76,13 @@ class Producto extends Controllers{
 			$intUbicacion = intval($_POST['listUbicacion']);
 			$intListEnlace = intval($_POST['listEnlace']);
 			$intOptionArticulo = intval($_POST['optionsArticulo']);
+			$strOptionPresentacion = strtoupper($_POST['optionsPresentacion']);
 			$srtCant = $_POST['txtCantidad'];
 			if(empty($_POST['txtArticulo']) || $_POST['listProveedor'] == "0"|| $_POST['listUbicacion'] == "0" ||
 			 empty($_POST['txtCantidad'])) {
 				$arrResponse = array("status" => false, "msg" => "Debe llenar los campos");
 			}else{
-				$request = $this->model->insertProducto($srtArticlo,$intListEnlace,$intProveedor,$intUbicacion,$srtCant,$intOptionArticulo);
+				$request = $this->model->insertProducto($srtArticlo,$intListEnlace,$intProveedor,$intUbicacion,$srtCant,$intOptionArticulo,$strOptionPresentacion);
 				if($request >= '1'){
 					$arrResponse = array('status'=> true,'msg' => 'Datos guardados correctamente '.$request); 
 				}else if($request == 0 ){
@@ -100,6 +101,7 @@ class Producto extends Controllers{
 		if(count($arrData) > 0){
 			for ($i=0; $i < count($arrData); $i++) { 
 				$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
+				$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
 				$arrData[$i]['opciones'] ='<div class="">
 											<button type="button" class="btn btn-danger btn-sm btnDelUser" onClick="fntDelProduct('.$arrData[$i]['id_producto'].')" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></button>
 										</div>';
@@ -107,10 +109,12 @@ class Producto extends Controllers{
 					$arrData[$i]['cant_producto'] = '<span class="badge bg-danger">SIN STOCK</span>';
 				}
 				else if(($arrData[$i]['cant_producto'] >= 1) && ($arrData[$i]['cant_producto'] <= 5)){
-					$arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
+					// $arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
+					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
 				}
 				else if($arrData[$i]['cant_producto'] > 5){
-					$arrData[$i]['cant_producto'] = '<span class="badge bg-info">'.$arrData[$i]['cant_producto'].'</span>';
+					// $arrData[$i]['cant_producto'] = '<span class="badge bg-info">'.$arrData[$i]['cant_producto'].'</span>';
+					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
 				}
 										
 			}
