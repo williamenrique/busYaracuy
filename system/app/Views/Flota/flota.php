@@ -41,9 +41,13 @@
                                         <select class="custom-select" name="listMarcaUnidad" id="listMarcaUnidad">
                                             <option selected>MARCA UNIDAD</option>
                                             <option value="1">YUTONG</option>
-                                            <option value="2">INTERNATIONAL</option>
+                                            <option value="2">BLUE BIRD</option>
                                             <option value="3">FREITHLINE</option>
                                             <option value="4">ENCAVA</option>
+                                            <option value="5">CHERY</option>
+                                            <option value="6">TOYOTA</option>
+                                            <option value="7">VARIOS</option>
+                                            <option value="8">JAG</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-3 my-1">
@@ -70,6 +74,7 @@
                                             <option value="0">COMBUSTIBLE</option>
                                             <option value=">G.L.P">G.L.P</option>
                                             <option value="DIESEL">DIESEL</option>
+                                            <option value="GASOLINA">GASOLINA</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-2 my-1">

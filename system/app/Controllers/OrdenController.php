@@ -29,7 +29,7 @@ class Orden extends Controllers{
 		if(count($arrData) > 0){
             $htmlOptions = "<option value='0'>UNIDAD</option>";
 			for ($i=0; $i < count($arrData); $i++) { 
-				$htmlOptions .= '<option value="'.$arrData[$i]['id_flota'].'">'.$arrData[$i]['id_unidad'].'</option>';
+				$htmlOptions .= '<option value="'.$arrData[$i]['id_flota'].'">'.$arrData[$i]['id_unidad'].'- '.$arrData[$i]['modelo_unidad'].'</option>';
 			}
 		}
 		echo $htmlOptions;
@@ -148,10 +148,11 @@ class Orden extends Controllers{
             $srtOper = $_POST['txtOper'];
             $srtDesp = $_POST['txtDesp'];
             $srtMec = $_POST['txtMec'];
-			if($_POST['listUnidad'] == "" || $_POST['listOperador'] == "0" || $_POST['listMecanico'] == "0" || $_POST['listDespachador'] == "0" || $_POST['listArticulo'] == "0" ||  empty($_POST['cod'])) {
-				$arrResponse = array("status" => false, "msg" => "Debe llenar los campos");
+            $srtDate = $_POST['txtdate'];
+			if($_POST['listUnidad'] == "" || $_POST['listOperador'] == "0" || $_POST['txtdate'] == " " || $_POST['listMecanico'] == "0" || $_POST['listDespachador'] == "0" || $_POST['listArticulo'] == "0" ||  empty($_POST['cod'])) {
+				$arrResponse = array("status" => false, "msg" => "Debe llenar los campos de la orden");
 			}else{
-				$request = $this->model->insertDespacho($intUnidad,$srtOper,$srtMec,$srtDesp,$_SESSION['idUser'],$srtObsDespacho);
+				$request = $this->model->insertDespacho($intUnidad,$srtOper,$srtMec,$srtDesp,$_SESSION['idUser'],$srtObsDespacho,$srtDate);
 				if($request >= '1'){
 					$arrResponse = array('status'=> true,'msg' => 'Datos guardados correctamente '); 
                     for($i=0; $i<count($_POST['cod']); $i++){

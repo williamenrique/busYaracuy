@@ -7,17 +7,22 @@ class OrdenModel extends Mysql {
 	}
     /****funcion para traer todas las unidades para el select ****/
 	public function selectListFlota(){
-		$sql = "SELECT * FROM table_flota WHERE status_unidad != 0 AND status_unidad != 2";
+		$sql = "SELECT flota.*, modelo.modelo_unidad FROM table_flota flota
+					INNER JOIN table_modelo modelo ON flota.id_modelo = modelo.id_modelo";
 		$request = $this->select_all($sql);
 		return $request;
 	}
     /****funcion para traer una unidad ****/
 	public function selectUnidad(int $intIdUnidad){
         $this->intIdUnidad = $intIdUnidad;
-		$sql = "SELECT f.*, mo.*, ma.* FROM table_flota f
+		/*$sql = "SELECT f.*, mo.*, ma.* FROM table_flota f
                         INNER JOIN table_marca ma ON f.id_marca = ma.id_marca
                         INNER JOIN table_modelo mo ON f.id_modelo = mo.id_modelo
-                        WHERE status_unidad != 0 AND status_unidad != 2 AND f.id_flota = $this->intIdUnidad";
+                        WHERE status_unidad != 0 AND status_unidad != 2 AND f.id_flota = $this->intIdUnidad";*/
+		$sql = "SELECT f.*, mo.*, ma.* FROM table_flota f
+						INNER JOIN table_marca ma ON f.id_marca = ma.id_marca
+						INNER JOIN table_modelo mo ON f.id_modelo = mo.id_modelo
+						WHERE f.id_flota = $this->intIdUnidad";
 		$request = $this->select($sql);
 		return $request;
 	}
@@ -62,16 +67,17 @@ class OrdenModel extends Mysql {
 		return $request;
 	}
 	/**** insertar despacho ****/
-	public function insertDespacho(int $intUnidad, string $srtOper, string $srtMec,string $srtDesp, int $intIdUser, string $srtObs){
+	public function insertDespacho(int $intUnidad, string $srtOper, string $srtMec,string $srtDesp, int $intIdUser, string $srtObs, string $strDate){
 		$this->intIdUser = $intIdUser;
 		$this->intUnidad = $intUnidad;
 		$this->srtOper = $srtOper;
 		$this->srtMec = $srtMec;
 		$this->srtDesp = $srtDesp;
 		$this->srtObs = $srtObs;
+		$this->strDate = $strDate;
 		$date = date('Y-m-d');
 		$queryInsert = "INSERT INTO table_despacho(id_flota,operador,mecanico, despachador,user_id,observacion,fecha_despacho) VALUES(?,?,?,?,?,?,?)";
-		$arrData = array($this->intUnidad,$this->srtOper,$this->srtMec,$this->srtDesp,$this->intIdUser,$this->srtObs,$date);
+		$arrData = array($this->intUnidad,$this->srtOper,$this->srtMec,$this->srtDesp,$this->intIdUser,$this->srtObs,$this->strDate);
 		$requestInsert = $this->insert($queryInsert,$arrData);
 		if($requestInsert > 0){
 

@@ -68,9 +68,13 @@
                                         <input type="hidden" class="form-control" id="cantDispo">
                                         <input type="text" class="form-control" placeholder="CANTIDAD" id="txtCant" name="txtCant" onkeyup="cantProducto()">
                                     </div>
-                                    <div class="col-sm-6 my-1">
+                                    <div class="col-sm-4 my-1">
                                         <label class="sr-only" for="inlineFormInputName">OBSERVACION</label>
                                         <input type="text" class="form-control" placeholder="OBSERVACION" id="txtObsDespacho" name="txtObsDespacho" onkeyup="cantProducto()">
+                                    </div>
+                                    <div class="col-sm-2 my-1">
+                                        <label class="sr-only" for="inlineFormInputName">FECHA</label>
+                                        <input type="date" class="form-control" placeholder="FECHA" id="txtdate" name="txtdate">
                                     </div>
                                     <div class="col-auto my-1">
                                         <button type="button" id="btnAgrega" class="btn btn-primary btn-sm"> <i
@@ -95,7 +99,8 @@
                                     <h4>
                                     <!-- <i class="fas fa-globe"></i> AdminLTE, Inc. -->
                                         ORDEN DE DESPACHO
-                                        <small class="float-right">FECHA: <span id="fechaDespacho"> 08/10/2024</span></small>
+                                        <small class="float-right">FECHA: <span id="fechaDespacho">00/00/0000</span></small>
+                                        <input type="hidden" name="strDate" id="strDate">
                                     </h4>
                                 </div>
                                 <!-- /.col -->

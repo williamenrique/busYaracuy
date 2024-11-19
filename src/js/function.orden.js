@@ -56,6 +56,23 @@ if(document.getElementById('listUnidad')){
 		}
 	})
 }
+// obtener fecha
+// if(document.getElementById('fechaDespacho')){
+// 	var f = new Date();
+// 	let fecha = (f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear())
+// 	document.getElementById('fechaDespacho').innerHTML = fecha
+// }
+if(document.getElementById('fechaDespacho')){
+	let txtdate = document.getElementById('txtdate')
+	txtdate.addEventListener('change',
+	function(){
+		let date = document.getElementById('txtdate').value
+		let strDate = document.getElementById('strDate').value = date
+		console.log(date)
+		document.getElementById('fechaDespacho').innerHTML = date
+	})
+}
+
 // obtener lista de operadores
 function fntListOper() {
 	if (document.querySelector('#listOperador')) {
@@ -333,12 +350,7 @@ function verificarClick(e){
 		tableDesp.deleteRow(tIndex)
 	}
 }
-// obtener fecha
-if(document.getElementById('fechaDespacho')){
-	var f = new Date();
-	let fecha = (f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear())
-	document.getElementById('fechaDespacho').innerHTML = fecha
-}
+
 // TODO:lista de ordenes en tarjetas
 if(document.getElementById('boxInvoce')){
 	//creamos el objeto para os navegadores
