@@ -53,7 +53,7 @@ class OrdenModel extends Mysql {
 	public function selectListDesp(){
 		$sql = "SELECT p.*, c.* FROM table_personal p
 						INNER JOIN  table_cargo c  ON p.personal_cargo = c.id_cargo 
-                        AND p.personal_status  <> 0 WHERE p.personal_cargo = 31 OR p.personal_cargo = 11  ORDER BY p.personal_cedula DESC ";
+                        AND p.personal_status  <> 0 WHERE p.personal_cargo = 31 OR p.personal_cargo = 11 OR p.personal_cargo = 39  ORDER BY p.personal_cedula DESC ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
