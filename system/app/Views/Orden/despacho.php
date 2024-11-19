@@ -111,10 +111,10 @@
                                     UNIDAD
                                     <address>
                                         <strong id="id_unidad"></strong><br>
-                                        <strong>MODEL :</strong> <span id="modelo_unidad"></span><br>
+                                        <strong>MODELO :</strong> <span id="modelo_unidad"></span><br>
                                         <strong>MARCA :</strong> <span id="marca_unidad"></span><br>
-                                        <strong>VIM :</strong> <span id="vim_unidad"></span><br>
-                                        <strong>CONBUSTIBLE :</strong> <span id="tipo_combustible"></span><br>
+                                        <strong>VIN :</strong> <span id="vim_unidad"></span><br>
+                                        <strong>COMBUSTIBLE :</strong> <span id="tipo_combustible"></span><br>
                                     </address>
                                 </div>
                                 <!-- /.col -->
