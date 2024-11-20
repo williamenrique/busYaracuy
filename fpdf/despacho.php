@@ -1,4 +1,5 @@
 <?php
+sleep(2);
 require "./despacho_plantilla.php";
 $pdf = new PDF("P", "mm", "letter");
 $artDesp = $pdf->LoadData("../data/reporteDesp.txt");

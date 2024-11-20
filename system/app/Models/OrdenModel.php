@@ -85,7 +85,7 @@ class OrdenModel extends Mysql {
 		return $requestInsert;
 	}
 	/**** insertar relacion despacho ****/
-	public function insertRDespacho(int $intIdDespacho, int $intIdArticulo, int $intCant){
+	public function insertRDespacho(int $intIdDespacho, int $intIdArticulo, string $intCant){
 		$this->intIdDespacho = $intIdDespacho;
 		$this->intIdArticulo = $intIdArticulo;
 		$this->intCant = $intCant;
@@ -96,7 +96,7 @@ class OrdenModel extends Mysql {
 		return $requestInsert;
 	}
 	/**** insertar relacion despacho ****/
-	public function updateCant(int $intIdArticulo, int $intCant){
+	public function updateCant(int $intIdArticulo, float $intCant){
 		$this->intIdArticulo = $intIdArticulo;
 		$this->intCant = $intCant;
 		$sqlSelect = "SELECT cant_producto FROM table_relacion_producto WHERE id_producto = $this->intIdArticulo";

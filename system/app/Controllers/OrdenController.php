@@ -114,7 +114,7 @@ class Orden extends Controllers{
         if(count($arrData) > 0){
             $htmlOptions = "<option value='0'>ARTICULO</option>";
             for ($i=0; $i < count($arrData); $i++) { 
-                $htmlOptions .= '<option value="'.$arrData[$i]['id_producto'].'">'.$arrData[$i]['producto'].' (DISP '.$arrData[$i]['cant_producto'].') '.$arrData[$i]['modelo_unidad'].'</option>';
+                $htmlOptions .= '<option value="'.$arrData[$i]['id_producto'].'">'.$arrData[$i]['producto'].' (DISP '.$arrData[$i]['cant_producto'].') </option>';
             }
         }else{
             $htmlOptions = "<option value='0'>NO HAY ARTICULOS</option>";
