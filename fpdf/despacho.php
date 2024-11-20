@@ -1,5 +1,4 @@
 <?php
-sleep(2);
 require "./despacho_plantilla.php";
 $pdf = new PDF("P", "mm", "letter");
 $artDesp = $pdf->LoadData("../data/reporteDesp.txt");
@@ -51,8 +50,8 @@ for($i=0; $i < count($header);$i++)
 foreach($artDesp as $row){
     $pdf->SetX($moverXtabla);
     $pdf->Cell($w[0],6,$row[0],1,0,'C',0);
-    $pdf->Cell($w[1],6,$row[1],'LRTB');
-    $pdf->Cell($w[2],6,$row[2],1,0,'C',0);
+    $pdf->Cell($w[1],6,$row[1].' '.$row[2],'LRTB');
+    $pdf->Cell($w[2],6,$row[3],1,0,'C',0);
     $pdf->Ln();
     $pdf->SetX($moverXtabla);
 }

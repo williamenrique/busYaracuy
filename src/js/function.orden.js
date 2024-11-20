@@ -330,7 +330,7 @@ if(document.getElementById('formDespacho')){
 					formDespacho.reset()
 					const btnGenerar = document.getElementById('btnGenerar');
 					btnGenerar.disabled = true
-					// location.reload()
+					location.reload()
 				} else {
 					notifi(objData.msg, 'error')
 				}

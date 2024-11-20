@@ -33,7 +33,7 @@
                         <form id="formPersonal">
                             <!-- <input type="hidden" name="idUnidad" id="idUnidad" value=""> -->
                             <div class="form-row align-items-center">
-                                <div class="col-sm-3 my-1">
+                                <div class="col-sm-2 my-1">
                                     <label class="sr-only" for="inlineFormInputName">Cedula</label>
                                     <input type="text" class="form-control" placeholder="Id personal" id="txtCedula" name="txtCedula">
                                 </div>
@@ -49,10 +49,18 @@
                                     <input type="text" class="form-control" placeholder="Nombre y apellido" id="txtNombre"
                                         name="txtNombre" onkeypress="return soloLetras(event);">
                                 </div>
-                                <div class="col-sm-3 my-1">
+                                <div class="col-sm-2 my-1">
                                     <label class="sr-only" for="inlineFormInputName">Telefono</label>
                                     <input type="text" class="form-control" placeholder="Ingrese N telefono" id="txtTelefono"
                                         name="txtTelefono" onkeypress="return soloNumeros(event);">
+                                </div>
+                                <div class="col-sm-2 my-1">
+                                    <select id="listTagPersonal" data-live-search="true" name="listTagPersonal" class="form-control"
+                                        data-style="btn-outline-primary" data-size="5">
+                                        <option value="0">SELECCIONE ENLACE</option>
+                                        <option value="1">INFORMATICA</option>
+                                        <option value="2">ALMACEN</option>
+                                    </select>
                                 </div>
                                 <div class="col-auto my-1">
                                     <button type="submit" id="btnActionForm" class="btn btn-primary btn-sm"> <i

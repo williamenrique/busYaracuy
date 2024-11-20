@@ -6,14 +6,15 @@ class PersonalModel extends Mysql {
 		parent::__construct();
 	}
     /**********funcion para insertar personal*********/
-	public function insertPersonal(string $intIdentificacion, string $strTxtNombre,int $intlistRolId,string $intTxtTlf,int $intListStatus){
+	public function insertPersonal(string $intIdentificacion, string $strTxtNombre,int $intlistRolId,string $intTxtTlf,int $intTagPersonal,int $intListStatus){
 		$this->intIdentificacion =  $intIdentificacion;
 		$this->strTxtNombre =  $strTxtNombre;
 		$this->intlistRolId =  $intlistRolId;
 		$this->intTxtTlf =  $intTxtTlf;
+		$this->intTagPersonal =  $intTagPersonal;
 		$this->intListStatus =  $intListStatus;
-		$queryInsert = "INSERT INTO table_personal(personal_cedula,personal_nombre,personal_cargo, personal_tlf,personal_status) VALUES(?,?,?,?,?)";
-		$arrData = array($this->intIdentificacion,$this->strTxtNombre,$this->intlistRolId,$this->intTxtTlf,$this->intListStatus);
+		$queryInsert = "INSERT INTO table_personal(personal_cedula,personal_nombre,personal_cargo, personal_tlf,personal_tag,personal_status) VALUES(?,?,?,?,?,?)";
+		$arrData = array($this->intIdentificacion,$this->strTxtNombre,$this->intlistRolId,$this->intTxtTlf,$this->intTagPersonal,$this->intListStatus);
 		$requestInsert = $this->insert($queryInsert,$arrData);
 		return $requestInsert;
 	}

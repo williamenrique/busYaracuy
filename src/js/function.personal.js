@@ -69,7 +69,7 @@ if (document.querySelector('#formPersonal')) {
 					//leemos el ststus de la respuesta
 					if (objData.status) {
 						notifi(objData.msg, 'success')
-						formPersonal.reset();
+						formPersonal.reset()
 						tablePersonal.ajax.reload()
 					} else {
 						notifi(objData.msg, 'error')

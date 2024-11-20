@@ -78,7 +78,9 @@ document.addEventListener('DOMContentLoaded', function () {
 					//leemos el ststus de la respuesta
 					if (objData.status) {
 						notifi(objData.msg, 'success')
-						formNewArticulo.reset()
+						// formNewArticulo.reset()
+						document.getElementById('txtCantidad').value = ""
+						document.getElementById('txtArticulo').value = ""
 						tableProducto.ajax.reload()
 					} else {
 						notifi(objData.msg, 'error')
