@@ -84,7 +84,7 @@ class Producto extends Controllers{
 			}else{
 				$request = $this->model->insertProducto($srtArticlo,$intListEnlace,$intProveedor,$intUbicacion,$srtCant,$intOptionArticulo,$strOptionPresentacion);
 				if($request >= '1'){
-					$arrResponse = array('status'=> true,'msg' => 'Datos guardados correctamente '.$request); 
+					$arrResponse = array('status'=> true,'msg' => 'Datos guardados correctamente (COD-'.$request.')'); 
 				}else if($request == 0 ){
 					$arrResponse = array('status'=> false,'msg' => "Articulo ya existente"); 
 				}

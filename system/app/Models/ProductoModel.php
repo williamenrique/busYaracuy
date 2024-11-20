@@ -33,7 +33,7 @@ class ProductoModel extends Mysql {
 		$this->strPresentArticulo = $strPresentArticulo;
 		$this->intOptionArticulo = $intOptionArticulo;
 
-		$sql = "SELECT * FROM table_producto WHERE producto = '$this->srtArticlo'";
+		$sql = "SELECT * FROM table_producto WHERE producto = '$this->srtArticlo' AND id_enlace_producto = $this->intModelo";
 		$request = $this->select_all($sql);
 		//validar si ya existe si no hace el insert
 		if(empty($request)){
