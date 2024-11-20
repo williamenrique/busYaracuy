@@ -103,6 +103,8 @@ class Orden extends Controllers{
             for ($i=0; $i < count($arrData); $i++) { 
                 $htmlOptions .= '<option value="'.$arrData[$i]['id_personal'].'">'.$arrData[$i]['personal_nombre'].'</option>';
             }
+        }else{
+            $htmlOptions .= '<option>NO DATA</option>';
         }
         echo $htmlOptions;
         die();
@@ -209,7 +211,7 @@ class Orden extends Controllers{
                             <span class="bg-red">'.$arrData[$i]['fecha_despacho'].'</span>
                         </div>
                         <div>
-                            <i class="far fa-clipboard bg-blue" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')"></i>
+                            <i class="far fa-clipboard bg-blue"></i>
                             <div class="timeline-item">
                                 <h3 class="time timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">UNIDAD: </a> '.$arrData[$i]['id_unidad'].'</h3>
                                 <h3 class="timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">COD :</a> '.$arrData[$i]['id_despacho'].'</h3>
@@ -233,7 +235,12 @@ class Orden extends Controllers{
                                                     <span class="mr-2"  data-bs-toggle="tooltip" data-bs-title="ARTICULO ELIMINADO"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
                                                 
                                                     <strong class="mr-1">CANT :</strong>
-                                                    <span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span
+                                                    <span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span>
+                                ';
+                                   if($arrDataDesp[$j]['present_producto'] == "LITRO"){
+                                        $htmlOptions .='    <span class="mr-2">LITROS</span><br>';
+                                                        };
+                                        $htmlOptions .='
                                                 </del>
                                                 <span class="mr-2">ARTICULO ELIMNADO</span><br>
                                             </li>
@@ -243,8 +250,13 @@ class Orden extends Controllers{
                                         <ul>
                                             <li>
                                                 <strong class="mr-1">COD-</strong><span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span><span class="mr-2"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
-                                                <strong class="mr-1">CANT :</strong><span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span><br>
-                                            </li>
+                                                <strong class="mr-1">CANT :</strong><span class="mr-1">'.$arrDataDesp[$j]['cant_despacho'].'</span>
+                                            ';
+                                                if($arrDataDesp[$j]['present_producto'] == "LITRO"){
+                                        $htmlOptions .='    <span class="mr-2">LITROS</span><br>';
+                                                        };
+                                        $htmlOptions .='
+                                                </li>
                                         </ul>';
                                     }
                                 }
@@ -257,7 +269,7 @@ class Orden extends Controllers{
                                     }
                                 $htmlOptions .='
                                     <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
-                                    <a href="'.base_url().'fpdf/despacho.php" target="_blank" style="color: blue">GENERAR PDF</a>
+                                    <a href="'.base_url().'fpdf/despacho.php" target="_blank" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')" style="color: blue">GENERAR PDF</a>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +326,12 @@ class Orden extends Controllers{
                                                             <span class="mr-2"  data-bs-toggle="tooltip" data-bs-title="ARTICULO ELIMINADO"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
                                                         
                                                             <strong class="mr-1">CANT :</strong>
-                                                            <span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span
+                                                            <span class="mr-1">'.$arrDataDesp[$j]['cant_despacho'].'</span>
+                                                        ';
+                                                        if($arrDataDesp[$j]['present_producto'] == "LITRO"){
+                                        $htmlOptions .='    <span class="mr-2">LITROS</span>';
+                                                        };
+                                        $htmlOptions .='
                                                         </del>
                                                         <span class="mr-2">ARTICULO ELIMNADO</span><br>
                                                     </li>
@@ -326,7 +343,12 @@ class Orden extends Controllers{
                                                 <ul>
                                                     <li>
                                                         <strong class="mr-1">COD-</strong><span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span><span class="mr-2"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
-                                                        <strong class="mr-1">CANT :</strong><span class="mr-2">'.$arrDataDesp[$j]['cant_despacho'].'</span><br>
+                                                        <strong class="mr-1">CANT :</strong><span class="mr-1">'.$arrDataDesp[$j]['cant_despacho'].'</span>
+                                                    ';
+                                                        if($arrDataDesp[$j]['present_producto'] == "LITRO"){
+                                        $htmlOptions .='    <span class="mr-2">LITROS</span><br>';
+                                                        };
+                                        $htmlOptions .='
                                                     </li>
                                                 </ul>
                                                     ';
