@@ -100,7 +100,7 @@ class Producto extends Controllers{
 		$arrData = $this->model->getProductos();
 		if(count($arrData) > 0){
 			for ($i=0; $i < count($arrData); $i++) { 
-				$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
+				if($arrData[$i]['cant_producto'] < 1)
 				$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
 				$arrData[$i]['opciones'] ='<div class="">
 											<button type="button" class="btn btn-danger btn-sm btnDelUser" onClick="fntDelProduct('.$arrData[$i]['id_producto'].')" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></button>
@@ -158,8 +158,8 @@ class Producto extends Controllers{
 	public function updateProducto(){
 		if($_POST){
 			$intIdProducto = intval($_POST['listArticuloExistente']);
-			$srtCantActual = intval($_POST['txtCantidadActual']);
-			$srtCantNueva = intval($_POST['txtCantidadMas']);
+			$srtCantActual = $_POST['txtCantidadActual'];
+			$srtCantNueva = $_POST['txtCantidadMas'];
 			if(empty($_POST['txtCantidadMas']) || $_POST['listArticuloExistente'] == "0" ) {
 				$arrResponse = array("status" => false, "msg" => "Debe llenar los campos");
 			}else{
