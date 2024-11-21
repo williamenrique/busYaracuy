@@ -116,7 +116,7 @@
 											</div>
 											<div class="col-sm-1 my-1">
 												<label class="sr-only" for="inlineFormInputName">CANTIDAD NUEVA</label>
-												<input type="text" class="form-control" placeholder="CANTIDAD" id="txtCantidadMas" name="txtCantidadMas" onkeypress="return soloNumeros(event);">
+												<input type="text" class="form-control" placeholder="CANTIDAD" id="txtCantidadMas" name="txtCantidadMas">
 											</div>
 											<div class="col-sm-3 my-1">
 												<label class="sr-only" for="inlineFormInputName">PROVEEDOR</label>

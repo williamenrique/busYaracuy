@@ -46,7 +46,7 @@ class OrdenModel extends Mysql {
 		$sql = "SELECT p.*, c.* FROM table_personal p
                         INNER JOIN  table_cargo c  ON p.personal_cargo = c.id_cargo 
                         AND p.personal_status  <> 0 WHERE (p.personal_cargo  
-		BETWEEN 26 AND 29) OR p.personal_cargo = 43  ORDER BY p.personal_cedula DESC";
+		BETWEEN 26 AND 29) OR p.personal_cargo = 32 OR p.personal_cargo = 43  ORDER BY p.personal_cedula DESC";
 		$request = $this->select_all($sql);
 		return $request;
 	}
