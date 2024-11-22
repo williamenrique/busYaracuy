@@ -159,5 +159,54 @@ class Datamant extends Controllers{
 		}
 		fclose($scaner);
 	}
+	/* TODO: escaner
+	//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+	*/
+	public function articulo(){
+		//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+		$data['page_tag'] = "ARTICULO";
+		$data['page_title'] = "ARTICULO";
+		$data['page_name'] = "Articulo";
+		$data['page_link'] = "active-data";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-data";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-articulo";// seleccionar el link en el momento dentro del 
+		$data['page_functions'] = "function.data.articulo.js";
+		$this->views->getViews($this, "articulo", $data);
+	}
+	public function getProductos(){
+		// <button type="button" class="btn btn-secondary btn-sm btnViewUser" onClick="fntViewProduct('.$arrData[$i]['id_producto'].')" title="Ver"><i class="far fa-eye" aria-hidden="true"></i></button>
+		$htmlOptions = "";
+		$arrData = $this->model->getProductos();
+		$arrDataU = $this->model->selectUbic();
+		if(count($arrData) > 0){
+			for ($i=0; $i < count($arrData); $i++) {
+				if($arrData[$i]['cant_producto'] < 1)
+					$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
+					$arrData[$i]['opciones'] ='<div class="">
+													<button type="button" class="btn btn-danger btn-sm btnDelUser" onClick="fntDelProduct('.$arrData[$i]['id_producto'].')" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></button>
+												</div>';
+				if($arrData[$i]['cant_producto'] == 0){
+					$arrData[$i]['cant_producto'] = '<span class="badge bg-danger">SIN STOCK</span>';
+				}
+				else if(($arrData[$i]['cant_producto'] >= 0) && ($arrData[$i]['cant_producto'] <= 1)){
+					// $arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
+					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'] * 1000 .' ML</span>';
+				}
+				else if($arrData[$i]['cant_producto'] > 1){
+					// $arrData[$i]['cant_producto'] = '<span class="badge bg-info">'.$arrData[$i]['cant_producto'].'</span>';
+					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
+				}
+				$arrData[$i]['producto'] = '<input type="text" style="border: none;" name="" id="" value="'.$arrData[$i]['producto'].'">';
+				// for ($j=0; $j < count($arrDataU); $j++) { 
+				// 	$arrDataU[$j]['ubicacion'] .= '<option value="'.$arrDataU[$j]['id_ubicacion'].'">'.$arrDataU[$j]['ubicacion'].'</option>';
+				// }
+			}
+		}
+		//convertir el arreglo de datos en un formato json
+		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+		die();
+	}
 
 }

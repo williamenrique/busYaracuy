@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "buttons": ["copy", "csv", "excel", "pdf", "print"]
         }).buttons().container().appendTo('#tableDataMant_wrapper .col-sm-6:eq(0)')
     }
+   
 })
 
 const fntDelReg = (idUnidadMantenimiento) => {

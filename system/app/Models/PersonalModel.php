@@ -13,9 +13,16 @@ class PersonalModel extends Mysql {
 		$this->intTxtTlf =  $intTxtTlf;
 		$this->intTagPersonal =  $intTagPersonal;
 		$this->intListStatus =  $intListStatus;
-		$queryInsert = "INSERT INTO table_personal(personal_cedula,personal_nombre,personal_cargo, personal_tlf,personal_tag,personal_status) VALUES(?,?,?,?,?,?)";
-		$arrData = array($this->intIdentificacion,$this->strTxtNombre,$this->intlistRolId,$this->intTxtTlf,$this->intTagPersonal,$this->intListStatus);
-		$requestInsert = $this->insert($queryInsert,$arrData);
+
+		$select = "SELECT * FROM table_personal WHERE personal_cedula = $this->intIdentificacion";
+		$requestSelect = $this->select($select);
+		if($requestSelect > 0){
+			$requestInsert = 1;
+		}else{
+			$queryInsert = "INSERT INTO table_personal(personal_cedula,personal_nombre,personal_cargo, personal_tlf,personal_tag,personal_status) VALUES(?,?,?,?,?,?)";
+			$arrData = array($this->intIdentificacion,$this->strTxtNombre,$this->intlistRolId,$this->intTxtTlf,$this->intTagPersonal,$this->intListStatus);
+			$requestInsert = $this->insert($queryInsert,$arrData);
+		}
 		return $requestInsert;
 	}
     /**********funcion para traer todo el personal**********/

@@ -32,6 +32,7 @@ class Personal extends Controllers{
 			// $intListStatus = intval($_POST['listStatus']);
 			$intlistRolId = intval($_POST['listCargo']);
 			$intTagPersonal = intval($_POST['listTagPersonal']);
+			
 			if(empty($_POST['txtCedula']) || empty($_POST['txtNombre'] ) ||	empty($_POST['txtTelefono']) || empty($_POST['listCargo'])) {
 				$arrResponse = array("status" => false, "msg" => "Debe llenar los campos");
 			}else{
@@ -39,10 +40,10 @@ class Personal extends Controllers{
 				//al generar el pass se envia al modelo
 				$requestUser = $this->model->insertPersonal($intIdentificacion, $strTxtNombre, $intlistRolId, $intTxtTlf,$intTagPersonal,1);
 				// evaluamos si ya existe
-				if($requestUser > 0){
+				if($requestUser > 1){
 					$arrResponse = array("status" => true, "msg" => "Ingresado correctamente");
 				}else{
-						$arrResponse = array("status" => false, "msg" => "Ocurrio un error");
+					$arrResponse = array("status" => false, "msg" => "Ocurrio un error");
 				}
 			}
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);

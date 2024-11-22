@@ -99,7 +99,7 @@ class Producto extends Controllers{
 		$htmlOptions = "";
 		$arrData = $this->model->getProductos();
 		if(count($arrData) > 0){
-			for ($i=0; $i < count($arrData); $i++) { 
+			for ($i=0; $i < count($arrData); $i++) {
 				if($arrData[$i]['cant_producto'] < 1)
 				$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
 				$arrData[$i]['opciones'] ='<div class="">
@@ -108,15 +108,15 @@ class Producto extends Controllers{
 				if($arrData[$i]['cant_producto'] == 0){
 					$arrData[$i]['cant_producto'] = '<span class="badge bg-danger">SIN STOCK</span>';
 				}
-				else if(($arrData[$i]['cant_producto'] >= 1) && ($arrData[$i]['cant_producto'] <= 5)){
+				else if(($arrData[$i]['cant_producto'] > 0) && ($arrData[$i]['cant_producto'] < 1)){
 					// $arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
-					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
+					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'] * 1000 .' ML</span>';
 				}
-				else if($arrData[$i]['cant_producto'] > 5){
+				else if($arrData[$i]['cant_producto'] >= 1){
 					// $arrData[$i]['cant_producto'] = '<span class="badge bg-info">'.$arrData[$i]['cant_producto'].'</span>';
 					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
 				}
-										
+
 			}
 		}
 		//convertir el arreglo de datos en un formato json

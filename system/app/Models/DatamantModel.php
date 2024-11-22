@@ -49,4 +49,23 @@ class DatamantModel extends Mysql {
         return $request;
     }
 
+    // modificar productos
+     // cargar todos los productos para mostrarlos en la tabla
+    public function getProductos(){
+        $sql = "SELECT  producto.*, proveedor.*, relacionP.*, ubicacion.*, enlace.enlace_producto FROM table_producto producto 
+                INNER JOIN table_relacion_producto relacionP ON  producto.id_producto = relacionP.id_producto
+                INNER JOIN table_proveedor proveedor ON proveedor.id_proveedor = relacionP.id_proveedor
+                INNER JOIN table_ubicacion ubicacion ON ubicacion.id_ubicacion = producto.id_ubicacion
+                INNER JOIN table_enlace_producto enlace ON enlace.id_enlace_producto = producto.id_enlace_producto
+                WHERE producto.status_producto = 1";
+		$request = $this->select_all($sql);
+		return $request;
+    }
+    /********** funcion para traer las ubicaciones para el almacenado de los articulos **********/
+	public function selectUbic(){
+		$sql = "SELECT * FROM table_ubicacion";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+
 }
