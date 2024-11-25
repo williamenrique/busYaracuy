@@ -80,8 +80,8 @@ class OrdenModel extends Mysql {
 		$this->srtObs = $srtObs;
 		$this->strDate = $strDate;
 		$date = date('Y-m-d');
-		$queryInsert = "INSERT INTO table_despacho(id_flota,operador,mecanico, despachador,user_id,observacion,fecha_despacho) VALUES(?,?,?,?,?,?,?)";
-		$arrData = array($this->intUnidad,$this->srtOper,$this->srtMec,$this->srtDesp,$this->intIdUser,$this->srtObs,$this->strDate);
+		$queryInsert = "INSERT INTO table_despacho(id_flota,operador,mecanico, despachador,fecha_despacho,user_id,observacion,status_despacho) VALUES(?,?,?,?,?,?,?,?)";
+		$arrData = array($this->intUnidad,$this->srtOper,$this->srtMec,$this->srtDesp,$this->strDate,$this->intIdUser,$this->srtObs,1);
 		$requestInsert = $this->insert($queryInsert,$arrData);
 		if($requestInsert > 0){
 
