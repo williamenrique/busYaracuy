@@ -39,12 +39,12 @@
 									<input type="text" class="form-control" placeholder="UNIDAD" id="txtUnidad" name="txtUnidad">
 								</div>
 								<div class="col-sm-2 my-1">
-									<label class="sr-only" for="inlineFormInputName">ARTICULO</label>
-									<input type="text" class="form-control" placeholder="ARTICULO" id="txtArt" name="txtArt">
-								</div>
-								<div class="col-sm-2 my-1">
 									<label class="sr-only" for="inlineFormInputName">DESDE</label>
 									<input type="date" class="form-control" placeholder="DESDE" id="txtDesde" name="txtDesde">
+								</div>
+								<div class="col-sm-2 my-1">
+									<label class="sr-only" for="inlineFormInputName">ARTICULO</label>
+									<input type="hidden" class="form-control" placeholder="ARTICULO" id="txtArt" name="txtArt">
 								</div>
 								<div class="col-auto my-1">
 									<button type="submit" id="btnActionForm" class="btn btn-primary btn-sm"> <i

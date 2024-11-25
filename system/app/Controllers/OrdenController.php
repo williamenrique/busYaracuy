@@ -272,7 +272,7 @@ class Orden extends Controllers{
                                 $htmlOptions .='
                                     <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
                                     <a href="'.base_url().'fpdf/despacho.php" target="_blank" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')" style="color: blue">GENERAR PDF</a>
-                                    
+                                    <h3 class="timeline-header" style="float: right; font-size: 14px;"><a href="#" onclick="fntdelDesp('.$arrData[$i]['id_despacho'].')" class="mr-1">ELIMINAR</a></h3>
                                 </div>
                             </div>
                         </div>
