@@ -209,4 +209,141 @@ class Datamant extends Controllers{
 		die();
 	}
 
+	/* TODO: articulo mantenmiento
+	//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+	*/
+	public function cleandesp(){
+		//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+		$data['page_tag'] = "CLEAN DESPACHO";
+		$data['page_title'] = "CLEAN DESPACHO";
+		$data['page_name'] = "Articulo";
+		$data['page_link'] = "active-data";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-data";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-cleandesp";// seleccionar el link en el momento dentro del 
+		$data['page_functions'] = "function.dataDespacho.js";
+		$this->views->getViews($this, "cleandesp", $data);
+	}
+
+	// mostrar las ordenes generadas
+    public function getOrdenes(){
+        $arrData = $this->model->getListOrdenes();
+        $htmlOptions = "";
+        if(empty($arrData)){
+            $htmlOptions = '<div class="alert alert-info alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h5><i class="icon fas fa-info"></i> INFO</h5>
+                                NO SE ENCONTRO REGISTRO.
+                            </div>';
+        }else{
+            for ($i=0; $i < count($arrData); $i++) {
+                $arrDataDesp = $this->model->getListArtDesp($arrData[$i]['id_despacho']);
+                $htmlOptions .= 
+                            '
+                           <div class="timeline">
+                                <div class="time-label">
+                                    <span class="bg-red">'.$arrData[$i]['fecha_despacho'].'</span>
+                                </div>
+                                <div>
+                                    <i class="far fa-clipboard bg-blue"></i>
+                                    <div class="timeline-item">
+                                        <h3 class="time timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">UNIDAD: </a> '.$arrData[$i]['id_unidad'].'</h3>
+                                        <h3 class="timeline-header" style="font-size: 14px;"><a href="#" class="mr-1">COD :</a> '.$arrData[$i]['id_despacho'].'</h3>
+                                        <div class="timeline-body">
+                                            <strong class="mr-1">MODELO :</strong><span class="mr-2">'.$arrData[$i]['modelo_unidad'].'</span>
+                                            <strong class="mr-1">MARCA :</strong><span>'.$arrData[$i]['marca_unidad'].'</span>
+                                            <strong class="mr-1">COMBUSTIBLE :</strong><span>'.$arrData[$i]['tipo_combustible'].'</span><br>
+                                            <strong class="mr-1">MECANICO :</strong><span class="mr-2">'.$arrData[$i]['mecanico'].'</span>
+                                            <strong class="mr-1">OPERADOR :</strong><span>'.$arrData[$i]['operador'].'</span><br>
+                                            <strong class="mr-1">DESPACHADO :</strong><span class="mr-2">'.$arrData[$i]['despachador'].'</span><br>
+                                            <hr>
+                                        ';
+                                        for ($j=0; $j < count($arrDataDesp); $j++) { 
+                                            if($arrDataDesp[$j]['status_producto'] == 0){
+                                                $htmlOptions .='
+                                                <ul>
+                                                    <li>
+                                                        <del>
+                                                            <strong class="mr-1">COD-</strong>
+                                                            <span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span>
+                                                            <span class="mr-2"  data-bs-toggle="tooltip" data-bs-title="ARTICULO ELIMINADO"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
+                                                        
+                                                            <strong class="mr-1">CANT :</strong>
+                                                            <span class="mr-1">'.$arrDataDesp[$j]['cant_despacho'].'</span>
+                                                        ';
+                                                        if($arrDataDesp[$j]['present_producto'] == "LITRO"){
+                                        $htmlOptions .='    <span class="mr-2">LITROS</span>';
+                                                        };
+                                        $htmlOptions .='
+                                                        </del>
+                                                        <span class="mr-2">ARTICULO ELIMNADO</span><br>
+                                                    </li>
+                                                </ul>
+                                                    ';
+                                            }else{
+
+                                                $htmlOptions .='
+                                                <ul>
+                                                    <li>
+                                                        <strong class="mr-1">COD-</strong><span class="mr-2">'.$arrDataDesp[$j]['id_producto'].'</span><span class="mr-2"> '.$arrDataDesp[$j]['producto'].' '.$arrDataDesp[$j]['enlace_producto'].'</span>
+                                                        <strong class="mr-1">CANT :</strong><span class="mr-1">'.$arrDataDesp[$j]['cant_despacho'].'</span>
+                                                    ';
+                                                        if($arrDataDesp[$j]['present_producto'] == "LITRO"){
+                                        $htmlOptions .='    <span class="mr-2">LITROS</span><br>';
+                                                        };
+                                        $htmlOptions .='
+                                                    </li>
+                                                </ul>
+                                                    ';
+                                            }
+                                        }
+                                        
+                                        $htmlOptions .='
+                                        </div>
+                                        <div class="timeline-footer">
+                                            ';
+                                            if($arrData[$i]['observacion'] != ""){
+                                                $htmlOptions .='<strong class="mr-1">OBSERVACION :</strong><span class="mr-2">'.$arrData[$i]['observacion'].'</span><br>';
+                                            }
+                                        $htmlOptions .='
+                                            <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
+                                            <a href="'.base_url().'fpdf/despacho.php" target="_blank" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')" style="color: blue">GENERAR PDF</a>
+                                            <h3 class="timeline-header" style="float: right; font-size: 14px;"><a href="#" onclick="fntRestDesp('.$arrData[$i]['id_despacho'].')" class="mr-1">RESTAURAR</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div>
+                                <i class="fas fa-bus-alt"></i>
+                            </div>
+                        </div>
+                            ';
+            }
+        }
+        echo $htmlOptions;
+		die();
+    }
+	// restaurar orden
+	public function restOrden(){
+		if($_POST){
+            $intUserId = $_SESSION['userData']['user_id'];
+            $srtText = strtoupper($_POST['srtText']);
+            $idDesp = intval($_POST['idDesp']);
+            $requestStatus = $this->model->restDesp($idDesp,$srtText,$intUserId);
+            if($requestStatus){
+                $arrResponse = array('status' => true, 'msg' => 'Despacho eliminado');
+                $arrDesp = $this->model->artDespacho($_POST['idDesp']);
+                for ($i=0; $i < count($arrDesp) ; $i++) { 
+                    $intIdArticulo = $arrDesp[$i]['id_producto'];
+                    $intCant = $arrDesp[$i]['cant_producto'] - $arrDesp[$i]['cant_despacho'];
+                    $requestUpdateCant = $this->model->updateCantN($intIdArticulo,$intCant);
+                }
+            }else{
+                $arrResponse = array('status' => false, 'msg' => 'No se pudo eliminar');
+            }
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    	
+	}
 }

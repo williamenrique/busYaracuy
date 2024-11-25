@@ -116,7 +116,7 @@ class Orden extends Controllers{
         if(count($arrData) > 0){
             $htmlOptions = "<option value='0'>ARTICULO</option>";
             for ($i=0; $i < count($arrData); $i++) { 
-                $htmlOptions .= '<option value="'.$arrData[$i]['id_producto'].'">'.$arrData[$i]['producto'].' (DISP '.$arrData[$i]['cant_producto'].') </option>';
+                $htmlOptions .= '<option value="'.$arrData[$i]['id_producto'].'">'.$arrData[$i]['producto'].' (DISP '.$arrData[$i]['cant_producto'].') '.$arrData[$i]['enlace_producto'].' </option>';
             }
         }else{
             $htmlOptions = "<option value='0'>NO HAY ARTICULOS</option>";
@@ -189,6 +189,7 @@ class Orden extends Controllers{
 		$this->views->getViews($this, "listaordenes", $data);
 	}
     // traer ordenes por fecha o codigo de despacho o Unidad: 
+    // TODO: agregar boton eliminar y devolver los articulos al stock ingresar historial
     public function getBuscarOrden(){
         $strCod = $_POST['txtCodDespacho'];
         $strUnidad = strtoupper($_POST['txtUnidad']);
@@ -270,6 +271,7 @@ class Orden extends Controllers{
                                 $htmlOptions .='
                                     <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
                                     <a href="'.base_url().'fpdf/despacho.php" target="_blank" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')" style="color: blue">GENERAR PDF</a>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -365,6 +367,7 @@ class Orden extends Controllers{
                                         $htmlOptions .='
                                             <h6>RESPONSABLE: '.$arrData[$i]['user_nombres'].' '.$arrData[$i]['user_apellidos'].'</h6>
                                             <a href="'.base_url().'fpdf/despacho.php" target="_blank" onclick="fntImpDespacho('.$arrData[$i]['id_despacho'].')" style="color: blue">GENERAR PDF</a>
+                                            <h3 class="timeline-header" style="float: right; font-size: 14px;"><a href="#" onclick="fntdelDesp('.$arrData[$i]['id_despacho'].')" class="mr-1">ELIMINAR</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -408,5 +411,38 @@ class Orden extends Controllers{
         }
 		fclose($artDesp);
     }
-    
+    // eliminar orden
+    public function delOrden(){
+        if($_POST){
+            $intUserId = $_SESSION['userData']['user_id'];
+            $srtText = strtoupper($_POST['srtText']);
+            $idDesp = intval($_POST['idDesp']);
+            $requestStatus = $this->model->delDesp($idDesp,$srtText,$intUserId);
+            if($requestStatus){
+                $arrResponse = array('status' => true, 'msg' => 'Despacho eliminado');
+                $arrDesp = $this->model->artDespacho($_POST['idDesp']);
+                for ($i=0; $i < count($arrDesp) ; $i++) { 
+                    $intIdArticulo = $arrDesp[$i]['id_producto'];
+                    $intCant = $arrDesp[$i]['cant_producto'] + $arrDesp[$i]['cant_despacho'];
+                    $requestUpdateCant = $this->model->updateCantN($intIdArticulo,$intCant);
+                }
+            }else{
+                $arrResponse = array('status' => false, 'msg' => 'No se pudo eliminar');
+            }
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+        }
+        die();
+    }
 }
+
+/*
+for($i=0; $i<count($_POST['cod']); $i++){
+                        $intIdArticulo= $_POST['cod'][$i];
+                        $intCant = $_POST['cantidad'][$i];
+                        $requestRelacion = $this->model->insertRDespacho($request,$intIdArticulo,$intCant);
+                        $requestUpdateCant = $this->model->updateCant($intIdArticulo,$intCant);
+                        //Esto va a realizar una inserción en la base de datos por cada fila del array que llega desde mi formulario
+                        // actualizar cantidad en el stock
+
+                    }
+                        */

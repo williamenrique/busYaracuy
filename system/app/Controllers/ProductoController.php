@@ -116,7 +116,6 @@ class Producto extends Controllers{
 					// $arrData[$i]['cant_producto'] = '<span class="badge bg-info">'.$arrData[$i]['cant_producto'].'</span>';
 					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
 				}
-
 			}
 		}
 		//convertir el arreglo de datos en un formato json

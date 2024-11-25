@@ -68,4 +68,63 @@ class DatamantModel extends Mysql {
 		return $request;
 	}
 
+    // TODO: ordenes
+	/***** obtener lista de ordenes en al historial*****/
+	public function getListOrdenes(){
+		$sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*  FROM table_flota flota
+					INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
+					INNER JOIN table_user usuario ON usuario.user_id = desp.user_id
+					INNER JOIN table_modelo modelo ON modelo.id_modelo = flota.id_modelo
+					INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca AND desp.status_despacho = 0 ORDER BY desp.id_despacho DESC";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+    // obtener la lista de articulos por cada despacho y mostralos en el tmeline de ordenes
+	public function getListArtDesp(int $intDesp){
+		$this->intDesp = $intDesp;
+		$sql = "SELECT producto.*, relacionP.*, enlaceP.* FROM table_producto producto 
+					JOIN table_relacion_despacho relacionP ON producto.id_producto = relacionP.id_producto 
+					JOIN table_enlace_producto enlaceP ON enlaceP.id_enlace_producto = producto.id_enlace_producto 
+					WHERE relacionP.id_despacho = $this->intDesp ";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+    // restaurar la orden de despacho
+    public function restDesp(int $idDesp, string $srtText, int $intUserId){
+		$this->idDesp = $idDesp;
+		$this->srtText = $srtText;
+		$this->srtInfo = strtoupper('usuario '.$_SESSION['userData']['user_nick'].' elimino orden de despacho');
+		$this->intUserId = $intUserId;
+		$this->intStatus = 1;
+		$sql = "UPDATE table_despacho SET status_despacho = ? WHERE id_despacho = $this->idDesp";
+		$arrData = array($this->intStatus);
+		$request = $this->update($sql,$arrData);
+		if($request){
+			$insertH = "INSERT INTO table_historial_cambio(obs,info,id_user) VALUES(?,?,?)";
+			$arrDataH = array($this->srtText,$this->srtInfo,$this->intUserId);
+			$requestInsert = $this->insert($insertH,$arrDataH);
+			// return $requestInsert;
+		}
+		return $request;
+	}
+    // obtener los articulos de la orden a restaurar para revertir los cambios y restarle las cantidades
+	public function artDespacho(int $idDesp){
+		$this->idDesp = $idDesp;
+		$sql = "SELECT tProducto.producto, tRelacionP.cant_producto, tRelacionD.* FROM table_producto tProducto
+				INNER JOIN table_relacion_producto tRelacionP ON tProducto.id_producto = tRelacionP.id_producto
+				INNER JOIN table_relacion_despacho tRelacionD ON tRelacionD.id_producto = tRelacionP.id_producto 
+				WHERE tRelacionD.id_despacho = $this->idDesp";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+	// actualizar la tabla de productos con la devolucion de articulos
+	public function updateCantN(int $intIdArticulo, float $intCant){
+		$this->intIdArticulo = $intIdArticulo;
+		$this->intCant = $intCant;
+		$queryUpdate = "UPDATE table_relacion_producto SET cant_producto = ? WHERE id_producto = $this->intIdArticulo";
+		$arrData = array($this->intCant);
+		$requestUpdate = $this->update($queryUpdate,$arrData);
+		return $requestUpdate;
+	}
+
 }

@@ -125,7 +125,7 @@ class OrdenModel extends Mysql {
 					INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
 					INNER JOIN table_user usuario ON usuario.user_id = desp.user_id
 					INNER JOIN table_modelo modelo ON modelo.id_modelo = flota.id_modelo
-					INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca ORDER BY desp.id_despacho DESC";
+					INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca AND desp.status_despacho = 1 ORDER BY desp.id_despacho DESC";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -135,7 +135,7 @@ class OrdenModel extends Mysql {
 		$sql = "SELECT producto.*, relacionP.*, enlaceP.* FROM table_producto producto 
 					JOIN table_relacion_despacho relacionP ON producto.id_producto = relacionP.id_producto 
 					JOIN table_enlace_producto enlaceP ON enlaceP.id_enlace_producto = producto.id_enlace_producto 
-					WHERE relacionP.id_despacho = $this->intDesp";
+					WHERE relacionP.id_despacho = $this->intDesp ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -149,15 +149,15 @@ class OrdenModel extends Mysql {
 		 			INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
 		 			INNER JOIN table_user usuario ON usuario.user_id = desp.user_id
 		 			INNER JOIN table_modelo modelo ON modelo.id_modelo = flota.id_modelo
-		 			INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca ORDER BY desp.id_despacho DESC";
+		 			INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca AND desp.status_despacho = 1 ORDER BY desp.id_despacho DESC";
 		 	$request = $this->select_all($sql);
 		}else{
-			$sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*  FROM table_flota flota
+    	    $sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*  FROM table_flota flota
 					INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
 					INNER JOIN table_user usuario ON usuario.user_id = desp.user_id
 					INNER JOIN table_modelo modelo ON modelo.id_modelo = flota.id_modelo
 					INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca 
-					WHERE  desp.id_despacho = '$this->strCod' OR flota.id_unidad = '$this->strUnidad' OR desp.fecha_despacho = '$this->strFecha' ORDER BY desp.id_despacho DESC";
+					WHERE  (desp.id_despacho = '$this->strCod' OR flota.id_unidad = '$this->strUnidad' OR desp.fecha_despacho = '$this->strFecha') AND desp.status_despacho = 1 ORDER BY desp.id_despacho DESC";
 			$arrData = array($this->strCod,$this->strUnidad);
 			$request = $this->select_all($sql,$arrData);
 		}
@@ -175,5 +175,42 @@ class OrdenModel extends Mysql {
 		$arrData = array($this->strCod);
 		$request = $this->select($sql,$arrData);
 		return $request;
+	}
+
+	public function delDesp(int $idDesp, string $srtText, int $intUserId){
+		$this->idDesp = $idDesp;
+		$this->srtText = $srtText;
+		$this->srtInfo = strtoupper('usuario '.$_SESSION['userData']['user_nick'].' elimino orden de despacho');
+		$this->intUserId = $intUserId;
+		$this->intStatus = 0;
+		$sql = "UPDATE table_despacho SET status_despacho = ? WHERE id_despacho = $this->idDesp";
+		$arrData = array($this->intStatus);
+		$request = $this->update($sql,$arrData);
+		if($request){
+			$insertH = "INSERT INTO table_historial_cambio(obs,info,id_user) VALUES(?,?,?)";
+			$arrDataH = array($this->srtText,$this->srtInfo,$this->intUserId);
+			$requestInsert = $this->insert($insertH,$arrDataH);
+			// return $requestInsert;
+		}
+		return $request;
+	}
+	// obtener los articulos de la orden a eliminar para revertir los cambios y sumarles las cantidades
+	public function artDespacho(int $idDesp){
+		$this->idDesp = $idDesp;
+		$sql = "SELECT tProducto.producto, tRelacionP.cant_producto, tRelacionD.* FROM table_producto tProducto
+				INNER JOIN table_relacion_producto tRelacionP ON tProducto.id_producto = tRelacionP.id_producto
+				INNER JOIN table_relacion_despacho tRelacionD ON tRelacionD.id_producto = tRelacionP.id_producto 
+				WHERE tRelacionD.id_despacho = $this->idDesp";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+	// actualizar la tabla de productos con la devolucion de articulos
+	public function updateCantN(int $intIdArticulo, float $intCant){
+		$this->intIdArticulo = $intIdArticulo;
+		$this->intCant = $intCant;
+		$queryUpdate = "UPDATE table_relacion_producto SET cant_producto = ? WHERE id_producto = $this->intIdArticulo";
+		$arrData = array($this->intCant);
+		$requestUpdate = $this->update($queryUpdate,$arrData);
+		return $requestUpdate;
 	}
 }

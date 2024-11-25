@@ -168,25 +168,27 @@ const buscarReg = () =>{
         }
     }
 }
-// asignarle un evento a la caja de texto
-let input = document.getElementById("txtBuscar")
-input.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault()
-    document.getElementById("btnBuscar").click()
-    let strBuscar = document.getElementById('txtBuscar').value
-    buscarReg(strBuscar)
-  }
-})
-let btnBuscar = document.getElementById('btnBuscar')
-btnBuscar.addEventListener('click', function(){
-    let strBuscar = document.getElementById('txtBuscar').value
-    buscarReg(strBuscar)
-})
+if(document.getElementById('btnBuscar')){
+
+    // asignarle un evento a la caja de texto
+    let input = document.getElementById("txtBuscar")
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault()
+        document.getElementById("btnBuscar").click()
+        let strBuscar = document.getElementById('txtBuscar').value
+        buscarReg(strBuscar)
+      }
+    })
+    let btnBuscar = document.getElementById('btnBuscar')
+    btnBuscar.addEventListener('click', function(){
+        let strBuscar = document.getElementById('txtBuscar').value
+        buscarReg(strBuscar)
+    })
+}
 window.addEventListener('load', function () {
     listUnidades()
     buscarReg()
-    // xhr()
 },false)
 
 // funcion para generar el pdf delscaner
@@ -227,3 +229,4 @@ fntImpScanere = () =>{
         // }
     }
 }
+
