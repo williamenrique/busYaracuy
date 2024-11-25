@@ -159,7 +159,7 @@ class Datamant extends Controllers{
 		}
 		fclose($scaner);
 	}
-	/* TODO: escaner
+	/* TODO: articulo mantenmiento
 	//invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
 		//incluimos un arreglo que contendra toda la informacion que se enviara al home
 	*/

@@ -1,39 +1,58 @@
 <?php
-sleep(1);
-require "./scaner_plantilla.php";
-$pdf = new PDF("P", "mm", "letter");
+require './fpdf.php';
+class PDF extends FPDF{
+    function LoadData($file)    {
+        // Read file lines
+          $lines = file($file);
+          $data = array();
+          foreach($lines as $line)
+              $data[] = explode(';',trim($line));
+          return $data;
+      }
+    function Header(){
+        $this->SetFont('Times','B',20);  
+        $this->Image('../src/img/logo_busyaracuy.png',10,8,35);    
+        $this->SetFont('times', 'B', 12);   
+        $this->Text(52, 12, utf8_decode('SERVICIO SOCIALISTA DE LOGISTICA, MANTENIMIENTO '),0, 1, "J");
+        $this->Text(65, 18, utf8_decode('Y TRANSPORTE DEL ESTADO YARACUY'),0, 1, "J");
+        $this->SetFont('Arial','B',16);   
+        $this->Text(70,38, utf8_decode('REGISTRO SCANER')); 
+        // $this->Image('../src/img/logo_busyaracuy.png',160,5,33);
+        $this->SetFont('Arial','B',10);    
+        $this->Text(20,50, utf8_decode('FECHA: '.date('d-m-y')));
+        $this->SetFont('Arial','',10); 
+        $this->Ln(45);
+       
+    }
+    function Footer(){
+        $this->SetFont('courier', 'B', 8);
+        $this->SetY(-15);
+        $this->Cell(95,5,utf8_decode('Página ').$this->PageNo().' / {nb}',0,0,'L');
+        // $this->Cell(95,5, date("F j, Y, g:i a") ,00,1,'R');
+        $this->Cell(95,5,date('d/m/Y') ,00,1,'R');
+        $this->Line(10,287,200,287);
+        $this->Cell(0,5,utf8_decode("SSLMTY © Todos los derechos reservados."),0,0,"C"); 
+               
+    }
+}
+
+// Creación del objeto de la clase heredada
+// $pdf = new PDF("P", "mm", "letter");
+$pdf = new PDF();
 $scaner = $pdf->LoadData("../data/scaner.txt");
 
 $pdf->AliasNbPages();
-$pdf->AddPage();
-$pdf->SetAutoPageBreak(true, 20);
-$pdf->SetTopMargin(15);
-$pdf->SetLeftMargin(10);
-$pdf->SetRightMargin(20);
+$pdf->AddPage();//añade l apagina / en blanco
+$pdf->SetMargins(10,10,10);
+$pdf->SetAutoPageBreak(true,20);//salto de pagina automatico
 
-$pdf->SetFont('Arial','B',16);   
-$pdf->Text(70,38, utf8_decode('REGISTRO SCANER'));
-
-// foreach($infoDesp as $rowInfo)
-// //información de # de factura
-// $pdf->SetFont('Arial','B',10);   
-// $pdf->Text(150,50, utf8_decode('COD DESPACHO N°: '.$rowInfo[0]));
-
-// Agregamos los datos del cliente
-$pdf->SetFont('Arial','B',10);    
-$pdf->Text(20,50, utf8_decode('FECHA: '.date('d-m-y')));
-$pdf->SetFont('Arial','',10);    
-
-$pdf->Ln(45);
-$pdf->setX(200);
-$pdf->Ln();
-
+$pdf->SetX(15);
 $pdf->SetFont('Arial','B',10);
-$moverXtabla = 20;
+$moverXtabla = 10;
 $pdf->SetX($moverXtabla);
 $header = array('UNIDAD', 'FECHA', 'DESCRIPCION');
 // Column widths
-$w = array(20, 55, 110);
+$w = array(20, 55, 120);
 // Header
 for($i=0; $i < count($header);$i++)
     $pdf->Cell($w[$i],7,$header[$i],1,0,'C');
