@@ -34,11 +34,15 @@
 									<label class="sr-only" for="inlineFormInputName">COD</label>
 									<input type="text" class="form-control" placeholder="COD DESPACHO" id="txtCodDespacho" name="txtCodDespacho">
 								</div>
-								<div class="col-sm- my-1">
+								<div class="col-sm-2 my-1">
 									<label class="sr-only" for="inlineFormInputName">UNIDAD</label>
 									<input type="text" class="form-control" placeholder="UNIDAD" id="txtUnidad" name="txtUnidad">
 								</div>
-								<div class="col-sm-3 my-1">
+								<div class="col-sm-2 my-1">
+									<label class="sr-only" for="inlineFormInputName">ARTICULO</label>
+									<input type="text" class="form-control" placeholder="ARTICULO" id="txtArt" name="txtArt">
+								</div>
+								<div class="col-sm-2 my-1">
 									<label class="sr-only" for="inlineFormInputName">DESDE</label>
 									<input type="date" class="form-control" placeholder="DESDE" id="txtDesde" name="txtDesde">
 								</div>

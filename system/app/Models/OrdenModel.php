@@ -140,11 +140,12 @@ class OrdenModel extends Mysql {
 		return $request;
 	}
 	// obtener codigo  fecha o unidad para buscador
-	public function getListBuscarOrdenes(string $strCod,string $strFecha, string $strUnidad){
+	public function getListBuscarOrdenes(string $strCod,string $strFecha, string $strUnidad,string $strArt){
 		$this->strCod = $strCod;
 		$this->strUnidad = $strUnidad;
 		$this->strFecha = $strFecha;
-		if($this->strCod == "" && $this->strUnidad == "" && $this->strFecha == ""){
+		$this->strArt = $strArt;
+		if($this->strCod == "" && $this->strUnidad == "" && $this->strFecha == "" && $this->strArt == ""){
 			$sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*  FROM table_flota flota
 		 			INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
 		 			INNER JOIN table_user usuario ON usuario.user_id = desp.user_id
@@ -152,12 +153,22 @@ class OrdenModel extends Mysql {
 		 			INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca AND desp.status_despacho = 1 ORDER BY desp.id_despacho DESC";
 		 	$request = $this->select_all($sql);
 		}else{
-    	    $sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*  FROM table_flota flota
-					INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
-					INNER JOIN table_user usuario ON usuario.user_id = desp.user_id
-					INNER JOIN table_modelo modelo ON modelo.id_modelo = flota.id_modelo
+			$sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*, tRelacionD.*,tRelacionP.*, producto.* FROM table_flota flota 
+					INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota 
+					INNER JOIN table_user usuario ON usuario.user_id = desp.user_id 
+					INNER JOIN table_modelo modelo ON modelo.id_modelo = flota.id_modelo 
 					INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca 
-					WHERE  (desp.id_despacho = '$this->strCod' OR flota.id_unidad = '$this->strUnidad' OR desp.fecha_despacho = '$this->strFecha') AND desp.status_despacho = 1 ORDER BY desp.id_despacho DESC";
+					INNER JOIN table_relacion_despacho tRelacionD ON tRelacionD.id_despacho = desp.id_despacho
+					INNER JOIN table_relacion_producto tRelacionP ON tRelacionP.id_producto = tRelacionD.id_producto
+					INNER JOIN table_producto producto ON producto.id_producto = tRelacionP.id_producto
+					WHERE (desp.id_despacho = '$this->strCod' OR flota.id_unidad = '$this->strUnidad' OR desp.fecha_despacho = '$this->strFecha'   OR producto.producto LIKE  '%$this->strArt%') 
+					AND desp.status_despacho = 1 ORDER BY desp.id_despacho DESC";
+    	    // $sql = "SELECT desp.*, flota.*, modelo.*, marca.*, usuario.*  FROM table_flota flota
+			// 		INNER JOIN table_despacho desp ON desp.id_flota = flota.id_flota
+			// 		INNER JOIN table_user usuario ON usuario.user_id = desp.user_id
+			// 		INNER JOIN table_modelo modelo ON modelo.id_modelo = flota.id_modelo
+			// 		INNER JOIN table_marca marca ON marca.id_marca = flota.id_marca 
+			// 		WHERE  (desp.id_despacho = '$this->strCod' OR flota.id_unidad = '$this->strUnidad' OR desp.fecha_despacho = '$this->strFecha') AND desp.status_despacho = 1 ORDER BY desp.id_despacho DESC";
 			$arrData = array($this->strCod,$this->strUnidad);
 			$request = $this->select_all($sql,$arrData);
 		}
@@ -176,7 +187,7 @@ class OrdenModel extends Mysql {
 		$request = $this->select($sql,$arrData);
 		return $request;
 	}
-
+	// eliminar orden y hacewr cambios de devolucion de ordenes
 	public function delDesp(int $idDesp, string $srtText, int $intUserId){
 		$this->idDesp = $idDesp;
 		$this->srtText = $srtText;

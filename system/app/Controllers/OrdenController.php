@@ -194,8 +194,9 @@ class Orden extends Controllers{
         $strCod = $_POST['txtCodDespacho'];
         $strUnidad = strtoupper($_POST['txtUnidad']);
         $strDesde = $_POST['txtDesde'];
+        $srtArt = $_POST['txtArt'];
         $htmlOptions = "";
-        $arrData = $this->model->getListBuscarOrdenes($strCod,$strDesde,$strUnidad);
+        $arrData = $this->model->getListBuscarOrdenes($strCod,$strDesde,$strUnidad,$srtArt);
         // dep($arrData);
         if(empty($arrData)){
             $htmlOptions = '<div class="alert alert-info alert-dismissible">
