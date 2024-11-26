@@ -67,7 +67,13 @@ class ProductoModel extends Mysql {
     }
     //cargar los productos en un select
     public function selectListProductos(){
-        $sql = "SELECT * FROM table_producto WHERE status_producto = 1";
+        // $sql = "SELECT * FROM table_producto WHERE status_producto = 1";
+        $sql = "SELECT  producto.*, proveedor.*, relacionP.*, ubicacion.*, enlace.enlace_producto FROM table_producto producto 
+                INNER JOIN table_relacion_producto relacionP ON  producto.id_producto = relacionP.id_producto
+                INNER JOIN table_proveedor proveedor ON proveedor.id_proveedor = relacionP.id_proveedor
+                INNER JOIN table_ubicacion ubicacion ON ubicacion.id_ubicacion = producto.id_ubicacion
+                INNER JOIN table_enlace_producto enlace ON enlace.id_enlace_producto = producto.id_enlace_producto WHERE
+                producto.status_producto = 1";
 		$request = $this->select_all($sql);
 		return $request;
     }

@@ -335,7 +335,7 @@ class Datamant extends Controllers{
                 $arrDesp = $this->model->artDespacho($_POST['idDesp']);
                 for ($i=0; $i < count($arrDesp) ; $i++) { 
                     $intIdArticulo = $arrDesp[$i]['id_producto'];
-                    $intCant = $arrDesp[$i]['cant_producto'] + $arrDesp[$i]['cant_despacho'];
+                    $intCant = $arrDesp[$i]['cant_producto'] - $arrDesp[$i]['cant_despacho'];
                     $requestUpdateCant = $this->model->updateCantN($intIdArticulo,$intCant);
                 }
             }else{

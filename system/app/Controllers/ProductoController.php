@@ -129,7 +129,7 @@ class Producto extends Controllers{
 		$htmlOptions = "<option value='0'>SELECCIONEE</option>";
 		if(count($arrData) > 0){
 			for ($i=0; $i < count($arrData); $i++) { 
-				$htmlOptions .= '<option value="'.$arrData[$i]['id_producto'].'">COD 0'.$arrData[$i]['id_producto'].' - '.$arrData[$i]['producto'].'</option>';
+				$htmlOptions .= '<option value="'.$arrData[$i]['id_producto'].'">COD 0'.$arrData[$i]['id_producto'].' - '.$arrData[$i]['producto'].'-'.$arrData[$i]['enlace_producto'].'</option>';
 			}
 		}else{
 			$htmlOptions = "<option value='0'>NO HAY REGISTROS</option>";
