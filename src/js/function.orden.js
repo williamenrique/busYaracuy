@@ -425,8 +425,8 @@ function fntdelDesp(idDesp){
 	(async () => {
 		(async () => {
 			const { value: text } = await Swal.fire({
-				title: "Are you sure?",
-				text: "You won't be able to revert this!",
+				title: "Esta Ud Seguro?",
+				text: "Puede cancelar si no esta seguro!",
 				input: 'textarea',
 				inputPlaceholder: 'Observacion por la eliminacion.',
 				inputAttributes: {
