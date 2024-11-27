@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				{ 'data': 'personal_nombre' },
 				{ 'data': 'cargo' },
 				{ 'data': 'personal_tlf' },
-				{ 'data': 'personal_status' }
+				{ 'data': 'personal_status' },
+				{ 'data': 'accion' }
 			],
 			dom: 'Bfrtip',
 			"responsive": true, "lengthChange": true, "autoWidth": false,
@@ -53,29 +54,29 @@ if (document.querySelector('#formPersonal')) {
 		//agregar el evento al boton del formulario
 	formPersonal.onsubmit = function (e) {
 		e.preventDefault()
-					let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-			let ajaxUrl = base_url + 'Personal/setPersonal'
-			//creamos un objeto del formulario con los datos haciendo referencia a formData
-			let formData = new FormData(formPersonal )
-			//prepara los datos por ajax preparando el dom
-			request.open('POST', ajaxUrl, true)
-			//envio de datos del formulario que se almacena enla variable
-			request.send(formData)
-			//obtenemos los resultados
-			request.onreadystatechange = function () {
-				if (request.readyState == 4 && request.status == 200) {
-					//obtenemos los datos y convertimos en JSON
-					let objData = JSON.parse(request.responseText);
-					//leemos el ststus de la respuesta
-					if (objData.status) {
-						notifi(objData.msg, 'success')
-						formPersonal.reset()
-						tablePersonal.ajax.reload()
-					} else {
-						notifi(objData.msg, 'error')
-					}
+		let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+		let ajaxUrl = base_url + 'Personal/setPersonal'
+		//creamos un objeto del formulario con los datos haciendo referencia a formData
+		let formData = new FormData(formPersonal )
+		//prepara los datos por ajax preparando el dom
+		request.open('POST', ajaxUrl, true)
+		//envio de datos del formulario que se almacena enla variable
+		request.send(formData)
+		//obtenemos los resultados
+		request.onreadystatechange = function () {
+			if (request.readyState == 4 && request.status == 200) {
+				//obtenemos los datos y convertimos en JSON
+				let objData = JSON.parse(request.responseText);
+				//leemos el ststus de la respuesta
+				if (objData.status) {
+					notifi(objData.msg, 'success')
+					formPersonal.reset()
+					tablePersonal.ajax.reload()
+				} else {
+					notifi(objData.msg, 'error')
 				}
 			}
+		}
 	}
 }
 /**********si existe el select cargamos los puestos de trabajo en el select**********/
@@ -193,4 +194,104 @@ function fntStatus(status,idPersonal){
 			})()
 		}
 	})()
+}
+// TODO: editar personal
+/********** editar datos de personal ***************/
+const fntEditModal = (idPersonal) => {
+	let ajaxUrl = base_url + "Personal/getPersonalEdit/"
+	let strData = new URLSearchParams("idPersonal="+idPersonal)
+	//creamos el objeto para os navegadores
+	var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
+	//abrimos la conexion y enviamos los parametros para la peticion
+	request.open("POST", ajaxUrl, true)
+	request.send(strData)
+	request.onreadystatechange = function () {
+		if (request.readyState == 4 && request.status == 200) {
+			//option obtenidos del controlador
+			let objData = JSON.parse(request.responseText)
+			document.querySelector("#idPersonal").value = objData.id_personal
+			document.querySelector("#txtNombreEdit").value = objData.personal_nombre
+			document.querySelector("#txtCedulaEdit").value = objData.personal_cedula		
+			document.querySelector("#txtTelefonoEdit").value = objData.personal_tlf
+			let a = $("select#listTagPersonalEdit").val()
+			const tag = [
+				{ id: 0, tag: "SELECCIONE" },
+				{ id: 1, tag: "INFORMATICA" },
+				{ id: 2, tag: "ALMACEN"},
+			]
+			let index = tag.find(el=> el.id == objData.personal_tag)
+			const $select = document.querySelector("#listTagPersonalEdit")
+			const opcion = Object.assign(document.createElement("option"), {
+				value: objData.personal_tag,
+				text: index.tag,
+			})
+			$select.appendChild(opcion)
+			for (const tags of tag) {
+				const opcion = Object.assign(document.createElement("option"), {
+					value: tags.id,
+					text: tags.tag,
+				})
+				$select.appendChild(opcion)
+			}
+		}
+	}
+	fntCargo(idPersonal)
+}
+// borrar contenido del select de enlace de personal
+if(document.getElementById("btnClose")){
+	document.getElementById("btnClose").addEventListener('click',function(){
+		const $select = document.querySelector("#listTagPersonalEdit")
+		for (let i = $select.options.length; i >= 0; i--) {
+			$select.remove(i);
+		}
+	})
+}
+/**********actualizar datos de personal **********/
+if (document.querySelector('#formEditPersonal')) {
+	var formEditPersonal = document.querySelector('#formEditPersonal')
+		//agregar el evento al boton del formulario
+	formEditPersonal.onsubmit = function (e) {
+		e.preventDefault()
+		let request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+		let ajaxUrl = base_url + 'Personal/updatePersona'
+		//creamos un objeto del formulario con los datos haciendo referencia a formData
+		let formData = new FormData(formEditPersonal )
+		//prepara los datos por ajax preparando el dom
+		request.open('POST', ajaxUrl, true)
+		//envio de datos del formulario que se almacena enla variable
+		request.send(formData)
+		//obtenemos los resultados
+		request.onreadystatechange = function () {
+			if (request.readyState == 4 && request.status == 200) {
+				//obtenemos los datos y convertimos en JSON
+				let objData = JSON.parse(request.responseText);
+				//leemos el ststus de la respuesta
+				if (objData.status) {
+					notifi(objData.msg, 'success')
+					let tablePersonal = $('#tablePersonal').DataTable()
+					tablePersonal.ajax.reload()
+					// let modal = new bootstrap.Modal(document.getElementById("modalEditPersonal"));
+    				// modal.hide()
+					$('#modalEditPersonal').modal('hide')
+				} else {
+					notifi(objData.msg, 'error')
+				}
+			}
+		}
+	}
+}
+/********** traer el cargo de un perosnal ***************/
+const fntCargo = (idPersonal) => {
+	let ajaxUrl = base_url + "Personal/getSelectCargoP/" + idPersonal
+	//creamos el objeto para os navegadores
+	var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
+	//abrimos la conexion y enviamos los parametros para la peticion
+	request.open("GET", ajaxUrl, true)
+	request.send()
+	request.onreadystatechange = function () {
+		if (request.readyState == 4 && request.status == 200) {
+			//option obtenidos del controlador
+			document.querySelector('#listCargoEdit').innerHTML = request.responseText
+		}
+	}
 }

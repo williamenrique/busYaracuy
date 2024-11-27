@@ -60,4 +60,29 @@ class PersonalModel extends Mysql {
 		$request = $this->insert($sql,$arrData);//enviamos el query y el array de datos 
 		return $request;
 	}
+	//TODO: editar personal
+	/**********funcion para traer datos de un personal**********/
+	public function selectPersonalID(int $intIdPersonal){
+		$this->intIdPersonal = $intIdPersonal;
+		$sql = "SELECT p.*, c.* FROM table_cargo c 
+					INNER JOIN table_personal p  ON p.personal_cargo = c.id_cargo 
+					AND p.id_personal = $this->intIdPersonal
+					AND p.personal_status  <> 0 ORDER BY p.personal_cedula DESC ";
+		$request = $this->select($sql);
+		return $request;
+	}
+	public function updatePersona(int $intIdPersonal, string $strCedulaEdit,string  $strNombreEdit, int $listCargoEdit, string $strTelefonoEdit, int $listTagPersonalEdit){
+		
+		$this->intIdPersonal = $intIdPersonal;
+		$this->strCedulaEdit = $strCedulaEdit;
+		$this->strNombreEdit = $strNombreEdit; 
+		$this->listCargoEdit = $listCargoEdit;
+		$this->strTelefonoEdit = $strTelefonoEdit;
+		$this->listTagPersonalEdit = $listTagPersonalEdit;
+		$sql = "UPDATE table_personal SET personal_cedula = ?, personal_nombre = ?, personal_cargo = ?, personal_tlf = ?, personal_tag = ? WHERE id_personal= $this->intIdPersonal";
+		$arrData = array($this->strCedulaEdit,$this->strNombreEdit,$this->listCargoEdit,$this->strTelefonoEdit,$this->listTagPersonalEdit);
+		// dep($arrData);
+		$request = $this->update($sql,$arrData);
+		return $request;
+	}
 }

@@ -87,6 +87,7 @@
                                     <th>CARGO</th>
                                     <th>TELEFONO</th>
                                     <th>STATUS</th>
+                                    <th>ACCION</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -97,6 +98,7 @@
                                     <th>CARGO</th>
                                     <th>TELEFONO</th>
                                     <th>STATUS</th>
+                                    <th>ACCION</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -110,5 +112,75 @@
 	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+
+<div class="modal fade" id="modalEditPersonal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">EDTAR DATOS DE PERSONAL</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="formEditPersonal">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                             <input type="hidden" name="idPersonal" id="idPersonal">
+                            <div class="form-group">
+                                <label class="sr-only" for="inlineFormInputName">Cedula</label>
+                                <input type="text" class="form-control" placeholder="Id personal" id="txtCedulaEdit" name="txtCedulaEdit" onkeypress="return soloNumeros(event)">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <select id="listCargoEdit" data-live-search="true" name="listCargoEdit" class="form-control"
+                                    data-style="btn-outline-primary" data-size="5">
+                                </select>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="sr-only" for="inlineFormInputName">Nombre completo</label>
+                                <input type="text" class="form-control" placeholder="Nombre y apellido" id="txtNombreEdit"
+                                name="txtNombreEdit" onkeypress="return soloLetras(event);">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="sr-only" for="inlineFormInputName">Telefono</label>
+                                <input type="text" class="form-control" placeholder="Ingrese N telefono" id="txtTelefonoEdit" name="txtTelefonoEdit" onkeypress="return soloNumeros(event);">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <select id="listTagPersonalEdit" data-live-search="true" name="listTagPersonalEdit" class="form-control"
+                                    data-style="btn-outline-primary" data-size="5">
+                                
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" id="btnClose" data-dismiss="modal">CANCELAR</button>
+                    <button type="submit" class="btn btn-primary">EDITAR</button>
+                </div>
+            </form>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <?= footer($data)?>
 

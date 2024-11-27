@@ -55,6 +55,7 @@ class Personal extends Controllers{
 		$arrData = $this->model->selectPersonal();
 		//recorrer el arreglo para colocara el status
 		for ($i=0; $i < count($arrData) ; $i++) {
+			$arrData[$i]['accion'] = '<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalEditPersonal" onClick="fntEditModal('.$arrData[$i]['id_personal'].')">EDITAR</button>';
 			if($_SESSION['userData']['id_departamento'] == "1"){
 				if ($arrData[$i]['personal_status'] == 0) {
 					$arrData[$i]['personal_status'] = '<a style="font-size: 15px; cursor:pointer" class="badge badge-danger" onClick="fntStatus(0,'.$arrData[$i]['id_personal'].')">Inactivo</a>';
@@ -140,5 +141,43 @@ class Personal extends Controllers{
 		$request = $this->insert($sql,$arrData);//enviamos el query y el array de datos 
 		return $request;
 	}
-
+	//TODO: editar datos personal
+	/********** obtener datos de un  personal *********/
+	public function getPersonalEdit(){
+		$idPersonal = $_POST['idPersonal'];
+		$arrData = $this->model->selectPersonalID($idPersonal);
+		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+		die();
+	}
+	/********** cargar cargo de personal *********/
+	public function getSelectCargoP(int $idPersonal){
+		$htmlOptions = "";
+		$arrData = $this->model->selectCargo();
+		$arrDataPersonal = $this->model->selectPersonalID($idPersonal);
+		if(count($arrData) > 0){
+			$htmlOptions .= '<option selected value="'.$arrDataPersonal['id_cargo'].'">'.$arrDataPersonal['cargo'].'</option>';
+			for ($i=0; $i < count($arrData); $i++) { 
+				$htmlOptions .= '<option value="'.$arrData[$i]['id_cargo'].'">'.$arrData[$i]['cargo'].'</option>';
+			}
+		}
+		echo $htmlOptions;
+		die();
+	}
+	/**********editar datos de persona *********/
+	public function updatePersona(){
+		$intIdPersonal = $_POST['idPersonal'];
+		$strCedulaEdit = $_POST['txtCedulaEdit'];
+		$strNombreEdit = strtoupper(strClean($_POST['txtNombreEdit']));//convierte las primeras letras en mayusculas
+		$strTelefonoEdit = $_POST['txtTelefonoEdit'];
+		$listCargoEdit = intval($_POST['listCargoEdit']);
+		$listTagPersonalEdit = intval($_POST['listTagPersonalEdit']);
+		$requestUser = $this->model->updatePersona($intIdPersonal,$strCedulaEdit, $strNombreEdit, $listCargoEdit, $strTelefonoEdit,$listTagPersonalEdit);
+		if($requestUser == 1){
+			$arrResponse = array("status" => true, "msg" => "Se actualizo datos");
+		}else{
+			$arrResponse = array("status" => false, "msg" => "Ocurrio un error");
+		}
+		echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+		die();
+	}
 }
