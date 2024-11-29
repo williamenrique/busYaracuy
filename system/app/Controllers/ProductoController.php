@@ -188,4 +188,79 @@ class Producto extends Controllers{
 		}
 		die();
 	}
+	/* //invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+	 */
+	public function historiaproducto(){
+		$data['page_tag'] = "ARTICULO";
+		$data['page_title'] = "Plantilla";
+		$data['page_name'] = "Historia";
+		$data['page_link'] = "active-producto";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-producto";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-hproducto";// seleccionar el link en el momento dentro del desplegable
+		$data['page_functions'] = "function.hproducto.js";
+		$this->views->getViews($this, "historiaproducto", $data);
+	}
+	// obtener los productos con sus cantidades desde hasta
+	public function getHproductos(){
+		$htmlOptions = "";
+		$arrData = $this->model->getHproductos();
+		// if(count($arrData) > 0){
+		for ($i=0; $i < count($arrData); $i++) {
+			$arrData[$i]['PRODUCTO'] = '<a href=historiaProductoU/?articulo='.$arrData[$i]['ID'].' title="Ver">'.$arrData[$i]['PRODUCTO'].'</a>';
+		}
+		// 		if($arrData[$i]['cant_producto'] < 1)
+		// 		$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
+		// 		$arrData[$i]['opciones'] ='<div class="">
+		// 									<button type="button" class="btn btn-danger btn-sm btnDelUser" onClick="fntDelProduct('.$arrData[$i]['id_producto'].')" title="Eliminar"><i class="fa fa-trash" aria-hidden="true"></i></button>
+		// 								</div>';
+		// 		if($arrData[$i]['cant_producto'] == 0){
+		// 			$arrData[$i]['cant_producto'] = '<span class="badge bg-danger">SIN STOCK</span>';
+		// 		}
+		// 		else if(($arrData[$i]['cant_producto'] > 0) && ($arrData[$i]['cant_producto'] < 1)){
+		// 			// $arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
+		// 			$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'] * 1000 .' ML</span>';
+		// 		}
+		// 		else if($arrData[$i]['cant_producto'] >= 1){
+		// 			// $arrData[$i]['cant_producto'] = '<span class="badge bg-info">'.$arrData[$i]['cant_producto'].'</span>';
+		// 			$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
+		// 		}
+		// 	}
+		// }
+		//convertir el arreglo de datos en un formato json
+		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+		die();
+	}
+	/* //invocar la vista con views y usamos getView y pasamos parametros esta clase y la vista
+		//incluimos un arreglo que contendra toda la informacion que se enviara al home
+	 */
+	public function historiaProductoU(){
+		$data['page_tag'] = "ARTICULO";
+		$data['page_title'] = "Plantilla";
+		$data['page_name'] = "Historia";
+		$data['page_link'] = "active-producto";//activar el menu desplegable o link solo
+		$data['page_menu_open'] = "menu-open-producto";//abrir el desplegable
+		$data['page_link_acitvo'] = "link-hproducto";// seleccionar el link en el momento dentro del desplegable
+		$data['page_functions'] = "function.hproducto.js";
+		$this->views->getViews($this, "historiaProductoU", $data);
+	}
+	// mostrar en tabla el articulo entregado por unidad
+	public function getProductoH(int $idArticulo){
+		$idArticulo = intval($idArticulo);
+		$htmlOptions = "";
+		if($idArticulo > 0){
+			$arrData = $this->model->getProductoH($idArticulo);
+			for ($i=0; $i < count($arrData); $i++) {
+				$arrData[$i]['ENTREGADO'] = $arrData[$i]['ENTREGADO'].' '.$arrData[$i]['PRESENTACION'];
+			}
+			echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+		}
+		die();
+	}
+	// obtener datos de un articulo en historia
+	public function getDataArtH(int $idArticulo){
+		$arrData = $this->model->getHproductosU($idArticulo);
+		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+		die();
+	}
 }

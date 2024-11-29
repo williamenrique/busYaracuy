@@ -206,7 +206,6 @@ const fntgetArticulos = () =>{
 			$("#listArticuloExistente").selectpicker('render')
 		}
 	}
-	
 }
 // obtener el valor del select al clicarlo
 if(document.getElementById('listArticuloExistente')){

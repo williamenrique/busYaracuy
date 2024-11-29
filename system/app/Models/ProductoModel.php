@@ -105,5 +105,46 @@ class ProductoModel extends Mysql {
 		$request = $this->update($sql,$arrData);
 		return $request;
 	}
-	
+	// historia de productos
+	public function getHproductos(){
+		$sql = "SELECT producto.id_producto AS ID, producto.producto  AS PRODUCTO, 
+					tRelacionP.cant_producto DISPONIBLE, SUM(tRelacionD.cant_despacho) AS ENTREGADO,  producto.present_producto AS PRESENTACION,
+					MIN(desp.fecha_despacho) AS DESDE , MAX(desp.fecha_despacho) AS HASTA
+					FROM table_relacion_despacho tRelacionD
+					INNER JOIN table_despacho desp ON desp.id_despacho = tRelacionD.id_despacho
+					INNER JOIN table_producto producto ON producto.id_producto = tRelacionD.id_producto 
+					INNER JOIN table_relacion_producto tRelacionP ON tRelacionP.id_producto = producto.id_producto
+				GROUP BY producto.id_producto, tRelacionP.cant_producto ORDER BY MIN(desp.fecha_despacho) ASC";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+	// obtener todo el registro del producto y sus unidades
+	public function getProductoH(int $intIdArticulo){
+		$this->intIdArticulo = $intIdArticulo;
+		$sql = "SELECT producto.id_producto AS ID, flota.id_unidad AS UNIDAD,producto.producto AS PRODUCTO,
+					tRelacionD.cant_despacho AS ENTREGADO, producto.present_producto AS PRESENTACION , 
+					desp.fecha_despacho  AS FECHA
+					FROM table_relacion_despacho tRelacionD
+					INNER JOIN table_producto producto ON producto.id_producto = tRelacionD.id_producto
+					INNER JOIN table_despacho desp ON desp.id_despacho = tRelacionD.id_despacho
+					INNER JOIN table_flota flota ON flota.id_flota = desp.id_flota
+				WHERE producto.id_producto = $this->intIdArticulo ORDER BY desp.fecha_despacho DESC";
+		$request = $this->select_all($sql);
+		return $request;
+	}
+	// obtener cantidad exacta de lo que s eentrega de producto (getHproductosU = unico producto)
+	public function getHproductosU(int $intIdProducto){
+		$this->intIdProducto = $intIdProducto;
+		$sql = "SELECT producto.id_producto AS ID, producto.producto  AS PRODUCTO, 
+					tRelacionP.cant_producto DISPONIBLE, SUM(tRelacionD.cant_despacho) AS ENTREGADO,  producto.present_producto AS PRESENTACION,
+					MIN(desp.fecha_despacho) AS DESDE , MAX(desp.fecha_despacho) AS HASTA
+					FROM table_relacion_despacho tRelacionD
+					INNER JOIN table_despacho desp ON desp.id_despacho = tRelacionD.id_despacho
+					INNER JOIN table_producto producto ON producto.id_producto = tRelacionD.id_producto 
+					INNER JOIN table_relacion_producto tRelacionP ON tRelacionP.id_producto = producto.id_producto
+					WHERE producto.id_producto = $this->intIdProducto
+				GROUP BY producto.id_producto, tRelacionP.cant_producto ORDER BY MIN(desp.fecha_despacho) ASC";
+		$request = $this->select($sql);
+		return $request;
+	}
 }
