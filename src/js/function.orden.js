@@ -398,8 +398,8 @@ if(document.getElementById("formBuscarDesp")){
 		}
 	}
 }
-// funcion para generar el pdf del despacho para imprimir
-fntImpDespacho = (idDespacho) =>{
+//funcion imprimir pdf sin uso reemplazada por la de abajo
+fntImpDespachoo = (idDespacho) =>{
 	let ajaxUrl = base_url + "Orden/reporteDesp/" + idDespacho
     //creamos el objeto para os navegadores
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
@@ -420,6 +420,21 @@ fntImpDespacho = (idDespacho) =>{
     }
 }
 
+// funcion para generar el pdf del despacho para imprimir
+fntImpDespacho = (idDespacho) => {
+	$.ajax({
+        type:'post',
+        cache:false,
+        url: base_url + "Orden/reporteDesp/" + idDespacho,
+        // data:{dataTicket:  jObject},
+        success:function(server){
+            console.log(server)//cuando reciva la respuesta lo imprimo
+        },
+        error: function(xhr) {
+            notifi('Ocurrio un error', 'error')
+        }
+    })
+}
 /********** funcion eliminar una orden ***************/
 function fntdelDesp(idDesp){
 	(async () => {

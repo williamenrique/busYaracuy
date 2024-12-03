@@ -206,7 +206,7 @@ fntImpScaner = () =>{
         error: function(xhr) {
             notifi('Ocurrio un error', 'error')
         }
-})
+    })
 }
 fntImpScanere = () =>{
     let strBuscar = document.getElementById('txtBuscar').value
