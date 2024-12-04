@@ -100,6 +100,7 @@ class Producto extends Controllers{
 		$arrData = $this->model->getProductos();
 		if(count($arrData) > 0){
 			for ($i=0; $i < count($arrData); $i++) {
+				$arrData[$i]['producto'] = '<a href=producto/historiaProductoU/?articulo='.$arrData[$i]['id_producto'].' title="Ver">'.$arrData[$i]['producto'].'</a>';
 				if($arrData[$i]['cant_producto'] < 1)
 				$arrData[$i]['ubicacion'] = $arrData[$i]['ubicacion'];
 				$arrData[$i]['opciones'] ='<div class="">
