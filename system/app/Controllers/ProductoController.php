@@ -109,14 +109,26 @@ class Producto extends Controllers{
 				if($arrData[$i]['cant_producto'] == 0){
 					$arrData[$i]['cant_producto'] = '<span class="badge bg-danger">SIN STOCK</span>';
 				}
-				else if(($arrData[$i]['cant_producto'] > 0) && ($arrData[$i]['cant_producto'] < 1)){
-					// $arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
-					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'] * 1000 .' ML</span>';
+				
+				if($arrData[$i]['present_producto'] == "LITRO"){
+					
+					if(($arrData[$i]['cant_producto'] > 0) && ($arrData[$i]['cant_producto'] < 1) || $arrData[$i]['present_producto'] == "litro"){
+						// $arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
+						$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'] * 1000 .' ML</span>';
+					}
 				}
+				if($arrData[$i]['present_producto'] == "METRO"){
+					if(($arrData[$i]['cant_producto'] > 0) && ($arrData[$i]['cant_producto'] < 1) || $arrData[$i]['present_producto'] == "metro"){
+						// $arrData[$i]['cant_producto'] = '<span class="badge bg-warning">'.$arrData[$i]['cant_producto'].'</span>';
+						$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'] * 100 .' CM</span>';
+					}
+				}
+				
 				else if($arrData[$i]['cant_producto'] >= 1){
 					// $arrData[$i]['cant_producto'] = '<span class="badge bg-info">'.$arrData[$i]['cant_producto'].'</span>';
 					$arrData[$i]['cant_producto'] = '<span class="">'.$arrData[$i]['cant_producto'].' '.$arrData[$i]['present_producto'].'</span>';
 				}
+				
 			}
 		}
 		//convertir el arreglo de datos en un formato json
