@@ -48,11 +48,11 @@ $pdf->SetAutoPageBreak(true,20);//salto de pagina automatico
 
 $pdf->SetX(15);
 $pdf->SetFont('Arial','B',10);
-$moverXtabla = 10;
+$moverXtabla = 20;
 $pdf->SetX($moverXtabla);
 $header = array('UNIDAD', 'FECHA', 'DESCRIPCION');
 // Column widths
-$w = array(20, 55, 120);
+$w = array(20, 55, 110);
 // Header
 for($i=0; $i < count($header);$i++)
     $pdf->Cell($w[$i],7,$header[$i],1,0,'C');

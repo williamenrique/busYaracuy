@@ -1,4 +1,5 @@
 <?php
+sleep(1);
 require './fpdf.php';
 class PDF extends FPDF{
     function LoadData($file)    {

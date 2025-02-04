@@ -25,8 +25,8 @@ const LOAD = BASE_URL."system/core/Libraries/Load.php";
 //constantes de base de datos
 const DB_HOST = "localhost";
 const DB_USER = "root";
-const DB_PASS = "root";
-const DB_NAME = "if0_37518912_busyaracuy";
+const DB_PASS = "";
+const DB_NAME = "busyaracuy";
 const DB_CHARSET = "charset=utf8";
 
 //delimitador decimal y millar Ej. 24,1999.00

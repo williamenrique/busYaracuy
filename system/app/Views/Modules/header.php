@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title><?= $data['page_tag']?></title>
-		<link rel="icon" type="image/png" href="<?= IMG ?>favicon.ico">
+		<link rel="icon" type="image/png" href="<?= IMG ?>logo.png">
 		<!-- Google Font: Source Sans Pro -->
 		<link rel="stylesheet"
 			href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="<?= CSS ?>custom.css">
 	</head>
 
-	<body class="hold-transition sidebar-mini layout-fixed" >
+	<body class="hold-transition sidebar-mini layout-fixed" onload="mueveReloj()">
 		<!-- Site wrapper -->
 		<div class="wrapper">
 			<!-- Navbar -->
